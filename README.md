@@ -181,6 +181,12 @@
 - [다양한 클리어링 기법과 기법들의 적합도](/CSS-questions/6-clearing.md)
 - [스크린 외에 다른 @media 속성의 예시](/CSS-questions/10-media-property.md)
 
+### 최신 CSS 기능
+
+- [최근 CSS에 추가된 기능 중 실무에서 많이 쓰는 것에는 어떤 것들이 있나요?](./CSS-questions/16-modern-css-core.md)
+- [JS 없이 CSS만으로 구현할 수 있게 된 UI 기능에는 어떤 것들이 있나요?](./CSS-questions/17-modern-css-ui.md)
+- [그 밖에 알아두면 좋은 최신 CSS 기능에는 어떤 것들이 있나요?](./CSS-questions/18-modern-css-etc.md)
+
 ### 프로젝트 경험
 
 - [프로젝트 시 반응형 레이아웃은 어떤 방식으로 구현하셨나요?](./CSS-questions/responsive-ui.md)

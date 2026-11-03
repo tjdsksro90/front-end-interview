@@ -8,6 +8,8 @@ const OPTIMIZATION = { categoryId: 'react', slug: 'in-react-optimization' };
 const BUNDLER = { categoryId: 'web', slug: 'bundler-tarnspiler' };
 const PROJECT_OPTI = { categoryId: 'web', slug: 'project-opti' };
 const VERSIONS = { categoryId: 'react', slug: 'react-versions' };
+const MODERN_CSS = { categoryId: 'css', slug: '16-modern-css-core' };
+const MODERN_CSS_UI = { categoryId: 'css', slug: '17-modern-css-ui' };
 const q = (categoryId, slug) => ({ categoryId, slug });
 
 export const deepDives = [
@@ -352,5 +354,45 @@ export const deepDives = [
     summary: '에이전트의 흐름을 상태(State)·노드·엣지로 된 그래프로 짜고, 중단·재개·사람 승인을 지원한다',
     tags: ['LangGraph', '랭그래프', 'StateGraph', 'node', 'edge', 'conditional edge', 'checkpointer', 'interrupt', 'human-in-the-loop', 'durable execution'],
     Component: lazy(() => import('./LangGraphPage.jsx')),
+  },
+  {
+    slug: 'container-queries',
+    parent: MODERN_CSS,
+    title: 'Container Queries',
+    summary: '화면이 아니라 부모(컨테이너) 크기에 따라 스타일을 바꿔, 컴포넌트가 놓인 자리에 맞춰 스스로 바뀐다',
+    tags: ['Container Queries', '컨테이너 쿼리', '@container', 'container-type', 'cqi', '반응형', 'ResizeObserver', '미디어 쿼리'],
+    Component: lazy(() => import('./ContainerQueries.jsx')),
+  },
+  {
+    slug: 'has-selector',
+    parent: MODERN_CSS,
+    title: ':has() 선택자',
+    summary: '자식의 상태(체크, 유효성, 존재 여부)에 따라 부모를 꾸미는 "부모 선택자"',
+    tags: [':has()', 'has', '부모 선택자', 'parent selector', ':user-invalid', '선택자', 'CSS'],
+    Component: lazy(() => import('./HasSelector.jsx')),
+  },
+  {
+    slug: 'view-transitions',
+    parent: MODERN_CSS_UI,
+    title: 'View Transitions',
+    summary: '화면이 바뀌기 전후를 캡처해 그 사이를 애니메이션으로 잇는다 — 목록 이동, 썸네일 → 상세 전환',
+    tags: ['View Transitions', 'startViewTransition', 'view-transition-name', '화면 전환', '애니메이션', 'flushSync', 'ViewTransition', 'MPA'],
+    Component: lazy(() => import('./ViewTransitions.jsx')),
+  },
+  {
+    slug: 'scroll-driven-animations',
+    parent: MODERN_CSS_UI,
+    title: 'Scroll-driven Animations',
+    summary: '애니메이션 진행을 시간 대신 스크롤 위치에 연결해, scroll 이벤트 없이 진행률 바·등장 효과를 만든다',
+    tags: ['Scroll-driven Animations', 'animation-timeline', 'scroll()', 'view()', 'animation-range', '스크롤 애니메이션', '진행률 바', 'IntersectionObserver'],
+    Component: lazy(() => import('./ScrollDrivenAnimations.jsx')),
+  },
+  {
+    slug: 'anchor-popover',
+    parent: MODERN_CSS_UI,
+    title: 'Anchor Positioning & Popover',
+    summary: 'HTML popover로 열기·닫기를, CSS anchor로 위치·뒤집기를 처리해 드롭다운·툴팁을 라이브러리 없이 만든다',
+    tags: ['Popover API', 'popover', 'popovertarget', 'Anchor Positioning', 'anchor-name', 'position-area', 'position-try-fallbacks', 'top layer', '드롭다운', '툴팁', 'Floating UI'],
+    Component: lazy(() => import('./AnchorPopover.jsx')),
   },
 ];

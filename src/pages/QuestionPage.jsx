@@ -35,9 +35,13 @@ export default function QuestionPage() {
 
   return (
     <article>
-      <Crumbs items={[{ to: '/', label: '홈' }, { to: `/${categoryId}`, label: category.title }, { label: question.title }]} />
+      <Crumbs
+        items={[{ to: '/', label: '홈' }, { to: `/${categoryId}`, label: category.title }, { label: question.title }]}
+      />
       <p className="mt-6 text-sm font-bold text-indigo-600 dark:text-indigo-400">Q.</p>
-      <h1 className="mt-1 text-2xl leading-snug font-bold tracking-tight text-zinc-900 sm:text-3xl dark:text-zinc-50">{question.title}</h1>
+      <h1 className="mt-1 text-2xl leading-snug font-bold tracking-tight text-zinc-900 sm:text-3xl dark:text-zinc-50">
+        {question.title}
+      </h1>
 
       {question.deep.length > 0 && <DeepLinks question={question} />}
 
@@ -51,7 +55,11 @@ export default function QuestionPage() {
           </>
         ) : (
           <p className="rounded-xl border border-dashed border-zinc-300 px-4 py-6 text-center text-sm text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
-            아직 직접 쓴 답변(md)이 없어요. <code className="font-mono">{question.folder}/{question.slug}.md</code> 파일을 만들면 여기에 보입니다.
+            아직 직접 쓴 답변(md)이 없어요.{' '}
+            <code className="font-mono">
+              {question.folder}/{question.slug}.md
+            </code>{' '}
+            파일을 만들면 여기에 보입니다.
           </p>
         )}
       </div>
@@ -84,17 +92,26 @@ function DeepLinks({ question }) {
   );
 }
 
-export function Pager({ prev, next, categoryId, prevLabel = '← 이전 질문', nextLabel = '다음 질문 →', pathOf = (q) => `/${categoryId}/${q.slug}` }) {
+export function Pager({
+  prev,
+  next,
+  categoryId,
+  prevLabel = '← 이전 질문',
+  nextLabel = '다음 질문 →',
+  pathOf = (q) => `/${categoryId}/${q.slug}`,
+}) {
   return (
     <nav className="mt-16 grid gap-3 sm:grid-cols-2">
       {prev ? (
-        <Link to={pathOf(prev)} className={`${cardClass} flex flex-col`}>
+        <Link to={pathOf(prev)} className={`${cardClass} flex flex-col gap-1`}>
           <span className="text-xs text-zinc-400">{prevLabel}</span>
           <span className="font-semibold">{prev.title}</span>
         </Link>
-      ) : <span />}
+      ) : (
+        <span />
+      )}
       {next && (
-        <Link to={pathOf(next)} className={`${cardClass} flex flex-col items-end text-right`}>
+        <Link to={pathOf(next)} className={`${cardClass} flex flex-col gap-1 items-end text-right`}>
           <span className="text-xs text-zinc-400">{nextLabel}</span>
           <span className="font-semibold">{next.title}</span>
         </Link>
