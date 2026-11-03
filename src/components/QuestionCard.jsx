@@ -41,7 +41,7 @@ export default function QuestionCard({ question, index, showCategory }) {
               {showCategory && <Tag strong>{question.categoryId}</Tag>}
               {question.deep.length > 0 && (
                 <>
-                  <span className="rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">기본</span>
+                  <span className="rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">{question.load ? '기본' : '기본 (작성 전)'}</span>
                   {question.deep.map((d) => (
                     <Link
                       key={d.slug}

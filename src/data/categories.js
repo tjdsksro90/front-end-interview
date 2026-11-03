@@ -6,6 +6,7 @@ export const categories = [
   { id: 'html', folder: 'HTML-questions', title: 'HTML', description: '시맨틱 태그, 스토리지, 스크립트 로딩' },
   { id: 'css', folder: 'CSS-questions', title: 'CSS', description: '박스 모델, 선택자, 레이아웃' },
   { id: 'project', folder: 'project-questions', title: '프로젝트', description: '프로젝트에서 쓴 기술과 경험' },
+  { id: 'ai', folder: 'ai-questions', title: 'AI', description: 'AI Agent, 하네스, LangChain·LangGraph' },
 ];
 
 export const findCategory = (id) => categories.find((c) => c.id === id);

@@ -5,7 +5,13 @@ import { deepDives } from '../concepts/index.js';
 // 본문은 페이지에 들어갈 때만 불러온다 (파일마다 별도 청크)
 const contents = import.meta.glob('/*-questions/*.md', { query: '?raw', import: 'default' });
 
-export const questions = index
+// 아직 md 답변이 없지만 심화부터 만든 질문. 같은 폴더·이름의 md 파일을 만들면 그 md가 대신 쓰인다.
+const PENDING = [
+  { folder: 'ai-questions', slug: 'ai-agent', title: 'AI Agent란 무엇이고, 하네스(Harness)는 무엇인가요?', summary: '' },
+  { folder: 'ai-questions', slug: 'langchain-langgraph', title: 'LangChain과 LangGraph는 무엇이고 어떻게 다른가요?', summary: '' },
+].filter((p) => !index.some((q) => q.folder === p.folder && q.slug === p.slug));
+
+export const questions = [...index, ...PENDING]
   .filter((q) => categoryByFolder(q.folder))
   .map((q) => {
     const categoryId = categoryByFolder(q.folder).id;

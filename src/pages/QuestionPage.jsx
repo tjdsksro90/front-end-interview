@@ -19,7 +19,7 @@ export default function QuestionPage() {
   const [source, setSource] = useState(null);
 
   useEffect(() => {
-    if (!question) return;
+    if (!question?.load) return; // md 답변이 아직 없는 질문
     let alive = true;
     setSource(null);
     question.load().then((md) => alive && setSource(stripQuestion(md)));
@@ -42,13 +42,21 @@ export default function QuestionPage() {
       {question.deep.length > 0 && <DeepLinks question={question} />}
 
       <div className="mt-8 border-t border-zinc-200 pt-6 dark:border-zinc-800">
-        <Suspense fallback={<p className="text-zinc-400">불러오는 중…</p>}>
-          {source != null && <Markdown source={source} folder={question.folder} />}
-        </Suspense>
-        {source == null && <p className="text-zinc-400">불러오는 중…</p>}
+        {question.load ? (
+          <>
+            <Suspense fallback={<p className="text-zinc-400">불러오는 중…</p>}>
+              {source != null && <Markdown source={source} folder={question.folder} />}
+            </Suspense>
+            {source == null && <p className="text-zinc-400">불러오는 중…</p>}
+          </>
+        ) : (
+          <p className="rounded-xl border border-dashed border-zinc-300 px-4 py-6 text-center text-sm text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
+            아직 직접 쓴 답변(md)이 없어요. <code className="font-mono">{question.folder}/{question.slug}.md</code> 파일을 만들면 여기에 보입니다.
+          </p>
+        )}
       </div>
 
-      {question.deep.length > 0 && source != null && <DeepLinks question={question} bottom />}
+      {question.deep.length > 0 && question.load && source != null && <DeepLinks question={question} bottom />}
 
       <Pager categoryId={categoryId} prev={siblings[i - 1]} next={siblings[i + 1]} />
     </article>
