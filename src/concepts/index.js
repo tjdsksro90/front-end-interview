@@ -108,7 +108,7 @@ export const deepDives = [
   },
   {
     slug: 'react-query-swr',
-    parent: q('project', 'tanstack-query'),
+    parent: q('react', 'tanstack-query'),
     title: 'React Query & SWR (캐시와 Stale-While-Revalidate)',
     summary: '서버 데이터를 캐시하고, 오래된 값은 먼저 보여준 뒤 뒤에서 새로 받아온다',
     tags: ['React Query', 'TanStack Query', 'SWR', 'cache', '캐시', 'stale-while-revalidate', 'staleTime', 'gcTime', 'RTK Query', '서버 상태'],
@@ -210,7 +210,7 @@ export const deepDives = [
   },
   {
     slug: 'app-router',
-    parent: q('project', 'app-router'),
+    parent: q('react', 'app-router'),
     title: 'Next.js App Router (Layout · Dynamic Routing)',
     summary: '폴더 구조가 곧 URL이 되고, layout이 중첩되며, 페이지마다 SSR/SSG를 섞어 쓴다',
     tags: ['App Router', 'Next.js', 'Dynamic Routing', '동적 라우팅', 'layout', 'Layout Composition', 'route group', 'loading.tsx', 'error.tsx', 'Route-based Split', 'SSR/SSG Hybrid'],
@@ -219,7 +219,7 @@ export const deepDives = [
   },
   {
     slug: 'styling-theme',
-    parent: q('project', 'nextjs-useTheme'),
+    parent: q('react', 'nextjs-useTheme'),
     title: 'Theme Provider & 스타일링 방식 (CSS-in-JS · Tailwind)',
     summary: '테마 값을 Context로 내려주고, 스타일을 JS 안에서 쓸지(Emotion) 클래스로 쓸지(Tailwind) 고른다',
     tags: ['Theme Provider', 'ThemeProvider', 'Emotion', 'Styled-Components', 'CSS-in-JS', 'Tailwind', '다크모드', 'CSS 변수'],

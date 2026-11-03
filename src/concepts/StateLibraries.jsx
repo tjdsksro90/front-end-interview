@@ -30,7 +30,7 @@ export default function StateLibraries() {
         <List
           items={[
             <><b>Context는 상태관리 도구라기보다 "값 전달 도구"</b>다. 자주 안 바뀌는 값(테마, 로그인 유저, 언어)에 적합하고, 자주 바뀌는 값을 넣으면 리렌더가 많아진다. 쪼개거나(Context 여러 개) value를 useMemo로 감싸서 줄인다.</>,
-            <><b>서버 데이터는 따로</b>: API로 받은 데이터를 Redux/Zustand에 넣어 직접 관리하던 방식은 줄었고, React Query·SWR·RTK Query 같은 서버 상태 도구에 맡긴다. 전역 스토어에는 순수 클라이언트 상태만 남긴다. (<Link className="text-indigo-600 dark:text-indigo-400" to="/project/tanstack-query/deep/react-query-swr">React Query & SWR 심화</Link>)</>,
+            <><b>서버 데이터는 따로</b>: API로 받은 데이터를 Redux/Zustand에 넣어 직접 관리하던 방식은 줄었고, React Query·SWR·RTK Query 같은 서버 상태 도구에 맡긴다. 전역 스토어에는 순수 클라이언트 상태만 남긴다. (<Link className="text-indigo-600 dark:text-indigo-400" to="/react/tanstack-query/deep/react-query-swr">React Query & SWR 심화</Link>)</>,
             <><b>selector는 작게</b>: <Code>{'useStore((s) => s)'}</Code>처럼 전체를 고르면 Context와 같아진다. <Code>{'useStore((s) => s.cart.length)'}</Code>처럼 필요한 값만.</>,
           ]}
         />

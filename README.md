@@ -29,8 +29,7 @@
 
 [JavaScript 관련 예상 면접질문](#javascript-관련-예상-면접질문)
 
-[React 관련 예상 면접질문](#react-관련-예상-면접질문)
-[Nextjs 관련 예상 면접질문](#nextjs-관련-예상-면접질문)
+[React · Next.js 관련 예상 면접질문](#react--nextjs-관련-예상-면접질문)
 
 [HTML 관련 예상 면접질문](#html-관련-예상-면접질문)
 
@@ -164,7 +163,7 @@
 <br />
 <br />
 
-## React 관련 예상 면접질문
+## React · Next.js 관련 예상 면접질문
 
 ### 중요도 5
 
@@ -204,12 +203,17 @@
 - [Context API 를 상태관리 라이브러리처럼 사용할 수 있을까?](./react-questions/context-api-in-statemanagement.md)
 
 <br />
-<br />
 
-## Nextjs 관련 예상 면접질문
+### 라이브러리 · Next.js
 
-### 중요도 5
-
+- [React-Router에 대한 설명과 동작방식에 대해서 설명해주세요](./react-questions/react-router.md)
+- [Tanstack-Query란 무엇이며 이를 사용하는 이유는 무엇일까요?](./react-questions/tanstack-query.md)
+- [Recoil에 대해서 설명해주세요](./react-questions/recoil.md)
+- [Zustand에 대해서 설명해주세요](./react-questions/zustand.md)
+- [Zustand가 제공하는 미들웨어들은 뭐가 있을까요?](./react-questions/zustand-middle-ware.md)
+- [framer-motion에 대해서 설명해주세요](./react-questions/framer-motion.md)
+- [nextjs의 app-router에 대해서 설명해주세요](./react-questions/app-router.md)
+- [nextjs의 useTheme을 통해 다크모드를 구현하셨다고하는데, 어떤방식으로 구현하셨나요?](./react-questions/nextjs-useTheme.md)
 - [Nextjs의 동작방식에 대해 이해하고 있나요?](./nextjs-questions/how-nextjs-works.md) TODO
 
 <br />
@@ -292,36 +296,28 @@
 
 ### 프로젝트 시 사용한 라이브러리 관련 예상 질문
 
-- [React-Router에 대한 설명과 동작방식에 대해서 설명해주세요](./project/react-router.md)
-- [nextjs의 useTheme을 통해 다크모드를 구현하셨다고하는데, 어떤방식으로 구현하셨나요?](./project/nextjs-useTheme.md)
-- [Google Analytics에 대해서 설명해주세요](./project/google-analyics.md)
-- [Intersection Observer에 대해서 설명해주세요](./project/intersection-observer.md)
-- [Tanstack-Query란 무엇이며 이를 사용하는 이유는 무엇일까요?](./project/tanstack-query.md)
-- [Recoil에 대해서 설명해주세요](./project/recoil.md)
-- [Zustand에 대해서 설명해주세요](./project/zustand.md)
-- [Zustand가 제공하는 미들웨어들은 뭐가 있을까요?](./project/zustand-middle-ware.md)
-- [Firebase의 특징에 대해서 설명해주세요](./project/fire-base.md)
-- [nextjs의 app-router에 대해서 설명해주세요](./project/app-router.md)
-- [framer-motion에 대해서 설명해주세요](./project/framer-motion.md)
+- [Google Analytics에 대해서 설명해주세요](./project-questions/google-analyics.md)
+- [Intersection Observer에 대해서 설명해주세요](./project-questions/intersection-observer.md)
+- [Firebase의 특징에 대해서 설명해주세요](./project-questions/fire-base.md)
 
 ### 프로젝트 시 적용한 기능 예상 질문
 
-- [프로젝트 시 반응형 레이아웃은 어떤 방식으로 구현하셨나요?](./project/responsive-ui.md)
-- [SEO 최적화는 어떤 방식으로 하셨었나요?](./project/seo-opti.md)
-- [프로젝트 시 성능최적화를 하셨다고하는데 어떤 최적화들을 진행했었나요?](./project/project-opti.md)
-- [소셜 미디어 공유 기능 구현은 어떤 방식으로 구현하셨나요?](./project/social-media.md)
-- [재사용 가능한 컴포넌트 구축을 위해 어떤 고민을 하셨나요?](./project/component.md)
-- [debounce에 대해서 설명해주세요](./project/debounce.md)
+- [프로젝트 시 반응형 레이아웃은 어떤 방식으로 구현하셨나요?](./project-questions/responsive-ui.md)
+- [SEO 최적화는 어떤 방식으로 하셨었나요?](./project-questions/seo-opti.md)
+- [프로젝트 시 성능최적화를 하셨다고하는데 어떤 최적화들을 진행했었나요?](./project-questions/project-opti.md)
+- [소셜 미디어 공유 기능 구현은 어떤 방식으로 구현하셨나요?](./project-questions/social-media.md)
+- [재사용 가능한 컴포넌트 구축을 위해 어떤 고민을 하셨나요?](./project-questions/component.md)
+- [debounce에 대해서 설명해주세요](./project-questions/debounce.md)
 
 ### AWS 및 CI/CD 관련 예상 질문
 
-- [AWS EC2로 서버를 배포하셨는데 그 이유는 뭔가요?](./project/ec2-server.md)
-- [AWS EC2 인스턴스에 대해서 설명해주세요](./project/ec2.md)
-- [AWS에서 웹 빌드 파일을 배포하는 과정을 설명해주세요](./project/aws-deploy.md)
-- [AWS S3 버킷에 대해서 설명해주세요](./project/aws-s3-bucket.md)
-- [certbot은 어떤 역할을 하나요?](./project/certbot.md)
-- [Github Actions의 파이프라인은 어떤식으로 구성하셨나요?](./project/pipe-line.md)
-- [Github Actions와 AWS CodeDeploy를 어떤 식으로 조합하셨나요?](./project/git-actions-in-codeDeploy.md)
+- [AWS EC2로 서버를 배포하셨는데 그 이유는 뭔가요?](./project-questions/ec2-server.md)
+- [AWS EC2 인스턴스에 대해서 설명해주세요](./project-questions/ec2.md)
+- [AWS에서 웹 빌드 파일을 배포하는 과정을 설명해주세요](./project-questions/aws-deploy.md)
+- [AWS S3 버킷에 대해서 설명해주세요](./project-questions/aws-s3-bucket.md)
+- [certbot은 어떤 역할을 하나요?](./project-questions/certbot.md)
+- [Github Actions의 파이프라인은 어떤식으로 구성하셨나요?](./project-questions/pipe-line.md)
+- [Github Actions와 AWS CodeDeploy를 어떤 식으로 조합하셨나요?](./project-questions/git-actions-in-codeDeploy.md)
 
 <br />
 <br />
