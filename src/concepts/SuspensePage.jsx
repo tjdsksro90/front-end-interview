@@ -1,6 +1,6 @@
 import { Suspense, use, useEffect, useState } from 'react';
 import {
-  Section, H3, List, Code, OneLiner, WhenToUse, Callout, CodeCompare,
+  Section, H3, List, Code, OneLiner, WhenToUse, Callout, CodeCompare, Table, CodeBlock,
   Demo, Viz, Segmented, ui,
 } from '../components/kit.jsx';
 
@@ -30,6 +30,33 @@ export default function SuspensePage() {
             <><b>영역별로 나눠 감싸면</b>: 준비된 영역부터 먼저 보여준다 → 느린 API 하나가 전체를 붙잡지 않음</>,
             <>Suspense는 <b>중첩</b>할 수 있고, 에러는 처리하지 않으므로 <b>ErrorBoundary와 함께</b> 쓰는 게 일반적이다.</>,
           ]}
+        />
+
+        <H3>Suspense for Data Fetching — 요청을 언제 시작하나</H3>
+        <p>데이터 패칭에 Suspense를 쓴다는 건 "로딩 처리를 경계에 맡긴다"는 것뿐 아니라, <b>요청을 렌더링보다 먼저 시작</b>할 수 있다는 뜻입니다.</p>
+        <Table
+          head={['방식', '흐름', '문제/장점']}
+          rows={[
+            ['Fetch-on-render', '컴포넌트가 렌더된 뒤 useEffect에서 요청 → 자식은 부모 데이터가 와야 렌더 → 그때 또 요청', '워터폴: 부모 1초 + 자식 1초 = 2초'],
+            ['Fetch-then-render', '필요한 데이터를 전부 받은 뒤(Promise.all) 화면을 그림', '워터폴은 없지만 가장 느린 요청까지 화면 전체가 대기'],
+            ['Render-as-you-fetch', '라우트 진입·클릭 시점에 요청을 먼저 시작하고, 컴포넌트는 Suspense로 결과를 읽음', '요청이 병렬로 가고, 준비된 영역부터 보여줌 (React Router loader, Next.js 서버 컴포넌트, prefetchQuery)'],
+          ]}
+        />
+        <CodeBlock
+          code={`
+// Render-as-you-fetch: 클릭 순간 요청 시작, 렌더는 기다리지 않음
+function onClickUser(id) {
+  const userPromise = fetchUser(id);       // 바로 시작
+  const postsPromise = fetchPosts(id);     // 병렬로 시작
+  setResource({ userPromise, postsPromise });
+}
+
+<Suspense fallback={<ProfileSkeleton />}>
+  <Profile promise={resource.userPromise} />   {/* use(promise)로 읽기 */}
+</Suspense>
+<Suspense fallback={<PostsSkeleton />}>
+  <Posts promise={resource.postsPromise} />
+</Suspense>`}
         />
 
         <H3>그래서 언제 쓰나? (제일 중요)</H3>

@@ -7,7 +7,9 @@ import { deepPathOf } from '../components/QuestionCard.jsx';
 import { Pager } from './QuestionPage.jsx';
 import NotFound from './NotFound.jsx';
 
+// 직접 코드를 다뤄보는 심화는 4단계, 용어·도구 정리 위주의 심화(light)는 3단계
 const SECTIONS = ['개념', '시각화', '코드 비교', '직접 해보기'];
+export const LIGHT_SECTIONS = ['개념', '확인 경로·화면 예시', '코드'];
 
 export default function DeepPage() {
   const { categoryId, slug, deepSlug } = useParams();
@@ -37,7 +39,7 @@ export default function DeepPage() {
       <h1 className="mt-3 text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl dark:text-zinc-50">{deep.title}</h1>
       <p className="mt-3 text-lg text-zinc-500 dark:text-zinc-400">{deep.summary}</p>
       <nav className="mt-5 flex flex-wrap gap-2 text-sm">
-        {SECTIONS.map((s, n) => (
+        {(deep.light ? LIGHT_SECTIONS : SECTIONS).map((s, n) => (
           <a
             key={s}
             href={`#step-${n + 1}`}
