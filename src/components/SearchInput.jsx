@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigationType, useSearchParams } from 'react-router-dom';
 
 // 검색어·필터를 URL(?q=, ?deep=)에 저장한다.
 // 질문에 들어갔다가 뒤로 오면 유지되고, 다른 카테고리로 이동하면 새 URL이라 초기화된다.
@@ -22,22 +22,35 @@ export function useQueryParam(name = 'q') {
 // URL 갱신은 라우터가 transition으로 늦게 반영하기 때문에, input에 URL 값을 바로 물리면
 // 한글 조합 중에 이전 값으로 되돌아가며 글자가 반복 입력되고, 다 지운 뒤 이전 글자가 되살아난다.
 // 그래서 input은 자기 state로 즉시 그리고, URL(검색 결과)은 그 값을 따라가게 한다. (SearchInput.test.jsx)
+// value가 null·undefined면 React가 input을 비제어로 보고 화면의 이전 글자를 지우지 않으므로 항상 문자열로 맞춘다.
+// (SearchInput.null.test.jsx)
 export default function SearchInput({ value, onChange, placeholder }) {
-  const [text, setText] = useState(value);
+  const external = value ?? '';
+  const [text, setText] = useState(external);
   // 보냈지만 아직 URL에 반영되지 않은 값들. 늦게 도착하는 '리액', '리' 같은 중간값을 바깥 변경으로 착각하지 않게 한다
   const pending = useRef([]);
+  const location = useLocation();
+  const navigationType = useNavigationType();
+  const last = useRef({ key: location.key, external });
 
   useEffect(() => {
-    const i = pending.current.indexOf(value);
-    if (i !== -1) {
+    // 뒤로 가기·링크 이동(검색어 입력의 replace가 아닌 이동)이면 무조건 URL 값을 따른다
+    const navigated = location.key !== last.current.key && navigationType !== 'REPLACE';
+    const changed = external !== last.current.external;
+    last.current = { key: location.key, external };
+    if (!navigated && !changed) return;
+
+    const i = pending.current.indexOf(external);
+    if (!navigated && i !== -1) {
       pending.current = pending.current.slice(i + 1); // 내가 보낸 값이 돌아온 것 → 무시
       return;
     }
     pending.current = [];
-    setText(value); // 뒤로 가기처럼 바깥에서 바뀐 경우만 맞춘다
-  }, [value]);
+    setText(external);
+  }, [external, location.key, navigationType]);
 
-  const change = (next) => {
+  const change = (raw) => {
+    const next = raw ?? '';
     if (next === text) return; // compositionend가 같은 값을 한 번 더 보내는 경우
     pending.current.push(next);
     setText(next);

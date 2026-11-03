@@ -54,7 +54,7 @@ describe('SearchInput', () => {
   });
 
   it('입력한 글자가 부모 value를 기다리지 않고 바로 input에 남는다 (조합 중 되돌아가지 않음)', () => {
-    render(<LaggingHarness />);
+    render(<MemoryRouter><LaggingHarness /></MemoryRouter>);
     const el = input();
     fireEvent.compositionStart(el);
     for (const v of ['ㄱ', '가', '간']) {
@@ -67,7 +67,7 @@ describe('SearchInput', () => {
   });
 
   it('빠르게 다 지웠을 때, 늦게 도착한 이전 값이 input을 되살리지 않는다', () => {
-    render(<LaggingHarness />);
+    render(<MemoryRouter><LaggingHarness /></MemoryRouter>);
     const el = input();
     typeKorean(el, ['ㄹ', '리', '릭', '리애', '리액', '리액ㅌ', '리액트']);
     act(() => vi.advanceTimersByTime(LAG * 2));
@@ -116,7 +116,7 @@ describe('SearchInput', () => {
   });
 
   it('조합 중에 X 버튼을 누르면(조합 확정 → 지우기 순서) 마지막엔 비어 있다', () => {
-    render(<LaggingHarness />);
+    render(<MemoryRouter><LaggingHarness /></MemoryRouter>);
     const el = input();
     fireEvent.compositionStart(el);
     fireEvent.change(el, { target: { value: '가' } });
