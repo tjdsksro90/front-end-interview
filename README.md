@@ -345,6 +345,7 @@
 ### 버전별 변경점
 
 - [React는 버전별로 무엇이 바뀌었나요? (16.8 · 17 · 18 · 19)](./react-questions/react-versions.md)
+- [Next.js는 버전별로 무엇이 바뀌었나요? (Pages Router → App Router)](./react-questions/nextjs-versions.md)
 
 <br />
 <br />
