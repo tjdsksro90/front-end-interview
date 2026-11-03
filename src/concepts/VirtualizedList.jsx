@@ -1,5 +1,6 @@
 import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { List } from 'react-window';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import {
   Section, H3, List as Bullets, Code, OneLiner, WhenToUse, Callout, CodeBlock, CodeCompare,
   Demo, Viz, Legend, Segmented, Stat, Table, ui,
@@ -109,8 +110,8 @@ function LogList({ logs }) {
             note: 'DOM에는 화면에 보이는 10개 + overscan 10개 ≈ 20개만 존재. 목록이 10만 개여도 비용이 같다.',
           }}
         />
-        <H3>직접 구현 vs react-window</H3>
-        <p>위 원리를 매번 직접 짜는 대신, 실무에서는 보통 <b>react-window</b>를 씁니다. 같은 목록을 react-window(v2)로 쓰면 이렇게 짧아집니다.</p>
+        <H3>직접 구현 vs react-window vs @tanstack/react-virtual</H3>
+        <p>위 원리를 매번 직접 짜는 대신, 실무에서는 보통 <b>react-window</b>나 <b>@tanstack/react-virtual</b>을 씁니다. 같은 목록을 각각 이렇게 씁니다.</p>
         <CodeCompare
           before={{
             label: '직접 구현',
@@ -136,6 +137,7 @@ const end = Math.min(logs.length, Math.ceil((scrollTop + HEIGHT) / ROW) + OVERSC
             label: 'react-window 사용',
             code: `
 import { List } from 'react-window';
+import { useVirtualizer } from '@tanstack/react-virtual';
 
 // 행 컴포넌트: index와 위치 style을 받는다 (style은 꼭 적용!)
 function Row({ index, style, logs }) {
@@ -150,9 +152,45 @@ function Row({ index, style, logs }) {
   overscanCount={5}
   style={{ height: 400 }}
 />`,
-            note: 'spacer, 범위 계산, absolute 배치를 라이브러리가 해준다. 아래 데모의 세 번째 탭이 실제 react-window로 동작한다.',
+            note: 'spacer, 범위 계산, absolute 배치를 라이브러리가 해준다. 아래 데모의 react-window 탭이 실제 react-window로 동작한다.',
           }}
         />
+        <div className="space-y-2">
+          <span className="inline-block rounded-lg bg-emerald-50 px-3 py-1 text-sm font-bold text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300">@tanstack/react-virtual 사용</span>
+          <CodeBlock
+            code={`
+import { useVirtualizer } from '@tanstack/react-virtual';
+
+function LogList({ logs }) {
+  const parentRef = useRef(null);
+  const virtualizer = useVirtualizer({
+    count: logs.length,
+    getScrollElement: () => parentRef.current,  // 스크롤 컨테이너
+    estimateSize: () => 40,                     // 행 높이 (가변이면 measureElement로 실측)
+    overscan: 5,
+  });
+
+  // 계산만 해주고, 마크업(spacer, absolute 배치)은 직접 그린다 = Headless
+  return (
+    <div ref={parentRef} style={{ height: 400, overflow: 'auto' }}>
+      <div style={{ height: virtualizer.getTotalSize(), position: 'relative' }}>
+        {virtualizer.getVirtualItems().map((v) => (
+          <div key={v.key}
+               style={{ position: 'absolute', top: 0, width: '100%', height: v.size,
+                        transform: \`translateY(\${v.start}px)\` }}>
+            <LogRow log={logs[v.index]} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}`}
+          />
+          <p className={`text-sm ${ui.muted}`}>
+            react-window는 <b>컴포넌트</b>(List)를 주고 행만 맡기는 방식이라 짧고, react-virtual은 <b>Hook</b>으로 "몇 번째 행을 어디에" 계산만 해주는 Headless 방식이라 마크업이 직접 구현과 거의 같습니다.
+            그래서 테이블(table 태그), 가로 스크롤, 가변 높이처럼 구조를 자유롭게 짜야 할 때 react-virtual이 편합니다. 아래 데모의 @tanstack/react-virtual 탭이 실제로 이 코드로 동작합니다.
+          </p>
+        </div>
         <Table
           head={['', '직접 구현', 'react-window', '@tanstack/react-virtual']}
           rows={[
@@ -258,7 +296,7 @@ function VirtualDemo() {
   return (
     <Demo hint="모드를 바꾸면 목록을 새로 렌더하고 걸린 시간을 잽니다. 개수를 늘려가며 비교하고, 직접 스크롤도 해보세요.">
       <div className="flex flex-wrap items-center gap-3">
-        <Segmented value={mode} onChange={(v) => change(v)} options={[{ value: 'off', label: '전부 렌더' }, { value: 'on', label: '가상화 (직접 구현)' }, { value: 'lib', label: 'react-window' }]} />
+        <Segmented value={mode} onChange={(v) => change(v)} options={[{ value: 'off', label: '전부 렌더' }, { value: 'on', label: '가상화 (직접 구현)' }, { value: 'lib', label: 'react-window' }, { value: 'tanstack', label: '@tanstack/react-virtual' }]} />
         <select className={ui.input} value={count} onChange={(e) => change(mode, Number(e.target.value))}>
           <option value={1000}>1,000개</option>
           <option value={10000}>10,000개</option>
@@ -273,6 +311,7 @@ function VirtualDemo() {
         {mode === 'off' && <PlainList key={`off${count}`} logs={logs} onMounted={onMounted} />}
         {mode === 'on' && <VirtualList key={`on${count}`} logs={logs} onMounted={onMounted} />}
         {mode === 'lib' && <WindowList key={`lib${count}`} logs={logs} onMounted={onMounted} />}
+        {mode === 'tanstack' && <TanstackList key={`tanstack${count}`} logs={logs} onMounted={onMounted} />}
       </div>
     </Demo>
   );
@@ -351,6 +390,34 @@ function WindowList({ logs, onMounted }) {
         onRowsRendered={onRowsRendered}
         style={{ height: HEIGHT }}
       />
+    </>
+  );
+}
+
+// @tanstack/react-virtual: 범위·위치 계산만 받고 마크업은 직접 그린다 (Headless)
+function TanstackList({ logs, onMounted }) {
+  useOnMount(onMounted);
+  const parentRef = useRef(null);
+  const virtualizer = useVirtualizer({
+    count: logs.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => ROW,
+    overscan: OVERSCAN,
+  });
+  const items = virtualizer.getVirtualItems();
+
+  return (
+    <>
+      <DomInfo inDom={items.length} total={logs.length} range={items.length ? `#${items[0].index} ~ #${items.at(-1).index}` : ''} />
+      <div ref={parentRef} className="overflow-auto rounded-xl border border-zinc-200 dark:border-zinc-800" style={{ height: HEIGHT }}>
+        <div style={{ height: virtualizer.getTotalSize(), position: 'relative' }}>
+          {items.map((v) => (
+            <div key={v.key} style={{ position: 'absolute', top: 0, left: 0, right: 0, height: v.size, transform: `translateY(${v.start}px)` }}>
+              <LogRow log={logs[v.index]} />
+            </div>
+          ))}
+        </div>
+      </div>
     </>
   );
 }
