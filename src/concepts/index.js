@@ -5,6 +5,8 @@ import { lazy } from 'react';
 // 페이지는 React.lazy로 불러와서, 들어갈 때 해당 페이지 코드만 다운로드된다.
 const MEMO = { categoryId: 'react', slug: 'use-memo-use-callback' };
 const OPTIMIZATION = { categoryId: 'react', slug: 'in-react-optimization' };
+const BUNDLER = { categoryId: 'web', slug: 'bundler-tarnspiler' };
+const PROJECT_OPTI = { categoryId: 'project', slug: 'project-opti' };
 
 export const deepDives = [
   {
@@ -55,5 +57,52 @@ export const deepDives = [
     tags: ['Concurrent', '동시성', 'useTransition', 'useDeferredValue', 'startTransition', '우선순위', 'React 18'],
     Component: lazy(() => import('./ConcurrentMode.jsx')),
   },
+  {
+    slug: 'webpack',
+    parent: BUNDLER,
+    title: 'Webpack',
+    summary: '흩어진 모듈을 의존성 그래프로 엮어 브라우저용 번들로 만드는 번들러',
+    tags: ['webpack', '번들러', 'loader', 'plugin', 'entry', 'output', '의존성 그래프', 'Vite'],
+    Component: lazy(() => import('./Webpack.jsx')),
+  },
+  {
+    slug: 'tree-shaking',
+    parent: BUNDLER,
+    title: 'Tree Shaking',
+    summary: '실제로 import해서 쓰지 않는 코드를 번들에서 털어낸다',
+    tags: ['tree shaking', '트리 쉐이킹', 'ESM', 'sideEffects', 'dead code', 'lodash-es', '번들 크기'],
+    Component: lazy(() => import('./TreeShaking.jsx')),
+  },
+  {
+    slug: 'code-splitting',
+    parent: PROJECT_OPTI,
+    title: 'Code Splitting',
+    summary: '하나의 큰 번들을 여러 청크로 나눠 필요한 것만, 캐시는 오래 쓰게 한다',
+    tags: ['code splitting', '코드 분할', '코드 스플리팅', 'chunk', '청크', 'vendor', 'splitChunks', '캐싱'],
+    Component: lazy(() => import('./CodeSplitting.jsx')),
+  },
+  {
+    slug: 'dynamic-import',
+    parent: PROJECT_OPTI,
+    title: 'Dynamic Import',
+    summary: 'import()로 모듈을 실행 중에 필요할 때 불러온다',
+    tags: ['dynamic import', '동적 import', 'import()', 'prefetch', 'preload', 'next/dynamic', '지연 로딩'],
+    Component: lazy(() => import('./DynamicImport.jsx')),
+  },
+  {
+    slug: 'bundle-analyzer',
+    parent: PROJECT_OPTI,
+    title: 'Bundle Analyzer',
+    summary: '번들 안에 무엇이 얼마나 들어있는지 트리맵으로 보고 줄일 곳을 찾는다',
+    tags: ['bundle analyzer', 'webpack-bundle-analyzer', '@next/bundle-analyzer', 'rollup-plugin-visualizer', '트리맵', '번들 크기', '청크 최적화'],
+    Component: lazy(() => import('./BundleAnalyzer.jsx')),
+  },
+  {
+    slug: 'nextjs-image',
+    parent: PROJECT_OPTI,
+    title: 'Next.js Image Optimization',
+    summary: 'next/image로 크기 조절·포맷 변환·lazy loading·반응형 이미지·CLS 방지를 자동으로',
+    tags: ['next/image', '이미지 최적화', 'lazy loading', 'responsive image', 'srcset', 'sizes', 'WebP', 'AVIF', 'CLS', 'LCP', 'priority'],
+    Component: lazy(() => import('./NextImage.jsx')),
+  },
 ];
-

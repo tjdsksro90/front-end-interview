@@ -1,7 +1,8 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import { List } from 'react-window';
 import {
-  Section, H3, List, Code, OneLiner, WhenToUse, Callout, CodeBlock, CodeCompare,
-  Demo, Viz, Legend, Segmented, Stat, ui,
+  Section, H3, List as Bullets, Code, OneLiner, WhenToUse, Callout, CodeBlock, CodeCompare,
+  Demo, Viz, Legend, Segmented, Stat, Table, ui,
 } from '../components/kit.jsx';
 
 export default function VirtualizedList() {
@@ -14,7 +15,7 @@ export default function VirtualizedList() {
         </OneLiner>
 
         <H3>왜 필요한가?</H3>
-        <List
+        <Bullets
           items={[
             <>DOM 노드는 비싸다. 행 1만 개 × 노드 10개 = <b>10만 개 DOM</b> → 첫 렌더가 느리고, 스타일 계산·레이아웃·메모리 모두 부담.</>,
             <>사용자가 실제로 보는 건 화면 높이만큼(대략 10~20행)뿐이다. 나머지는 그려도 안 보인다.</>,
@@ -23,7 +24,7 @@ export default function VirtualizedList() {
         />
 
         <H3>동작 원리 (직접 구현할 수 있을 정도로)</H3>
-        <List
+        <Bullets
           items={[
             <>① 바깥 컨테이너: 고정 높이 + <Code>overflow: auto</Code> (스크롤 창)</>,
             <>② 안쪽 spacer: 높이를 <Code>전체 개수 × 행 높이</Code>로 잡아서 <b>스크롤바가 전체 목록인 것처럼</b> 보이게 한다.</>,
@@ -108,28 +109,60 @@ function LogList({ logs }) {
             note: 'DOM에는 화면에 보이는 10개 + overscan 10개 ≈ 20개만 존재. 목록이 10만 개여도 비용이 같다.',
           }}
         />
-        <Callout title="라이브러리로 쓰면 (@tanstack/react-virtual)">
-          <CodeBlock
-            code={`
-const parentRef = useRef(null);
-const virtualizer = useVirtualizer({
-  count: logs.length,
-  getScrollElement: () => parentRef.current,
-  estimateSize: () => 40,
-  overscan: 5,
-});
+        <H3>직접 구현 vs react-window</H3>
+        <p>위 원리를 매번 직접 짜는 대신, 실무에서는 보통 <b>react-window</b>를 씁니다. 같은 목록을 react-window(v2)로 쓰면 이렇게 짧아집니다.</p>
+        <CodeCompare
+          before={{
+            label: '직접 구현',
+            code: `
+const [scrollTop, setScrollTop] = useState(0);
+const start = Math.max(0, Math.floor(scrollTop / ROW) - OVERSCAN);
+const end = Math.min(logs.length, Math.ceil((scrollTop + HEIGHT) / ROW) + OVERSCAN);
 
-<div ref={parentRef} style={{ height: 400, overflow: 'auto' }}>
-  <div style={{ height: virtualizer.getTotalSize(), position: 'relative' }}>
-    {virtualizer.getVirtualItems().map((v) => (
-      <div key={v.key} style={{ position: 'absolute', top: v.start, height: v.size, width: '100%' }}>
-        <LogRow log={logs[v.index]} />
+<div style={{ height: HEIGHT, overflow: 'auto' }}
+     onScroll={(e) => setScrollTop(e.currentTarget.scrollTop)}>
+  <div style={{ height: logs.length * ROW, position: 'relative' }}>
+    {logs.slice(start, end).map((log, i) => (
+      <div key={log.id}
+           style={{ position: 'absolute', top: (start + i) * ROW, width: '100%' }}>
+        <LogRow log={log} />
       </div>
     ))}
   </div>
-</div>`}
-          />
-        </Callout>
+</div>`,
+            note: '원리를 이해하기엔 좋지만 가변 높이, 리사이즈, 스크롤 이동(scrollToRow), 접근성 등을 직접 처리해야 한다.',
+          }}
+          after={{
+            label: 'react-window 사용',
+            code: `
+import { List } from 'react-window';
+
+// 행 컴포넌트: index와 위치 style을 받는다 (style은 꼭 적용!)
+function Row({ index, style, logs }) {
+  return <div style={style}><LogRow log={logs[index]} /></div>;
+}
+
+<List
+  rowComponent={Row}
+  rowCount={logs.length}
+  rowHeight={40}
+  rowProps={{ logs }}     // Row에 추가로 넘길 props
+  overscanCount={5}
+  style={{ height: 400 }}
+/>`,
+            note: 'spacer, 범위 계산, absolute 배치를 라이브러리가 해준다. 아래 데모의 세 번째 탭이 실제 react-window로 동작한다.',
+          }}
+        />
+        <Table
+          head={['', '직접 구현', 'react-window', '@tanstack/react-virtual']}
+          rows={[
+            ['형태', '스크롤 state + slice', '<List> 컴포넌트', 'useVirtualizer Hook (Headless)'],
+            ['마크업 자유도', '완전 자유', '행 컴포넌트만 작성', '완전 자유 (직접 그림)'],
+            ['가변 높이', '직접 측정 필요', '함수 / useDynamicRowHeight', '측정 내장 (measureElement)'],
+            ['크기', '0KB', '작음 (~6KB gzip)', '작음 (~5KB gzip)'],
+            ['언제', '원리 학습, 아주 단순한 목록', '고정 높이 목록·그리드를 빠르게', '테이블·커스텀 UI·가변 높이'],
+          ]}
+        />
       </Section>
 
       <Section step={4} title="직접 해보기">
@@ -225,7 +258,7 @@ function VirtualDemo() {
   return (
     <Demo hint="모드를 바꾸면 목록을 새로 렌더하고 걸린 시간을 잽니다. 개수를 늘려가며 비교하고, 직접 스크롤도 해보세요.">
       <div className="flex flex-wrap items-center gap-3">
-        <Segmented value={mode} onChange={(v) => change(v)} options={[{ value: 'off', label: '전부 렌더' }, { value: 'on', label: '가상화' }]} />
+        <Segmented value={mode} onChange={(v) => change(v)} options={[{ value: 'off', label: '전부 렌더' }, { value: 'on', label: '가상화 (직접 구현)' }, { value: 'lib', label: 'react-window' }]} />
         <select className={ui.input} value={count} onChange={(e) => change(mode, Number(e.target.value))}>
           <option value={1000}>1,000개</option>
           <option value={10000}>10,000개</option>
@@ -237,11 +270,9 @@ function VirtualDemo() {
         <Stat label="전체 데이터" value={`${count.toLocaleString()}개`} />
       </div>
       <div className="mt-3">
-        {mode === 'off' ? (
-          <PlainList key={`off${count}`} logs={logs} onMounted={onMounted} />
-        ) : (
-          <VirtualList key={`on${count}`} logs={logs} onMounted={onMounted} />
-        )}
+        {mode === 'off' && <PlainList key={`off${count}`} logs={logs} onMounted={onMounted} />}
+        {mode === 'on' && <VirtualList key={`on${count}`} logs={logs} onMounted={onMounted} />}
+        {mode === 'lib' && <WindowList key={`lib${count}`} logs={logs} onMounted={onMounted} />}
       </div>
     </Demo>
   );
@@ -286,6 +317,40 @@ function VirtualList({ logs, onMounted }) {
           ))}
         </div>
       </div>
+    </>
+  );
+}
+
+function WindowRow({ index, style, ariaAttributes, logs }) {
+  return (
+    <div style={style} {...ariaAttributes}>
+      <LogRow log={logs[index]} />
+    </div>
+  );
+}
+
+// react-window의 List. 실제로 DOM에 그린 범위는 onRowsRendered의 두 번째 인자(overscan 포함)로 받는다.
+function WindowList({ logs, onMounted }) {
+  useOnMount(onMounted);
+  const [range, setRange] = useState({ startIndex: 0, stopIndex: 0 });
+  // 콜백이 렌더마다 바뀌면 react-window가 다시 호출해서 무한 렌더가 된다 → 고정 + 범위가 같으면 state 유지
+  const onRowsRendered = useCallback(
+    (_, all) => setRange((r) => (r.startIndex === all.startIndex && r.stopIndex === all.stopIndex ? r : all)),
+    []
+  );
+  return (
+    <>
+      <DomInfo inDom={range.stopIndex - range.startIndex + 1} total={logs.length} range={`#${range.startIndex} ~ #${range.stopIndex}`} />
+      <List
+        className="rounded-xl border border-zinc-200 dark:border-zinc-800"
+        rowComponent={WindowRow}
+        rowCount={logs.length}
+        rowHeight={ROW}
+        rowProps={{ logs }}
+        overscanCount={OVERSCAN}
+        onRowsRendered={onRowsRendered}
+        style={{ height: HEIGHT }}
+      />
     </>
   );
 }
