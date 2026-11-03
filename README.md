@@ -117,7 +117,7 @@
 
 - [`doctype`의 기능](/HTML-questions/1-what-does-a-doctype-do.md)
 - ['data-' 속성](/HTML-questions/4-data-attributes.md)
-- [시맨틱 태그의 정의와 예시](./HTML-questions/simentic-tag.md)
+- [웹 접근성과 시맨틱 웹에 대해서 설명하고, 시맨틱 태그엔 어떤 것들이 있는지 말해주세요.](./HTML-questions/13-web-accessibility-semantic-web.md)
 
 <br />
 
@@ -141,10 +141,6 @@
 - [다국어 사이트를 설계하거나 개발할 때 주의해야 할 사항](/HTML-questions/3-multilingual-sites.md)
 - [이미지 태그에서 'srcset' 속성을 사용하는 이유와 속성의 내용을 평가하는 브라우저의 프로세스](/HTML-questions/10-srcset-attribute-in-an-image-tag.md)
 - [캔버스(canvas)와 SVG의 차이점](/HTML-questions/12-difference-between-canvas-and-svg.md)
-
-### 중요도 미정 (velog 정리)
-
-- [웹 접근성과 시맨틱 웹에 대해서 간단히 설명해주세요.](./HTML-questions/13-web-accessibility-semantic-web.md)
 
 <br />
 <br />

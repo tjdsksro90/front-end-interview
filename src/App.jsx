@@ -15,6 +15,9 @@ export default function App() {
         {['project', 'project/:slug', 'project/:slug/deep/:deepSlug'].map((path) => (
           <Route key={path} path={path} element={<ProjectRedirect />} />
         ))}
+        {/* "시멘틱 태그" 질문은 "웹 접근성과 시맨틱 웹" 질문으로 합쳐졌다 */}
+        <Route path="html/00-simentic-tag" element={<Navigate to="/html/13-web-accessibility-semantic-web" replace />} />
+        <Route path="html/00-simentic-tag/deep/:deepSlug" element={<MergedDeepRedirect to="/html/13-web-accessibility-semantic-web" />} />
         <Route path=":categoryId" element={<CategoryPage />} />
         <Route path=":categoryId/:slug" element={<QuestionPage />} />
         <Route path=":categoryId/:slug/deep/:deepSlug" element={<DeepPage />} />
@@ -30,4 +33,9 @@ function ProjectRedirect() {
   const moved = slug && questions.find((q) => q.slug === slug);
   if (!moved) return <Navigate to="/" replace />;
   return <Navigate to={`/${moved.categoryId}/${slug}${deepSlug ? `/deep/${deepSlug}` : ''}`} replace />;
+}
+
+function MergedDeepRedirect({ to }) {
+  const { deepSlug } = useParams();
+  return <Navigate to={`${to}/deep/${deepSlug}`} replace />;
 }

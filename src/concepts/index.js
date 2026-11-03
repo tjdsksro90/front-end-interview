@@ -270,7 +270,7 @@ export const deepDives = [
   },
   {
     slug: 'accessibility',
-    parent: q('html', '00-simentic-tag'),
+    parent: q('html', '13-web-accessibility-semantic-web'),
     title: 'Accessibility (웹 접근성)',
     summary: '키보드·스크린리더로도 쓸 수 있게: 시맨틱 태그, 포커스, ARIA',
     tags: ['Accessibility', '접근성', 'a11y', 'ARIA', 'aria-label', '키보드', 'focus', '스크린리더', 'WCAG', '시맨틱'],
