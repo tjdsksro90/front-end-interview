@@ -1,6 +1,6 @@
 # 📝 프론트엔드 개발자 면접 질문
 
-### 🔗 사이트에서 보기: https://react-study-gules-eta.vercel.app
+### 🔗 사이트에서 보기: https://front-study-note.vercel.app
 
 > 이 저장소의 마크다운 문서를 카테고리별 목록·실시간 검색으로 볼 수 있는 사이트입니다. 일부 개념은 `🔬 심화`(개념 → 시각화 → 코드 비교 → 직접 해보기)를 함께 제공합니다.  
 > `main`에 push하면 Vercel로 자동 배포됩니다. 로컬 실행: `npm install` → `npm run dev`
