@@ -21,7 +21,7 @@
 
 ## 카테고리
 
-**카테고리는 총 7개로 구성되었으며, 질문에 대한 답을 마크다운 문서로 작성합니다.**
+**카테고리는 총 8개로 구성되었으며, 질문에 대한 답을 마크다운 문서로 작성합니다.**
 
 [Computer Science 관련 예상 면접질문](#computer-science-관련-예상-면접질문)
 
@@ -34,6 +34,8 @@
 [JavaScript 관련 예상 면접질문](#javascript-관련-예상-면접질문)
 
 [React · Next.js 관련 예상 면접질문](#react--nextjs-관련-예상-면접질문)
+
+[AI 관련 예상 면접질문](#ai-관련-예상-면접질문)
 
 [이력서 기반 예상 면접질문](#이력서-기반-예상-면접질문)
 
@@ -339,6 +341,18 @@
 ### 프로젝트 경험
 
 - [재사용 가능한 컴포넌트 구축을 위해 어떤 고민을 하셨나요?](./react-questions/component.md)
+
+### 버전별 변경점
+
+- [React는 버전별로 무엇이 바뀌었나요? (16.8 · 17 · 18 · 19)](./react-questions/react-versions.md)
+
+<br />
+<br />
+
+## AI 관련 예상 면접질문
+
+- [AI Agent란 무엇이고, 하네스(Harness)는 무엇인가요?](./ai-questions/ai-agent.md)
+- [LangChain과 LangGraph는 무엇이고 어떻게 다른가요?](./ai-questions/langchain-langgraph.md)
 
 <br />
 <br />
