@@ -330,6 +330,7 @@
 - [nextjs의 app-router에 대해서 설명해주세요](./react-questions/app-router.md)
 - [nextjs의 useTheme을 통해 다크모드를 구현하셨다고하는데, 어떤방식으로 구현하셨나요?](./react-questions/nextjs-useTheme.md)
 - [Nextjs의 동작방식에 대해 이해하고 있나요?](./nextjs-questions/how-nextjs-works.md) TODO
+- [styled-components와 Emotion은 무엇이 다른가요?](./react-questions/styled-components-vs-emotion.md)
 
 ### 중요도 미정 (velog 정리)
 

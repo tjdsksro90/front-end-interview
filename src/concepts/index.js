@@ -271,6 +271,14 @@ export const deepDives = [
     Component: lazy(() => import('./StylingTheme.jsx')),
   },
   {
+    slug: 'emotion',
+    parent: q('react', 'styled-components-vs-emotion'),
+    title: 'Emotion (css prop · styled · 테마)',
+    summary: 'CSS 문자열을 해시해 클래스를 만들고 style 태그에 넣는 원리, css prop과 styled, 동적 값은 CSS 변수로',
+    tags: ['Emotion', '@emotion/react', '@emotion/styled', 'css prop', 'styled', 'CSS-in-JS', 'styled-components', 'ThemeProvider', 'useTheme', 'MUI', 'jsxImportSource'],
+    Component: lazy(() => import('./EmotionPage.jsx')),
+  },
+  {
     slug: 'accessibility',
     parent: q('html', '13-web-accessibility-semantic-web'),
     title: 'Accessibility (웹 접근성)',
