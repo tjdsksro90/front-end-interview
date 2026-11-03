@@ -27,13 +27,13 @@
 
 [Web 및 프론트엔드 전반적인 지식 관련 예상 면접질문](#web-및-프론트엔드-전반적인-지식-관련-예상-면접질문)
 
-[JavaScript 관련 예상 면접질문](#javascript-관련-예상-면접질문)
-
-[React · Next.js 관련 예상 면접질문](#react--nextjs-관련-예상-면접질문)
-
 [HTML 관련 예상 면접질문](#html-관련-예상-면접질문)
 
 [CSS 관련 예상 면접질문](#css-관련-예상-면접질문)
+
+[JavaScript 관련 예상 면접질문](#javascript-관련-예상-면접질문)
+
+[React · Next.js 관련 예상 면접질문](#react--nextjs-관련-예상-면접질문)
 
 [이력서 기반 예상 면접질문](#이력서-기반-예상-면접질문)
 
@@ -107,6 +107,87 @@
 - [certbot은 어떤 역할을 하나요?](./web-questions/certbot.md)
 - [Github Actions의 파이프라인은 어떤식으로 구성하셨나요?](./web-questions/pipe-line.md)
 - [Github Actions와 AWS CodeDeploy를 어떤 식으로 조합하셨나요?](./web-questions/git-actions-in-codeDeploy.md)
+
+<br />
+<br />
+
+## HTML 관련 예상 면접질문
+
+### 중요도 5
+
+- [`doctype`의 기능](/HTML-questions/1-what-does-a-doctype-do.md)
+- ['data-' 속성](/HTML-questions/4-data-attributes.md)
+- [시맨틱 태그의 정의와 예시](./HTML-questions/simentic-tag.md)
+
+<br />
+
+### 중요도 4
+
+- [`<script>`, `<script async>`, `<script defer>`의 차이점](/HTML-questions/7-difference-between-script-async-defer.md)
+- [HTML에서 빈 요소(empty elements)](/HTML-questions/13-what-are-empty-elements-in-html.md)
+
+<br />
+
+### 중요도 3
+
+- [프로그레시브 렌더링(Progressive Rendering)](/HTML-questions/9-what-is-progressive-rendering.md)
+
+<br />
+
+### 중요도 1
+
+- [HTML5를 오픈 웹 플랫폼으로 볼 때, HTML5의 구성 요소](/HTML-questions/5-building-blocks-of-html5.md)
+- [여러 언어로 된 콘텐츠가 포함된 페이지의 제공](/HTML-questions/2-multiple-languages.md)
+- [다국어 사이트를 설계하거나 개발할 때 주의해야 할 사항](/HTML-questions/3-multilingual-sites.md)
+- [이미지 태그에서 'srcset' 속성을 사용하는 이유와 속성의 내용을 평가하는 브라우저의 프로세스](/HTML-questions/10-srcset-attribute-in-an-image-tag.md)
+- [캔버스(canvas)와 SVG의 차이점](/HTML-questions/12-difference-between-canvas-and-svg.md)
+
+### 중요도 미정 (velog 정리)
+
+- [웹 접근성과 시맨틱 웹에 대해서 간단히 설명해주세요.](./HTML-questions/13-web-accessibility-semantic-web.md)
+
+<br />
+<br />
+
+## CSS 관련 예상 면접질문
+
+### 중요도 5
+
+- [CSS Margin & Padding](/CSS-questions/margin-padding.md)
+- [CSS 선택자의 우선순위와 동작방식](/CSS-questions/1-specificity.md)
+- [z-index와 스택 문맥이 형성되는 방식](/CSS-questions/4-z-index.md)
+- [BFC(Block Formatting Context)와 동작원리](/CSS-questions/5-bfc.md)
+- [브라우저 별 스타일링 문제를 해결하는 방식](/CSS-questions/7-browser-issues.md)
+- [CSS 전처리기를 사용하는 장단점](/CSS-questions/12-css-preprocessors.md)
+- [브라우저가 CSS 선택자와 일치하는 요소를 어떻게 결정하는가?](/CSS-questions/13-css-selector.md)
+
+<br />
+
+### 중요도 4
+
+- [가상 요소(pseudo-elements) 선택자의 정의와 용도](/CSS-questions/14-pseudo-elements.md)
+- [효율적인 CSS를 작성하기 위한 "주의점"](/CSS-questions/11-css-gotchas.md)
+- [박스 모델에 대한 이해](/CSS-questions/15-box-model.md)
+
+<br />
+
+### 중요도 3
+
+- ["리셋(resetting)"과 "정규화(normalizing)" CSS의 차이점](/CSS-questions/2-reset-vs-normalize.md)
+- [기능이 제한된 브라우저에 페이지를 제공하는 방식](/CSS-questions/8-feature-constrained-browsers.md)
+- [시각적으로 컨텐츠를 숨기는 다양한 방법과 이를 스크린 리더기에서만 사용 가능하게 하는 방법](/CSS-questions/9-hide-content.md)
+
+<br />
+
+### 중요도 1
+
+- [플로트(Floats)의 정의와 동작방식](/CSS-questions/3-floats.md)
+- [다양한 클리어링 기법과 기법들의 적합도](/CSS-questions/6-clearing.md)
+- [스크린 외에 다른 @media 속성의 예시](/CSS-questions/10-media-property.md)
+
+### 프로젝트 경험
+
+- [프로젝트 시 반응형 레이아웃은 어떤 방식으로 구현하셨나요?](./CSS-questions/responsive-ui.md)
 
 <br />
 <br />
@@ -256,87 +337,6 @@
 ### 프로젝트 경험
 
 - [재사용 가능한 컴포넌트 구축을 위해 어떤 고민을 하셨나요?](./react-questions/component.md)
-
-<br />
-<br />
-
-## HTML 관련 예상 면접질문
-
-### 중요도 5
-
-- [`doctype`의 기능](/HTML-questions/1-what-does-a-doctype-do.md)
-- ['data-' 속성](/HTML-questions/4-data-attributes.md)
-- [시맨틱 태그의 정의와 예시](./HTML-questions/simentic-tag.md)
-
-<br />
-
-### 중요도 4
-
-- [`<script>`, `<script async>`, `<script defer>`의 차이점](/HTML-questions/7-difference-between-script-async-defer.md)
-- [HTML에서 빈 요소(empty elements)](/HTML-questions/13-what-are-empty-elements-in-html.md)
-
-<br />
-
-### 중요도 3
-
-- [프로그레시브 렌더링(Progressive Rendering)](/HTML-questions/9-what-is-progressive-rendering.md)
-
-<br />
-
-### 중요도 1
-
-- [HTML5를 오픈 웹 플랫폼으로 볼 때, HTML5의 구성 요소](/HTML-questions/5-building-blocks-of-html5.md)
-- [여러 언어로 된 콘텐츠가 포함된 페이지의 제공](/HTML-questions/2-multiple-languages.md)
-- [다국어 사이트를 설계하거나 개발할 때 주의해야 할 사항](/HTML-questions/3-multilingual-sites.md)
-- [이미지 태그에서 'srcset' 속성을 사용하는 이유와 속성의 내용을 평가하는 브라우저의 프로세스](/HTML-questions/10-srcset-attribute-in-an-image-tag.md)
-- [캔버스(canvas)와 SVG의 차이점](/HTML-questions/12-difference-between-canvas-and-svg.md)
-
-### 중요도 미정 (velog 정리)
-
-- [웹 접근성과 시맨틱 웹에 대해서 간단히 설명해주세요.](./HTML-questions/13-web-accessibility-semantic-web.md)
-
-<br />
-<br />
-
-## CSS 관련 예상 면접질문
-
-### 중요도 5
-
-- [CSS Margin & Padding](/CSS-questions/margin-padding.md)
-- [CSS 선택자의 우선순위와 동작방식](/CSS-questions/1-specificity.md)
-- [z-index와 스택 문맥이 형성되는 방식](/CSS-questions/4-z-index.md)
-- [BFC(Block Formatting Context)와 동작원리](/CSS-questions/5-bfc.md)
-- [브라우저 별 스타일링 문제를 해결하는 방식](/CSS-questions/7-browser-issues.md)
-- [CSS 전처리기를 사용하는 장단점](/CSS-questions/12-css-preprocessors.md)
-- [브라우저가 CSS 선택자와 일치하는 요소를 어떻게 결정하는가?](/CSS-questions/13-css-selector.md)
-
-<br />
-
-### 중요도 4
-
-- [가상 요소(pseudo-elements) 선택자의 정의와 용도](/CSS-questions/14-pseudo-elements.md)
-- [효율적인 CSS를 작성하기 위한 "주의점"](/CSS-questions/11-css-gotchas.md)
-- [박스 모델에 대한 이해](/CSS-questions/15-box-model.md)
-
-<br />
-
-### 중요도 3
-
-- ["리셋(resetting)"과 "정규화(normalizing)" CSS의 차이점](/CSS-questions/2-reset-vs-normalize.md)
-- [기능이 제한된 브라우저에 페이지를 제공하는 방식](/CSS-questions/8-feature-constrained-browsers.md)
-- [시각적으로 컨텐츠를 숨기는 다양한 방법과 이를 스크린 리더기에서만 사용 가능하게 하는 방법](/CSS-questions/9-hide-content.md)
-
-<br />
-
-### 중요도 1
-
-- [플로트(Floats)의 정의와 동작방식](/CSS-questions/3-floats.md)
-- [다양한 클리어링 기법과 기법들의 적합도](/CSS-questions/6-clearing.md)
-- [스크린 외에 다른 @media 속성의 예시](/CSS-questions/10-media-property.md)
-
-### 프로젝트 경험
-
-- [프로젝트 시 반응형 레이아웃은 어떤 방식으로 구현하셨나요?](./CSS-questions/responsive-ui.md)
 
 <br />
 <br />
