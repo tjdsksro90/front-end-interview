@@ -31,7 +31,7 @@ export default function DeepPage() {
         ]}
       />
       <div className="mt-6 flex flex-wrap items-center gap-2">
-        <span className="rounded-full bg-violet-100 px-2.5 py-0.5 text-xs font-bold text-violet-700 dark:bg-violet-500/20 dark:text-violet-300">🔬 심화</span>
+        <span className="rounded-full bg-violet-100 px-2.5 py-0.5 text-xs font-bold text-violet-700 dark:bg-violet-500/20 dark:text-violet-300">심화</span>
         <Link to={basePath} className="text-sm text-zinc-500 hover:text-indigo-600 dark:text-zinc-400 dark:hover:text-indigo-400">← 기본 답변 보기</Link>
       </div>
       <h1 className="mt-3 text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl dark:text-zinc-50">{deep.title}</h1>

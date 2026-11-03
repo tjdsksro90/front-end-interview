@@ -24,7 +24,7 @@ export default function CategoryPage() {
     <>
       <Crumbs items={[{ to: '/', label: '홈' }, { label: category.title }]} />
       <h1 className="mt-4 text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
-        {category.icon} {category.title}
+        {category.title}
       </h1>
       <p className="mt-2 text-zinc-500 dark:text-zinc-400">{category.description}</p>
 
@@ -34,7 +34,7 @@ export default function CategoryPage() {
         <Toggle
           checked={deepOnly}
           onChange={(on) => setDeep(on ? '1' : '')}
-          label={<span className="text-sm text-violet-600 dark:text-violet-300">🔬 심화 있는 것만</span>}
+          label={<span className="text-sm text-violet-600 dark:text-violet-300">심화 있는 것만</span>}
         />
       </div>
 

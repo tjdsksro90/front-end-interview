@@ -63,7 +63,7 @@ export default function ConcurrentMode() {
             '네트워크 요청을 줄이고 싶을 때 — 그건 debounce/throttle의 역할 (동시성은 "렌더링" 우선순위만 조절)',
           ]}
         />
-        <Callout type="tip" title="💡 debounce와의 차이 (단골 질문)">
+        <Callout type="tip" title="debounce와의 차이 (단골 질문)">
           <p><b>debounce</b>는 정해진 시간(예: 300ms) 동안 <b>무조건 기다렸다가</b> 실행합니다. 빠른 기기에서도 300ms 늦습니다.</p>
           <p><b>useDeferredValue/useTransition</b>은 기다리는 시간이 정해져 있지 않고, <b>기기가 빠르면 바로, 느리면 입력을 우선</b>하며 남는 시간에 렌더합니다. 또 진행 중인 렌더를 중단할 수 있습니다. 대신 API 호출 횟수를 줄이는 효과는 없습니다.</p>
         </Callout>
@@ -208,7 +208,7 @@ function TimelineViz() {
   return (
     <Viz>
       <div className="flex flex-wrap items-center gap-3">
-        <button className={ui.btnPrimary} onClick={play}>▶ 재생</button>
+        <button className={ui.btnPrimary} onClick={play}>재생</button>
         <span className="text-sm text-zinc-400">사용자가 시점 {KEYS.map((k) => k.at).join(', ')}에 r, e, a를 입력</span>
       </div>
       <div className="mt-5 min-w-[560px] space-y-6">
@@ -236,7 +236,7 @@ function TimelineViz() {
                 ))}
                 {KEYS.map((k) => (
                   <div key={k.at} className="absolute -bottom-5 -translate-x-1/2 font-mono text-[11px] text-amber-600 dark:text-amber-400" style={{ left: `${k.at}%` }}>
-                    ⌨{k.ch}
+                    key: {k.ch}
                   </div>
                 ))}
                 <div className="absolute top-0 bottom-0 w-0.5 bg-rose-500" style={{ left: `${t}%` }} />
@@ -311,7 +311,7 @@ function SearchInputBox({ value, onChange, pending }) {
   return (
     <div className="flex items-center gap-3">
       <input className={`${ui.input} w-full`} placeholder="검색어 입력 (예: react)" value={value} onChange={(e) => onChange(e.target.value)} />
-      <span className={`w-28 shrink-0 text-xs font-semibold ${pending ? ui.warn : 'text-zinc-400'}`}>{pending ? '⏳ 결과 준비 중' : '✓ 최신'}</span>
+      <span className={`w-28 shrink-0 text-xs font-semibold ${pending ? ui.warn : 'text-zinc-400'}`}>{pending ? '결과 준비 중' : '최신'}</span>
     </div>
   );
 }

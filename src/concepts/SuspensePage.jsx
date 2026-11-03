@@ -98,7 +98,7 @@ function Page() {
             note: '컴포넌트는 "데이터가 있다"고 가정하고 UI만 그린다. 로딩/에러는 바깥 경계가 담당.',
           }}
         />
-        <Callout title="📌 React 19에서는 use()로 직접 Promise를 읽을 수 있어요">
+        <Callout title="React 19에서는 use()로 직접 Promise를 읽을 수 있어요">
           <p><Code>const user = use(userPromise);</Code> — 아래 데모가 이 방식으로 만들어져 있습니다. 단, Promise는 렌더 중에 새로 만들지 말고 바깥(이벤트 핸들러, 라이브러리 캐시)에서 만들어 넘겨야 합니다.</p>
         </Callout>
       </Section>
@@ -141,7 +141,7 @@ function FlowViz() {
   return (
     <Viz>
       <div className="flex flex-wrap items-center gap-2">
-        <button className={ui.btnPrimary} onClick={() => { setStep(0); setPlaying(true); }}>▶ 자동 재생</button>
+        <button className={ui.btnPrimary} onClick={() => { setStep(0); setPlaying(true); }}>자동 재생</button>
         <button className={ui.btn} disabled={step === 0} onClick={() => { setPlaying(false); setStep((n) => n - 1); }}>← 이전</button>
         <button className={ui.btn} disabled={step === STEPS.length - 1} onClick={() => { setPlaying(false); setStep((n) => n + 1); }}>다음 →</button>
         <span className="ml-auto text-sm text-zinc-400">{step + 1} / {STEPS.length}</span>
@@ -154,8 +154,8 @@ function FlowViz() {
             <div className="font-mono text-sm font-semibold">&lt;Profile /&gt;</div>
             <div className="mt-1 text-xs">
               {s.profile === 'rendering' && '렌더 중…'}
-              {s.profile === 'suspended' && '⏸ suspend (Promise 대기)'}
-              {s.profile === 'done' && '✅ 렌더 완료'}
+              {s.profile === 'suspended' && 'suspend (Promise 대기)'}
+              {s.profile === 'done' && '렌더 완료'}
             </div>
           </div>
           <div className="mt-3 font-mono text-xs text-indigo-600 dark:text-indigo-300">&lt;/Suspense&gt;</div>
@@ -173,7 +173,7 @@ function FlowViz() {
             )}
             {s.boundary === 'done' && (
               <div className="flex h-full items-center gap-3">
-                <div className="grid h-14 w-14 place-items-center rounded-full bg-indigo-500 text-2xl">🧑‍💻</div>
+                <div className="grid h-14 w-14 place-items-center rounded-full bg-indigo-500 text-xl font-bold text-white">김</div>
                 <div><div className="font-semibold">김리액트</div><div className="text-sm text-zinc-400">Frontend Developer</div></div>
               </div>
             )}
@@ -241,8 +241,8 @@ function SuspenseDemo() {
         )}
         {run && mode === 'effect' && (
           <>
-            <EffectCard key={`u${run.id}`} promise={run.user} startedAt={run.startedAt} render={(u) => <ProfileBody user={u} />} title="👤 프로필" />
-            <EffectCard key={`p${run.id}`} promise={run.posts} startedAt={run.startedAt} render={(p) => <PostsBody posts={p} />} title="📝 게시글" />
+            <EffectCard key={`u${run.id}`} promise={run.user} startedAt={run.startedAt} render={(u) => <ProfileBody user={u} />} title="프로필" />
+            <EffectCard key={`p${run.id}`} promise={run.posts} startedAt={run.startedAt} render={(p) => <PostsBody posts={p} />} title="게시글" />
           </>
         )}
       </div>
@@ -270,7 +270,7 @@ function CardShell({ title, startedAt, children }) {
 function ProfileBody({ user }) {
   return (
     <div className="flex items-center gap-3">
-      <div className="grid h-12 w-12 place-items-center rounded-full bg-indigo-500 text-xl">🧑‍💻</div>
+      <div className="grid h-12 w-12 place-items-center rounded-full bg-indigo-500 text-lg font-bold text-white">김</div>
       <div><div className="font-semibold">{user.name}</div><div className="text-sm text-zinc-400">{user.role}</div></div>
     </div>
   );
@@ -282,12 +282,12 @@ function PostsBody({ posts }) {
 
 function ProfileCard({ promise, startedAt }) {
   const user = use(promise); // 준비 안 됐으면 여기서 suspend
-  return <CardShell title="👤 프로필" startedAt={startedAt}><ProfileBody user={user} /></CardShell>;
+  return <CardShell title="프로필" startedAt={startedAt}><ProfileBody user={user} /></CardShell>;
 }
 
 function PostsCard({ promise, startedAt }) {
   const posts = use(promise);
-  return <CardShell title="📝 게시글" startedAt={startedAt}><PostsBody posts={posts} /></CardShell>;
+  return <CardShell title="게시글" startedAt={startedAt}><PostsBody posts={posts} /></CardShell>;
 }
 
 // Suspense 없이: 각 컴포넌트가 직접 로딩 state를 관리
@@ -315,7 +315,7 @@ function EffectCard({ promise, startedAt, render, title }) {
 function CardSkeleton({ label, tall }) {
   return (
     <div className={`animate-pulse rounded-xl border border-dashed border-indigo-300 p-4 dark:border-indigo-500/40 ${tall ? 'min-h-40' : 'min-h-40'}`}>
-      <div className="text-xs font-semibold text-indigo-600 dark:text-indigo-300">⏳ {label}</div>
+      <div className="text-xs font-semibold text-indigo-600 dark:text-indigo-300">{label}</div>
       <div className="mt-4 space-y-2">
         <div className="h-3 w-2/3 rounded bg-zinc-200 dark:bg-zinc-800" />
         <div className="h-3 w-1/2 rounded bg-zinc-200 dark:bg-zinc-800" />

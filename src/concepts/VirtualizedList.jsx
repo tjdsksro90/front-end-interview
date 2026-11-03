@@ -48,7 +48,7 @@ export default function VirtualizedList() {
             '행 높이가 제각각이고 측정이 어려운 경우 (가능은 하지만 구현 난이도 ↑)',
           ]}
         />
-        <Callout type="tip" title="💡 실무에서는 라이브러리를 쓴다">
+        <Callout type="tip" title="실무에서는 라이브러리를 쓴다">
           <p><b>@tanstack/react-virtual</b>(Headless, 가변 높이 지원), <b>react-window</b>(가볍고 단순), <b>react-virtuoso</b>(가변 높이·채팅에 강함). 면접에서는 위 원리(spacer + scrollTop으로 범위 계산 + absolute 배치 + overscan)를 설명할 수 있으면 충분합니다.</p>
         </Callout>
       </Section>

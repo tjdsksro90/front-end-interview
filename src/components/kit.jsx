@@ -50,7 +50,7 @@ export function Code({ children }) {
 export function OneLiner({ children }) {
   return (
     <div className="rounded-xl border-l-4 border-indigo-500 bg-indigo-50 px-5 py-4 dark:bg-indigo-500/10">
-      <p className="text-xs font-bold text-indigo-600 dark:text-indigo-300">🎤 한 줄로 설명하면</p>
+      <p className="text-xs font-bold text-indigo-600 dark:text-indigo-300">한 줄로 설명하면</p>
       <p className="mt-1 text-[1.05rem] font-semibold text-zinc-900 dark:text-zinc-50">{children}</p>
     </div>
   );
@@ -61,13 +61,13 @@ export function WhenToUse({ use, avoid }) {
   return (
     <div className="grid gap-3 md:grid-cols-2">
       <div className="rounded-xl bg-emerald-50 p-5 dark:bg-emerald-500/10">
-        <h3 className="font-bold text-emerald-700 dark:text-emerald-300">✅ 이럴 때 쓴다</h3>
+        <h3 className="font-bold text-emerald-700 dark:text-emerald-300">이럴 때 쓴다</h3>
         <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm marker:text-emerald-500">
           {use.map((u, i) => <li key={i}>{u}</li>)}
         </ul>
       </div>
       <div className="rounded-xl bg-zinc-100 p-5 dark:bg-zinc-800/60">
-        <h3 className="font-bold text-zinc-700 dark:text-zinc-300">🚫 굳이 안 써도 된다</h3>
+        <h3 className="font-bold text-zinc-700 dark:text-zinc-300">굳이 안 써도 된다</h3>
         <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm marker:text-zinc-400">
           {avoid.map((u, i) => <li key={i}>{u}</li>)}
         </ul>
@@ -143,9 +143,9 @@ export function CodeCompare({ before, after }) {
   return (
     <div className="grid gap-4 lg:grid-cols-2">
       {[
-        ['bad', '❌', before.label ?? '안 썼을 때', before],
-        ['good', '✅', after.label ?? '썼을 때', after],
-      ].map(([kind, icon, label, side]) => (
+        ['bad', before.label ?? '안 썼을 때', before],
+        ['good', after.label ?? '썼을 때', after],
+      ].map(([kind, label, side]) => (
         <div key={kind} className="min-w-0 space-y-2">
           <span
             className={`inline-block rounded-lg px-3 py-1 text-sm font-bold ${
@@ -154,7 +154,7 @@ export function CodeCompare({ before, after }) {
                 : 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300'
             }`}
           >
-            {icon} {label}
+            {label}
           </span>
           <CodeBlock code={side.code} />
           <p className={`text-sm ${ui.muted}`}>{side.note}</p>
@@ -167,7 +167,7 @@ export function CodeCompare({ before, after }) {
 export function Demo({ children, hint }) {
   return (
     <div className="rounded-2xl border-2 border-dashed border-zinc-200 bg-zinc-50/50 p-4 sm:p-5 dark:border-zinc-800 dark:bg-zinc-900/40">
-      {hint && <p className={`mb-4 text-sm ${ui.muted}`}>👉 {hint}</p>}
+      {hint && <p className={`mb-4 text-sm ${ui.muted}`}>{hint}</p>}
       {children}
     </div>
   );

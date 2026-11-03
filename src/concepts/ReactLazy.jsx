@@ -38,7 +38,7 @@ export default function ReactLazy() {
             'SSR이 필요한 곳 (Next.js에선 next/dynamic 사용)',
           ]}
         />
-        <Callout type="tip" title="💡 UX 팁: 미리 불러오기(prefetch)">
+        <Callout type="tip" title="UX 팁: 미리 불러오기(prefetch)">
           <p>버튼에 마우스를 올렸을 때(onMouseEnter) <Code>import('./Admin')</Code>을 미리 호출해 두면, 실제 클릭 시점엔 이미 받아져 있어 fallback이 거의 안 보입니다.</p>
         </Callout>
       </Section>
@@ -89,7 +89,7 @@ function App() {
             note: '첫 접속엔 Home 코드만 받고, /dashboard로 이동하는 순간 Dashboard 청크를 받는다.',
           }}
         />
-        <Callout title="📌 이 사이트도 이렇게 만들어져 있어요">
+        <Callout title="이 사이트도 이렇게 만들어져 있어요">
           <p>각 개념 페이지가 <Code>lazy(() =&gt; import('./MemoUseMemo.jsx'))</Code>처럼 등록되어 있어서, 개념에 들어갈 때 그 페이지 파일만 받습니다. 배포된 사이트에서 개발자도구 → Network 탭을 열고 개념을 클릭해 보세요.</p>
         </Callout>
       </Section>
@@ -239,7 +239,7 @@ function LazyDemo() {
 function Skeleton() {
   return (
     <div className="h-[220px] animate-pulse rounded-xl border border-zinc-200 p-4 dark:border-zinc-800">
-      <div className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">⏳ Suspense fallback 표시 중… (청크 다운로드 중)</div>
+      <div className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">Suspense fallback 표시 중… (청크 다운로드 중)</div>
       <div className="mt-6 flex h-32 items-end gap-1.5">
         {Array.from({ length: 12 }, (_, i) => (
           <div key={i} className="flex-1 rounded-t bg-zinc-200 dark:bg-zinc-800" style={{ height: `${30 + ((i * 37) % 60)}%` }} />

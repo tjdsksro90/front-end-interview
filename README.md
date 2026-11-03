@@ -1,56 +1,56 @@
-# 📝 프론트엔드 개발자 면접 질문
+# 프론트엔드 개발자 면접 질문
 
-### 🔗 사이트에서 보기: https://front-study-note.vercel.app
+### 사이트에서 보기: https://front-study-note.vercel.app
 
-> 이 저장소의 마크다운 문서를 카테고리별 목록·실시간 검색으로 볼 수 있는 사이트입니다. 일부 개념은 `🔬 심화`(개념 → 시각화 → 코드 비교 → 직접 해보기)를 함께 제공합니다.  
+> 이 저장소의 마크다운 문서를 카테고리별 목록·실시간 검색으로 볼 수 있는 사이트입니다. 일부 개념은 `심화`(개념 → 시각화 → 코드 비교 → 직접 해보기)를 함께 제공합니다.  
 > `main`에 push하면 Vercel로 자동 배포됩니다. 로컬 실행: `npm install` → `npm run dev`
 
 <br />
 <br />
 
-## 🎆 개요
+## 개요
 
 **프론트엔드 기술면접 대비를 위한 레퍼지토리입니다.**
 
 - 질문에 대한 참고래퍼런스는 [Front-end Developer Interview Questions](https://github.com/h5bp/Front-end-Developer-Interview-Questions?tab=readme-ov-file), [React Interview Questions & Answers](https://github.com/sudheerj/reactjs-interview-questions) 레퍼런스등을 기반으로 작성하고 있습니다.
-- 중요도(⭐)는 <ins>전적으로 제 주관적</ins>으로 분류했습니다.
+- 중요도(1~5)는 <ins>전적으로 제 주관적</ins>으로 분류했습니다.
 - 질문에 대한 답변은 해당 질문에 대해 깊게 공부한 후 **직접작성**하는 것을 원칙으로 하고있습니다.
 
 <br />
 <br />
 
-## 📚 카테고리
+## 카테고리
 
 **카테고리는 총 8개로 구성되었으며, 질문에 대한 답을 마크다운 문서로 작성합니다.**
 
-[👀 Computer Science 관련 예상 면접질문](#-computer-science-관련-예상-면접질문)
+[Computer Science 관련 예상 면접질문](#computer-science-관련-예상-면접질문)
 
-[🌏 Web 및 프론트엔드 전반적인 지식 관련 예상 면접질문](#-web-및-프론트엔드-전반적인-지식-관련-예상-면접질문)
+[Web 및 프론트엔드 전반적인 지식 관련 예상 면접질문](#web-및-프론트엔드-전반적인-지식-관련-예상-면접질문)
 
-[🦒 JavaScript 관련 예상 면접질문](#-javascript-관련-예상-면접질문)
+[JavaScript 관련 예상 면접질문](#javascript-관련-예상-면접질문)
 
-[⚛ React 관련 예상 면접질문](#-react-관련-예상-면접질문)
-[👨‍💻 Nextjs 관련 예상 면접질문](#-nextjs-관련-예상-면접질문)
+[React 관련 예상 면접질문](#react-관련-예상-면접질문)
+[Nextjs 관련 예상 면접질문](#nextjs-관련-예상-면접질문)
 
-[🐯 HTML 관련 예상 면접질문](#-html-관련-예상-면접질문)
+[HTML 관련 예상 면접질문](#html-관련-예상-면접질문)
 
-[📸 CSS 관련 예상 면접질문](#-css-관련-예상-면접질문)
+[CSS 관련 예상 면접질문](#css-관련-예상-면접질문)
 
-[🪄 프로젝트 관련 예상 면접질문](#-프로젝트-관련-예상-면접질문)
+[프로젝트 관련 예상 면접질문](#프로젝트-관련-예상-면접질문)
 
-[👋 이력서 기반 예상 면접질문](#-이력서-기반-예상-면접질문)
-
-<br />
-<br />
-
-## 👀 Computer Science 관련 예상 면접질문
+[이력서 기반 예상 면접질문](#이력서-기반-예상-면접질문)
 
 <br />
 <br />
 
-## 🌏 Web 및 프론트엔드 전반적인 지식 관련 예상 면접질문
+## Computer Science 관련 예상 면접질문
 
-### 중요도 ⭐⭐⭐⭐⭐
+<br />
+<br />
+
+## Web 및 프론트엔드 전반적인 지식 관련 예상 면접질문
+
+### 중요도 5
 
 - [브라우저 렌더링 원리](./web-questions/browser-rendering.md)
 - [AJAX](./web-questions/ajax.md)
@@ -66,7 +66,7 @@
 
 <br />
 
-### 중요도 ⭐⭐⭐⭐
+### 중요도 4
 
 - [CI/CD란?](./web-questions/ci-cd.md)
 - [Git-flow에 대한 설명](./web-questions/git-flow.md)
@@ -81,7 +81,7 @@
 
 <br />
 
-### 중요도 ⭐⭐⭐
+### 중요도 3
 
 - [모듈 번들러와 트랜스 파일러](./web-questions/bundler-tarnspiler.md)
 - [Webpack을 사용하는 이유와 주요 기능은 무엇인가?](./web-questions/webPack.md)
@@ -90,9 +90,9 @@
 <br />
 <br />
 
-## 🦒 JavaScript 관련 예상 면접질문
+## JavaScript 관련 예상 면접질문
 
-### 중요도 ⭐⭐⭐⭐⭐
+### 중요도 5
 
 - [클로저의 정의와 사용방식](./javascript-questions/4-closure.md)
 - [이벤트 위임과 동작방식](./javascript-questions/1-event-delegation.md)
@@ -113,7 +113,7 @@
 
 <br />
 
-### 중요도 ⭐⭐⭐⭐
+### 중요도 4
 
 - [자바스크립트는 어떤 언어이고, 어떠한 특징을 가지는가?](./javascript-questions/about-javascript.md)
 - [자바스크립트 엔진이 코드를 실행하는 과정](./javascript-questions/engine.md)
@@ -132,7 +132,7 @@
 
 <br />
 
-### 중요도 ⭐⭐⭐
+### 중요도 3
 
 - [오브젝트 프로퍼티와 배열 항목을 반복할 때](./javascript-questions/5-loop.md)
 - [익명 함수의 사용 사례](./javascript-questions/7-anonymous-function.md)
@@ -149,7 +149,7 @@
 
 <br />
 
-### 중요도 ⭐
+### 중요도 1
 
 - [function foo() {}와 var foo = function() {}의 foo 사용 차이점](./javascript-questions/10-function-diffrence2.md)
 - [==와 ===의 차이점]('./javascript-questions/18-comparison-operator.md)
@@ -164,9 +164,9 @@
 <br />
 <br />
 
-## ⚛ React 관련 예상 면접질문
+## React 관련 예상 면접질문
 
-### 중요도 ⭐⭐⭐⭐⭐
+### 중요도 5
 
 - [React의 특징은?](./react-questions/react-characteristic.md)
 - [React는 라이브러리인가 프레임워크인가?](./react-questions/react-is-libraray.md)
@@ -183,7 +183,7 @@
 
 <br />
 
-### 중요도 ⭐⭐⭐⭐
+### 중요도 4
 
 - [useState 훅의 정의](./react-questions/use-state.md)
 - [useEffect 훅의 정의](./react-questions/use-effect.md)
@@ -196,7 +196,7 @@
 
 <br />
 
-### 중요도 ⭐⭐⭐
+### 중요도 3
 
 - [JSX의 정의](./react-questions/jsx.md)
 - [리액트에서 JSX 를 사용시 장점](./react-questions/react-in-jsx.md)
@@ -206,18 +206,18 @@
 <br />
 <br />
 
-## 👨‍💻 Nextjs 관련 예상 면접질문
+## Nextjs 관련 예상 면접질문
 
-### 중요도 ⭐⭐⭐⭐⭐
+### 중요도 5
 
-- [Nextjs의 동작방식에 대해 이해하고 있나요?](./nextjs-questions/how-nextjs-works.md) 🚀TODO
+- [Nextjs의 동작방식에 대해 이해하고 있나요?](./nextjs-questions/how-nextjs-works.md) TODO
 
 <br />
 <br />
 
-## 🐯 HTML 관련 예상 면접질문
+## HTML 관련 예상 면접질문
 
-### 중요도 ⭐⭐⭐⭐⭐
+### 중요도 5
 
 - [`doctype`의 기능](/HTML-questions/1-what-does-a-doctype-do.md)
 - ['data-' 속성](/HTML-questions/4-data-attributes.md)
@@ -225,20 +225,20 @@
 
 <br />
 
-### 중요도 ⭐⭐⭐⭐
+### 중요도 4
 
 - [`<script>`, `<script async>`, `<script defer>`의 차이점](/HTML-questions/7-difference-between-script-async-defer.md)
 - [HTML에서 빈 요소(empty elements)](/HTML-questions/13-what-are-empty-elements-in-html.md)
 
 <br />
 
-### 중요도 ⭐⭐⭐
+### 중요도 3
 
 - [프로그레시브 렌더링(Progressive Rendering)](/HTML-questions/9-what-is-progressive-rendering.md)
 
 <br />
 
-### 중요도 ⭐
+### 중요도 1
 
 - [HTML5를 오픈 웹 플랫폼으로 볼 때, HTML5의 구성 요소](/HTML-questions/5-building-blocks-of-html5.md)
 - [여러 언어로 된 콘텐츠가 포함된 페이지의 제공](/HTML-questions/2-multiple-languages.md)
@@ -249,9 +249,9 @@
 <br />
 <br />
 
-## 📸 CSS 관련 예상 면접질문
+## CSS 관련 예상 면접질문
 
-### 중요도 ⭐⭐⭐⭐⭐
+### 중요도 5
 
 - [CSS Margin & Padding](/CSS-questions/margin-padding.md)
 - [CSS 선택자의 우선순위와 동작방식](/CSS-questions/1-specificity.md)
@@ -263,7 +263,7 @@
 
 <br />
 
-### 중요도 ⭐⭐⭐⭐
+### 중요도 4
 
 - [가상 요소(pseudo-elements) 선택자의 정의와 용도](/CSS-questions/14-pseudo-elements.md)
 - [효율적인 CSS를 작성하기 위한 "주의점"](/CSS-questions/11-css-gotchas.md)
@@ -271,7 +271,7 @@
 
 <br />
 
-### 중요도 ⭐⭐⭐
+### 중요도 3
 
 - ["리셋(resetting)"과 "정규화(normalizing)" CSS의 차이점](/CSS-questions/2-reset-vs-normalize.md)
 - [기능이 제한된 브라우저에 페이지를 제공하는 방식](/CSS-questions/8-feature-constrained-browsers.md)
@@ -279,7 +279,7 @@
 
 <br />
 
-### 중요도 ⭐
+### 중요도 1
 
 - [플로트(Floats)의 정의와 동작방식](/CSS-questions/3-floats.md)
 - [다양한 클리어링 기법과 기법들의 적합도](/CSS-questions/6-clearing.md)
@@ -288,7 +288,7 @@
 <br />
 <br />
 
-## 🪄 프로젝트 관련 예상 면접질문
+## 프로젝트 관련 예상 면접질문
 
 ### 프로젝트 시 사용한 라이브러리 관련 예상 질문
 
@@ -326,4 +326,4 @@
 <br />
 <br />
 
-## 👋 이력서 기반 예상 면접질문
+## 이력서 기반 예상 면접질문

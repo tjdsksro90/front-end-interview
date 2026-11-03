@@ -1,11 +1,11 @@
 // 저장소의 *-questions 폴더 하나가 카테고리 하나. 순서는 README와 맞춘다.
 export const categories = [
-  { id: 'web', folder: 'web-questions', title: 'Web', icon: '🌏', description: '브라우저, 네트워크 등 웹·프론트엔드 전반 지식' },
-  { id: 'javascript', folder: 'javascript-questions', title: 'JavaScript', icon: '🦒', description: '실행 컨텍스트, 비동기, 이벤트 루프 등 JS 핵심' },
-  { id: 'react', folder: 'react-questions', title: 'React', icon: '⚛', description: '컴포넌트, Hook, 렌더링과 최적화' },
-  { id: 'html', folder: 'HTML-questions', title: 'HTML', icon: '🐯', description: '시맨틱 태그, 스토리지, 스크립트 로딩' },
-  { id: 'css', folder: 'CSS-questions', title: 'CSS', icon: '📸', description: '박스 모델, 선택자, 레이아웃' },
-  { id: 'project', folder: 'project-questions', title: '프로젝트', icon: '🪄', description: '프로젝트에서 쓴 기술과 경험' },
+  { id: 'web', folder: 'web-questions', title: 'Web', description: '브라우저, 네트워크 등 웹·프론트엔드 전반 지식' },
+  { id: 'javascript', folder: 'javascript-questions', title: 'JavaScript', description: '실행 컨텍스트, 비동기, 이벤트 루프 등 JS 핵심' },
+  { id: 'react', folder: 'react-questions', title: 'React', description: '컴포넌트, Hook, 렌더링과 최적화' },
+  { id: 'html', folder: 'HTML-questions', title: 'HTML', description: '시맨틱 태그, 스토리지, 스크립트 로딩' },
+  { id: 'css', folder: 'CSS-questions', title: 'CSS', description: '박스 모델, 선택자, 레이아웃' },
+  { id: 'project', folder: 'project-questions', title: '프로젝트', description: '프로젝트에서 쓴 기술과 경험' },
 ];
 
 export const findCategory = (id) => categories.find((c) => c.id === id);

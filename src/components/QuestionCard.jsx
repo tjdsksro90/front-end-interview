@@ -41,14 +41,14 @@ export default function QuestionCard({ question, index, showCategory }) {
               {showCategory && <Tag strong>{question.categoryId}</Tag>}
               {question.deep.length > 0 && (
                 <>
-                  <span className="rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">📄 기본</span>
+                  <span className="rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">기본</span>
                   {question.deep.map((d) => (
                     <Link
                       key={d.slug}
                       to={deepPathOf(question, d)}
                       className="rounded-full bg-violet-50 px-2.5 py-0.5 text-xs font-medium text-violet-700 ring-1 ring-violet-200 transition hover:bg-violet-100 dark:bg-violet-500/15 dark:text-violet-300 dark:ring-violet-500/30 dark:hover:bg-violet-500/25"
                     >
-                      🔬 심화 · {d.title}
+                      심화 · {d.title}
                     </Link>
                   ))}
                 </>

@@ -36,7 +36,7 @@ export default function UseCallback() {
             '의존성이 매 렌더마다 바뀌는 함수 — 결국 매번 새로 만들어진다',
           ]}
         />
-        <Callout type="warn" title="⚠️ useCallback만으로는 아무 일도 일어나지 않는다">
+        <Callout type="warn" title="useCallback만으로는 아무 일도 일어나지 않는다">
           <p>useCallback은 "참조를 고정"할 뿐, 렌더를 막는 건 자식의 <b>React.memo</b>입니다. 둘은 세트로 써야 효과가 있어요. 이 점을 면접에서 짚으면 이해도가 드러납니다.</p>
         </Callout>
       </Section>
@@ -101,11 +101,11 @@ const TodoItem = memo(function TodoItem({ todo, onDelete }) { ... });`,
         <Callout title="또 다른 사용처: useEffect 의존성">
           <CodeBlock
             code={`
-// ❌ fetchUser가 렌더마다 새로 생겨서 effect가 매번 실행 → 요청 폭주
+// 나쁜 예: fetchUser가 렌더마다 새로 생겨서 effect가 매번 실행 → 요청 폭주
 const fetchUser = () => api.get(\`/users/\${id}\`);
 useEffect(() => { fetchUser(); }, [fetchUser]);
 
-// ✅ id가 바뀔 때만 함수가 바뀌고, effect도 그때만 실행
+// 좋은 예: id가 바뀔 때만 함수가 바뀌고, effect도 그때만 실행
 const fetchUser = useCallback(() => api.get(\`/users/\${id}\`), [id]);
 useEffect(() => { fetchUser(); }, [fetchUser]);`}
           />

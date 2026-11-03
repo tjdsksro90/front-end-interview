@@ -6,7 +6,7 @@ export default function HeavyWidget() {
   return (
     <div className="rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
       <div className="flex items-center justify-between">
-        <span className="font-semibold">📊 월별 매출 차트 (lazy 로딩된 컴포넌트)</span>
+        <span className="font-semibold">월별 매출 차트 (lazy 로딩된 컴포넌트)</span>
         <span className="text-xs text-zinc-400">HeavyWidget.jsx</span>
       </div>
       <div className="mt-4 flex h-40 items-end gap-1.5">

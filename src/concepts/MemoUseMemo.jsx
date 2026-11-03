@@ -1,7 +1,7 @@
 import { memo, useMemo, useRef, useState } from 'react';
 import {
   Section, H3, List, Code, OneLiner, WhenToUse, Callout, Table, CodeBlock, CodeCompare,
-  Demo, Viz, Legend, Toggle, Segmented, RenderBadge, useRenderCount, Stat, ui,
+  Demo, Viz, Legend, Toggle, RenderBadge, useRenderCount, Stat, ui,
 } from '../components/kit.jsx';
 
 export default function MemoUseMemo() {
@@ -63,7 +63,7 @@ export default function MemoUseMemo() {
             '측정 없이 "혹시 몰라서" 전부 감싸기',
           ]}
         />
-        <Callout type="tip" title="💡 면접 포인트">
+        <Callout type="tip" title="면접 포인트">
           <p>"메모이제이션도 공짜가 아니다 — 이전 값을 저장하는 메모리와 매번 비교하는 비용이 든다. 그래서 React DevTools Profiler로 실제로 느린 곳을 확인하고 적용한다"까지 말하면 좋습니다.</p>
           <p>React 19의 <b>React Compiler</b>는 이런 메모이제이션을 빌드 시점에 자동으로 넣어줍니다. 그래도 원리를 알아야 언제 컴파일러가 최적화하지 못하는지 이해할 수 있어요.</p>
         </Callout>
@@ -152,14 +152,14 @@ function ProductList({ products, keyword }) {
           }}
         />
 
-        <Callout type="warn" title="⚠️ 자주 하는 실수: memo했는데 왜 계속 렌더되지?">
+        <Callout type="warn" title="자주 하는 실수: memo했는데 왜 계속 렌더되지?">
           <p>props로 객체·배열·함수를 <b>렌더 중에 새로 만들어서</b> 넘기면 매번 참조가 달라져 memo가 무력화됩니다.</p>
           <CodeBlock
             code={`
-// ❌ 렌더마다 새 객체 → memo(Chart)가 항상 "props 바뀜"으로 판단
+// 나쁜 예: 렌더마다 새 객체 → memo(Chart)가 항상 "props 바뀜"으로 판단
 <Chart options={{ color: 'red' }} />
 
-// ✅ 참조 고정
+// 좋은 예: 참조 고정
 const options = useMemo(() => ({ color: 'red' }), []);
 <Chart options={options} />
 // (값이 고정이라면 컴포넌트 밖 상수로 빼는 게 가장 간단)`}
@@ -242,11 +242,13 @@ function DepsViz() {
   const [dark, setDark] = useState(false);
   const [log, setLog] = useState([]);
   const prevDeps = useRef(['react']);
+  const renderNo = useRef(0);
 
   const rerender = (nextKeyword, nextDark, reason) => {
     const same = Object.is(prevDeps.current[0], nextKeyword);
+    const id = ++renderNo.current;
     setLog((l) => [
-      { id: l.length + 1, reason, prev: prevDeps.current[0], next: nextKeyword, same },
+      { id, reason, prev: prevDeps.current[0], next: nextKeyword, same },
       ...l,
     ].slice(0, 6));
     prevDeps.current = [nextKeyword];
@@ -318,7 +320,7 @@ function ProfileCard({ name }) {
   return (
     <div className={ui.box}>
       <div className="flex items-center justify-between gap-2">
-        <span className="font-semibold">👤 ProfileCard</span>
+        <span className="font-semibold">ProfileCard</span>
         <RenderBadge count={renders} />
       </div>
       <p className={`mt-1 text-sm ${ui.muted}`}>props: name="{name}" (count는 받지 않음)</p>
@@ -343,62 +345,109 @@ function slowCountPrimes(n) {
 }
 
 function UseMemoDemo() {
-  const [mode, setMode] = useState('off');
   return (
-    <Demo hint="'관련 없는 state 변경'을 연타해 보세요. useMemo가 없으면 매번 120ms 계산이 돌아서 버튼 반응이 느려집니다.">
-      <Segmented
-        value={mode}
-        onChange={setMode}
-        options={[{ value: 'off', label: 'useMemo 없음' }, { value: 'on', label: 'useMemo 사용' }]}
-      />
-      <div className="mt-4">{mode === 'off' ? <CalcPlain /> : <CalcMemo />}</div>
+    <Demo hint="양쪽에서 '관련 없는 state 변경'을 여러 번 눌러 보세요. 아래 기록에서 렌더마다 무거운 계산(약 120ms)이 실행됐는지, 건너뛰었는지 확인할 수 있습니다.">
+      <Callout title="렌더 횟수는 양쪽 다 올라가는 게 정상이에요">
+        <p>
+          useMemo는 <b>컴포넌트 렌더를 막지 않습니다.</b> state가 바뀌면 컴포넌트는 똑같이 다시 렌더됩니다.
+          차이는 <b>렌더 안의 계산을 다시 하느냐</b>입니다. (렌더 자체를 건너뛰는 건 React.memo의 역할)
+        </p>
+      </Callout>
+      <div className="mt-4 grid gap-4 lg:grid-cols-2">
+        <CalcPlain />
+        <CalcMemo />
+      </div>
     </Demo>
   );
 }
 
-function useCalcStats() {
-  const stats = useRef({ calls: 0, ms: 0 });
+// 이번 렌더에서 계산이 실행됐는지(ranMs)와 누적 실행 횟수(calls)를 기록한다
+function useCalcLog() {
+  const calls = useRef(0);
+  const ranMs = useRef(null);
+  ranMs.current = null;
   const measure = (n) => {
     const t = performance.now();
     const result = slowCountPrimes(n);
-    stats.current = { calls: stats.current.calls + 1, ms: Math.round(performance.now() - t) };
+    ranMs.current = Math.round(performance.now() - t);
+    calls.current += 1;
     return result;
   };
-  return [stats, measure];
+  return [calls, ranMs, measure];
 }
 
 function CalcPlain() {
   const [n, setN] = useState(20000);
   const [other, setOther] = useState(0);
-  const [stats, measure] = useCalcStats();
+  const [calls, ranMs, measure] = useCalcLog();
   const primes = measure(n);
-  return <CalcView {...{ n, setN, other, setOther, primes }} stats={stats.current} />;
+  return (
+    <CalcView
+      title="useMemo 없음"
+      code="const primes = countPrimes(n);"
+      {...{ n, setN, other, setOther, primes }}
+      calls={calls.current}
+      ranMs={ranMs.current}
+    />
+  );
 }
 
 function CalcMemo() {
   const [n, setN] = useState(20000);
   const [other, setOther] = useState(0);
-  const [stats, measure] = useCalcStats();
+  const [calls, ranMs, measure] = useCalcLog();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const primes = useMemo(() => measure(n), [n]);
-  return <CalcView {...{ n, setN, other, setOther, primes }} stats={stats.current} />;
+  return (
+    <CalcView
+      title="useMemo 사용"
+      code="const primes = useMemo(() => countPrimes(n), [n]);"
+      {...{ n, setN, other, setOther, primes }}
+      calls={calls.current}
+      ranMs={ranMs.current}
+    />
+  );
 }
 
-function CalcView({ n, setN, other, setOther, primes, stats }) {
+function CalcView({ title, code, n, setN, other, setOther, primes, calls, ranMs }) {
   const renders = useRenderCount();
+  const prev = useRef({ n, other });
+  const log = useRef([]);
+
+  // 렌더마다 한 줄씩 기록 (무엇 때문에 렌더됐는지 + 계산 실행 여부)
+  if (log.current[0]?.render !== renders) {
+    const reason = renders === 1 ? '첫 렌더' : prev.current.n !== n ? `n 변경 → ${n}` : '관련 없는 state 변경';
+    log.current = [{ render: renders, reason, ranMs }, ...log.current].slice(0, 5);
+    prev.current = { n, other };
+  }
+
   return (
     <div className={ui.box}>
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="font-semibold">{title}</div>
+      <code className="mt-1 block font-mono text-xs text-zinc-400">{code}</code>
+      <div className="mt-3 flex flex-wrap items-center gap-2">
+        <button className={ui.btnPrimary} onClick={() => setOther((o) => o + 1)}>관련 없는 state 변경</button>
         <label className="text-sm">n =</label>
-        <input type="number" step={1000} className={`${ui.input} w-28`} value={n} onChange={(e) => setN(Number(e.target.value) || 0)} />
-        <button className={ui.btn} onClick={() => setOther((o) => o + 1)}>관련 없는 state 변경 ({other})</button>
-        <RenderBadge count={renders} />
+        <input type="number" step={1000} className={`${ui.input} w-24`} value={n} onChange={(e) => setN(Number(e.target.value) || 0)} />
       </div>
       <div className="mt-3 grid grid-cols-3 gap-2 text-center text-sm">
+        <Stat label="컴포넌트 렌더" value={`${renders}회`} />
+        <Stat label="계산 실행" value={`${calls}회`} tone={calls > 1 && calls === renders ? 'bad' : 'good'} />
         <Stat label={`${n} 이하 소수`} value={primes.toLocaleString()} />
-        <Stat label="계산 실행 횟수" value={`${stats.calls}회`} />
-        <Stat label="마지막 계산" value={`${stats.ms}ms`} />
       </div>
+      <ul className="mt-3 space-y-1">
+        {log.current.map((r) => (
+          <li key={r.render} className="flex flex-wrap items-center gap-2 rounded-lg bg-zinc-50 px-3 py-1.5 font-mono text-xs dark:bg-zinc-800/60">
+            <span className="text-zinc-400">렌더 #{r.render}</span>
+            <span>{r.reason}</span>
+            {r.ranMs != null ? (
+              <span className="ml-auto rounded bg-rose-100 px-2 py-0.5 font-bold text-rose-700 dark:bg-rose-500/20 dark:text-rose-300">계산 실행 {r.ranMs}ms</span>
+            ) : (
+              <span className="ml-auto rounded bg-emerald-100 px-2 py-0.5 font-bold text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300">계산 건너뜀 (저장된 값)</span>
+            )}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

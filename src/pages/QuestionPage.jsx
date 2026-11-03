@@ -59,7 +59,7 @@ function DeepLinks({ question, bottom }) {
   return (
     <div className={`${bottom ? 'mt-12' : 'mt-6'} rounded-2xl bg-violet-50 p-4 sm:p-5 dark:bg-violet-500/10`}>
       <p className="text-sm font-bold text-violet-700 dark:text-violet-300">
-        🔬 {bottom ? '더 깊게 공부하기' : '이 질문은 심화 학습이 있어요'}
+        {bottom ? '더 깊게 공부하기' : '이 질문은 심화 학습이 있어요'}
       </p>
       <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">개념 → 시각화 → 코드 비교 → 직접 해보기</p>
       <div className="mt-3 grid gap-2 sm:grid-cols-2">
