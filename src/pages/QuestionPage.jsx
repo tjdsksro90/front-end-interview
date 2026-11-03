@@ -39,7 +39,8 @@ export default function QuestionPage() {
       <p className="mt-6 text-sm font-bold text-indigo-600 dark:text-indigo-400">Q.</p>
       <h1 className="mt-1 text-2xl leading-snug font-bold tracking-tight text-zinc-900 sm:text-3xl dark:text-zinc-50">{question.title}</h1>
 
-      {question.deep.length > 0 && <DeepLinks question={question} />}
+      {/* md 답변이 있으면 위에는 한 줄로 알리고 카드는 답변 아래에, 없으면 바로 카드를 보여준다 */}
+      {question.deep.length > 0 && (question.load ? <DeepNotice question={question} /> : <DeepLinks question={question} />)}
 
       <div className="mt-8 border-t border-zinc-200 pt-6 dark:border-zinc-800">
         {question.load ? (
@@ -63,13 +64,36 @@ export default function QuestionPage() {
   );
 }
 
+// 답변 위에 두는 한 줄 안내: 심화가 있다는 것만 알리고, 카드는 답변 아래(#deep)에 있다
+function DeepNotice({ question }) {
+  return (
+    <div className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1.5 text-sm">
+      <span className="rounded-full bg-violet-100 px-2.5 py-0.5 text-xs font-bold text-violet-700 dark:bg-violet-500/20 dark:text-violet-300">
+        심화 {question.deep.length}개
+      </span>
+      {question.deep.map((d, i) => (
+        <span key={d.slug} className="inline-flex items-center gap-2">
+          {i > 0 && <span className="text-zinc-300 dark:text-zinc-700">·</span>}
+          <Link to={deepPathOf(question, d)} className="text-violet-700 hover:underline dark:text-violet-300">{d.title}</Link>
+        </span>
+      ))}
+      <a
+        href="#deep"
+        onClick={(e) => {
+          e.preventDefault(); // URL은 그대로 두고 스크롤만
+          document.getElementById('deep')?.scrollIntoView({ behavior: 'smooth' });
+        }}
+        className="ml-1 text-xs text-zinc-400 hover:text-violet-600 dark:hover:text-violet-300">답변 아래에서 보기 ↓</a>
+    </div>
+  );
+}
+
 function DeepLinks({ question, bottom }) {
   return (
-    <div className={`${bottom ? 'mt-12' : 'mt-6'} rounded-2xl bg-violet-50 p-4 sm:p-5 dark:bg-violet-500/10`}>
+    <div id={bottom ? 'deep' : undefined} className={`${bottom ? 'mt-12 scroll-mt-20' : 'mt-6'} rounded-2xl bg-violet-50 p-4 sm:p-5 dark:bg-violet-500/10`}>
       <p className="text-sm font-bold text-violet-700 dark:text-violet-300">
         {bottom ? '더 깊게 공부하기' : '이 질문은 심화 학습이 있어요'}
       </p>
-      <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">개념 → 시각화 → 코드 비교 → 직접 해보기</p>
       <div className="mt-3 grid gap-2 sm:grid-cols-2">
         {question.deep.map((d) => (
           <Link
@@ -79,6 +103,9 @@ function DeepLinks({ question, bottom }) {
           >
             <span className="font-semibold text-zinc-900 dark:text-zinc-50">심화 · {d.title} →</span>
             <span className="mt-0.5 block text-xs text-zinc-500 dark:text-zinc-400">{d.summary}</span>
+            <span className="mt-1.5 block text-[11px] text-violet-600/80 dark:text-violet-300/70">
+              {d.light ? '개념 · 확인 경로·화면 예시 · 코드' : '개념 · 시각화 · 코드 비교 · 직접 해보기'}
+            </span>
           </Link>
         ))}
       </div>
