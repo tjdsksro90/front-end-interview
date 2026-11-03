@@ -1,11 +1,21 @@
 import { useSearchParams } from 'react-router-dom';
 
-// 검색어를 URL(?q=)에 저장해서 개념 페이지에 들어갔다가 뒤로 와도 검색어가 유지된다.
-export function useQueryParam() {
+// 검색어·필터를 URL(?q=, ?deep=)에 저장한다.
+// 질문에 들어갔다가 뒤로 오면 유지되고, 다른 카테고리로 이동하면 새 URL이라 초기화된다.
+export function useQueryParam(name = 'q') {
   const [params, setParams] = useSearchParams();
-  const query = params.get('q') ?? '';
-  const setQuery = (value) => setParams(value ? { q: value } : {}, { replace: true });
-  return [query, setQuery];
+  const value = params.get(name) ?? '';
+  const setValue = (next) =>
+    setParams(
+      (prev) => {
+        const p = new URLSearchParams(prev);
+        if (next) p.set(name, next);
+        else p.delete(name);
+        return p;
+      },
+      { replace: true }
+    );
+  return [value, setValue];
 }
 
 export default function SearchInput({ value, onChange, placeholder }) {
