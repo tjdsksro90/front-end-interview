@@ -130,6 +130,42 @@ form:has(#other-address:checked) .address { display: block; }
 /* 모달이 열려 있으면 뒤 페이지 스크롤 막기 */
 body:has(dialog[open]) { overflow: hidden; }`}
         />
+
+        <H3>Tailwind에서는 (has-* variant)</H3>
+        <p>Tailwind v3.4부터 <Code>has-*</Code> variant로 쓸 수 있습니다. v4에서는 <Code>has-checked:</Code>처럼 상태 variant를 바로 붙일 수 있어 더 짧아졌습니다.</p>
+        <Table
+          head={['variant', 'CSS로 쓰면', '쓰임']}
+          rows={[
+            [<Code>has-[조건]:</Code>, <Code>.el:has(조건)</Code>, '자기 자신을 꾸밈 (부모 역할)'],
+            [<Code>group-has-[조건]:</Code>, <Code>.group:has(조건) .el</Code>, 'group 부모의 조건으로 자식을 꾸밈'],
+            [<Code>peer-has-[조건]:</Code>, <Code>.peer:has(조건) ~ .el</Code>, '앞 형제(peer)의 조건으로 뒤 형제를 꾸밈'],
+          ]}
+        />
+        <CodeBlock
+          title="위 CSS 예시를 Tailwind로"
+          code={`
+<!-- 체크된 옵션 강조: .option:has(input:checked) -->
+<label class="border-2 border-transparent has-checked:border-indigo-500 has-checked:bg-indigo-50">
+  <input type="checkbox" /> 포장 추가
+</label>
+
+<!-- 이미지가 있으면 여백 0: .card:has(img) -->
+<div class="p-4 has-[img]:p-0">...</div>
+
+<!-- 잘못 입력한 칸이 있으면 버튼 흐리게: form:has(:user-invalid) button -->
+<form class="group">
+  <input type="email" required />
+  <button class="group-has-[:user-invalid]:opacity-40">주문하기</button>
+</form>
+
+<!-- "다른 배송지" 체크 시 주소칸 보이기: 형제 방향 -->
+<label class="peer"><input type="checkbox" /> 다른 배송지로 받기</label>
+<div class="hidden peer-has-checked:grid">주소 입력칸</div>`}
+        />
+        <Callout title="Tailwind와 CSS 중 무엇으로 쓸까?">
+          <p><b>Tailwind</b>: 조건이 한 요소 안에서 끝나는 간단한 것(체크된 옵션 강조, 이미지 유무에 따른 여백). 클래스만 붙이면 돼서 빠릅니다.</p>
+          <p><b>CSS</b>: 조건이 길어지는 것. <Code>has-[input:user-invalid]:[&_label]:text-rose-600</Code> 같은 클래스가 생기면 읽기 어려우니, <Code>.field:has(input:user-invalid) label</Code>처럼 CSS로 쓰는 게 낫습니다.</p>
+        </Callout>
       </Section>
 
       <Section step={4} title="직접 해보기">
@@ -192,10 +228,11 @@ function HasViz() {
 
 function HasDemo() {
   return (
-    <Demo hint="왼쪽은 useState로 클래스를 붙이는 방식, 오른쪽은 :has()만 쓴 방식입니다. 옵션을 체크할 때 렌더 횟수를 비교해 보세요.">
-      <div className="grid gap-4 lg:grid-cols-2">
+    <Demo hint="왼쪽은 useState로 클래스를 붙이는 방식, 가운데는 CSS :has(), 오른쪽은 Tailwind has-checked: 입니다. 옵션을 체크할 때 렌더 횟수를 비교해 보세요.">
+      <div className="grid gap-4 lg:grid-cols-3">
         <StateOptions />
         <HasOptions />
+        <TailwindOptions />
       </div>
       <H3>폼 상태 (전부 CSS)</H3>
       <HasForm />
@@ -247,6 +284,29 @@ function HasOptions() {
       <div className="mt-3 space-y-2">
         {OPTIONS.map((o) => (
           <label key={o} className="has-option flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm">
+            <input type="checkbox" />
+            {o}
+          </label>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function TailwindOptions() {
+  const renders = useRenderCount();
+  return (
+    <div className={ui.box}>
+      <div className="flex items-center justify-between">
+        <span className="font-semibold">Tailwind has-checked:</span>
+        <RenderBadge count={renders} />
+      </div>
+      <div className="mt-3 space-y-2">
+        {OPTIONS.map((o) => (
+          <label
+            key={o}
+            className="flex cursor-pointer items-center gap-2 rounded-lg border-2 border-transparent px-3 py-2 text-sm has-checked:border-indigo-500 has-checked:bg-indigo-500/10"
+          >
             <input type="checkbox" />
             {o}
           </label>
