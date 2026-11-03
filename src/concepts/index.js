@@ -7,6 +7,7 @@ const MEMO = { categoryId: 'react', slug: 'use-memo-use-callback' };
 const OPTIMIZATION = { categoryId: 'react', slug: 'in-react-optimization' };
 const BUNDLER = { categoryId: 'web', slug: 'bundler-tarnspiler' };
 const PROJECT_OPTI = { categoryId: 'project', slug: 'project-opti' };
+const VERSIONS = { categoryId: 'react', slug: 'react-versions' };
 const q = (categoryId, slug) => ({ categoryId, slug });
 
 export const deepDives = [
@@ -25,6 +26,14 @@ export const deepDives = [
     summary: '함수의 참조(주소)를 고정해서 memo된 자식의 불필요한 리렌더를 막는다',
     tags: ['useCallback', '함수 참조', '메모이제이션', '리렌더링', '최적화', '의존성 배열'],
     Component: lazy(() => import('./UseCallback.jsx')),
+  },
+  {
+    slug: 'react-compiler',
+    parent: MEMO,
+    title: 'React Compiler',
+    summary: '빌드할 때 메모이제이션을 자동으로 넣어줘서 useMemo·useCallback·memo를 직접 쓸 일이 줄어든다',
+    tags: ['React Compiler', '리액트 컴파일러', 'babel-plugin-react-compiler', '자동 메모이제이션', 'use memo', 'use no memo', 'React 19', 'reactCompiler'],
+    Component: lazy(() => import('./ReactCompiler.jsx')),
   },
   {
     slug: 'react-lazy',
@@ -216,6 +225,40 @@ export const deepDives = [
     tags: ['App Router', 'Next.js', 'Dynamic Routing', '동적 라우팅', 'layout', 'Layout Composition', 'route group', 'loading.tsx', 'error.tsx', 'Route-based Split', 'SSR/SSG Hybrid'],
     light: true,
     Component: lazy(() => import('./AppRouter.jsx')),
+  },
+  {
+    slug: 'react-versions',
+    parent: VERSIONS,
+    title: 'React 버전별 변경점 한눈에 보기',
+    summary: '16.8 Hooks, 17 디딤돌, 18 동시성 렌더링, 19 Actions와 Server Components',
+    tags: ['React 버전', 'React 16', 'React 17', 'React 18', 'React 19', 'Hooks', 'Fiber', 'JSX Transform', '업그레이드', 'codemod'],
+    light: true,
+    Component: lazy(() => import('./ReactVersions.jsx')),
+  },
+  {
+    slug: 'react-18',
+    parent: VERSIONS,
+    title: 'React 18 (동시성 렌더링 · 자동 배칭)',
+    summary: 'createRoot로 동시성 렌더링이 켜지고, 어디서든 setState를 묶는 자동 배칭과 useId 등이 생겼다',
+    tags: ['React 18', 'createRoot', 'Automatic Batching', '자동 배칭', 'flushSync', 'useTransition', 'useDeferredValue', 'useId', 'useSyncExternalStore', 'useInsertionEffect', 'Streaming SSR', 'StrictMode'],
+    Component: lazy(() => import('./React18.jsx')),
+  },
+  {
+    slug: 'react-19',
+    parent: VERSIONS,
+    title: 'React 19 (Actions · useOptimistic · use)',
+    summary: '폼 제출의 대기·에러·낙관적 업데이트를 React가 관리하고, ref를 prop으로 받는 등 문법이 정리됐다',
+    tags: ['React 19', 'Actions', 'useActionState', 'useFormStatus', 'useOptimistic', 'use', 'form action', 'ref as prop', 'forwardRef', 'Server Components', 'Server Actions', 'Activity', 'useEffectEvent', 'ViewTransition'],
+    Component: lazy(() => import('./React19.jsx')),
+  },
+  {
+    slug: 'nextjs-versions',
+    parent: q('react', 'nextjs-versions'),
+    title: 'Next.js 버전별 변경점 (Pages Router → App Router)',
+    summary: '13에서 app 디렉터리와 서버 컴포넌트가 들어왔고, 15·16은 캐시 기본값과 Turbopack을 정리했다',
+    tags: ['Next.js 버전', 'Next.js 13', 'Next.js 14', 'Next.js 15', 'Next.js 16', 'Pages Router', 'App Router', 'getServerSideProps', 'Server Actions', 'Turbopack', 'use cache', 'Cache Components', 'proxy.ts'],
+    light: true,
+    Component: lazy(() => import('./NextVersions.jsx')),
   },
   {
     slug: 'styling-theme',

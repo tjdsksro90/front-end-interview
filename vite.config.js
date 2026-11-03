@@ -60,5 +60,13 @@ function questionsIndex() {
 }
 
 export default defineConfig({
-  plugins: [react(), tailwindcss(), questionsIndex()],
+  plugins: [
+    react({
+      // React Compiler 심화 데모용: "use memo"를 적은 함수만 컴파일한다 (나머지 코드는 그대로)
+      babel: { plugins: [['babel-plugin-react-compiler', { compilationMode: 'annotation' }]] },
+    }),
+    tailwindcss(),
+    questionsIndex(),
+  ],
+  test: { environment: 'jsdom' },
 });

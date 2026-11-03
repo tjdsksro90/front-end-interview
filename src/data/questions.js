@@ -8,6 +8,8 @@ const contents = import.meta.glob('/*-questions/*.md', { query: '?raw', import: 
 // 아직 md 답변이 없지만 심화부터 만든 질문. 같은 폴더·이름의 md 파일을 만들면 그 md가 대신 쓰인다.
 const PENDING = [
   { folder: 'ai-questions', slug: 'ai-agent', title: 'AI Agent란 무엇이고, 하네스(Harness)는 무엇인가요?', summary: '' },
+  { folder: 'react-questions', slug: 'react-versions', title: 'React는 버전별로 무엇이 바뀌었나요? (16.8 · 17 · 18 · 19)', summary: '' },
+  { folder: 'react-questions', slug: 'nextjs-versions', title: 'Next.js는 버전별로 무엇이 바뀌었나요? (Pages Router → App Router)', summary: '' },
   { folder: 'ai-questions', slug: 'langchain-langgraph', title: 'LangChain과 LangGraph는 무엇이고 어떻게 다른가요?', summary: '' },
 ].filter((p) => !index.some((q) => q.folder === p.folder && q.slug === p.slug));
 
