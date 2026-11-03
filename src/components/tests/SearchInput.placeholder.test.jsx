@@ -1,10 +1,10 @@
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import SearchInput from './SearchInput.jsx';
-import Home from '../pages/Home.jsx';
-import CategoryPage from '../pages/CategoryPage.jsx';
-import { categories } from '../data/categories.js';
+import SearchInput from '../SearchInput.jsx';
+import Home from '../../pages/Home.jsx';
+import CategoryPage from '../../pages/CategoryPage.jsx';
+import { categories } from '../../data/categories.js';
 
 // placeholder 자리에 "null"(또는 "undefined")이 보이는 경우를 찾기 위한 테스트.
 // 실제 페이지(홈, 모든 카테고리)를 렌더해서 입력 → 삭제 → 페이지 이동 후에도 placeholder가 정상인지 본다.

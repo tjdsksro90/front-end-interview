@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter, useLocation, useNavigate } from 'react-router-dom';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import SearchInput, { useQueryParam } from './SearchInput.jsx';
+import SearchInput, { useQueryParam } from '../SearchInput.jsx';
 
 const PLACEHOLDER = '질문 검색';
 const LAG = 30;

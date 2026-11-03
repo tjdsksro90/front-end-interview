@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter, useLocation, useNavigate } from 'react-router-dom';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import SearchInput, { useQueryParam } from './SearchInput.jsx';
-import { matches } from '../data/search.js';
+import SearchInput, { useQueryParam } from '../SearchInput.jsx';
+import { matches } from '../../data/search.js';
 
 // 검색창이 비었는데 placeholder 대신 아무것도 안 보이거나 "null"이 보이는 경우를 찾기 위한 테스트.
 // null(또는 undefined)이 검색창까지 흘러 들어올 수 있는 길을 하나씩 막아 본다.

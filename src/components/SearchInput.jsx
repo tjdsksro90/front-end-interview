@@ -21,9 +21,9 @@ export function useQueryParam(name = 'q') {
 
 // URL 갱신은 라우터가 transition으로 늦게 반영하기 때문에, input에 URL 값을 바로 물리면
 // 한글 조합 중에 이전 값으로 되돌아가며 글자가 반복 입력되고, 다 지운 뒤 이전 글자가 되살아난다.
-// 그래서 input은 자기 state로 즉시 그리고, URL(검색 결과)은 그 값을 따라가게 한다. (SearchInput.test.jsx)
+// 그래서 input은 자기 state로 즉시 그리고, URL(검색 결과)은 그 값을 따라가게 한다. (tests/SearchInput.test.jsx)
 // value가 null·undefined면 React가 input을 비제어로 보고 화면의 이전 글자를 지우지 않으므로 항상 문자열로 맞춘다.
-// (SearchInput.null.test.jsx)
+// (tests/SearchInput.null.test.jsx)
 export default function SearchInput({ value, onChange, placeholder }) {
   const external = value ?? '';
   const [text, setText] = useState(external);
