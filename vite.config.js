@@ -9,7 +9,9 @@ const ROOT = fileURLToPath(new URL('.', import.meta.url));
 const VIRTUAL_ID = 'virtual:questions';
 const RESOLVED_ID = '\0' + VIRTUAL_ID;
 
-const clean = (line = '') => line.replace(/^#+\s*[QA]\s*:\s*/, '').replace(/<[^>]+>/g, '').trim();
+// 제목·요약용: "# Q :" 접두어, HTML 태그, 마크다운 강조(**, `)를 걷어낸다
+const clean = (line = '') =>
+  line.replace(/^#+\s*[QA]\s*:\s*/, '').replace(/<[^>]+>/g, '').replace(/\*\*|`/g, '').trim();
 
 // *-questions/*.md 파일의 목록(제목, 한 줄 요약)만 빌드 시점에 뽑아서 가상 모듈로 제공한다.
 // 본문은 페이지에 들어갈 때 import.meta.glob으로 따로 불러온다.

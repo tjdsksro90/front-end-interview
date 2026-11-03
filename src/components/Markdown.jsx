@@ -1,5 +1,6 @@
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import remarkCjkFriendly from 'remark-cjk-friendly'; // **강조)**은 처럼 한글이 바로 붙어도 굵게 처리
 import rehypeRaw from 'rehype-raw';
 import { Link } from 'react-router-dom';
 import { categoryByFolder } from '../data/categories.js';
@@ -17,7 +18,7 @@ export default function Markdown({ source, folder }) {
   return (
     <div className="prose prose-zinc max-w-none dark:prose-invert prose-headings:scroll-mt-20 prose-h1:text-xl prose-h1:font-bold prose-h2:text-lg prose-a:text-indigo-600 prose-code:before:content-none prose-code:after:content-none prose-pre:bg-[#1e1f24] prose-pre:ring-1 prose-pre:ring-white/10 prose-img:rounded-xl dark:prose-a:text-indigo-400 dark:prose-pre:bg-zinc-900">
       <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
+        remarkPlugins={[remarkGfm, remarkCjkFriendly]}
         rehypePlugins={[rehypeRaw]}
         components={{
           a({ href = '', children, node, ...props }) {

@@ -86,6 +86,11 @@
 - [Webpack을 사용하는 이유와 주요 기능은 무엇인가?](./web-questions/webPack.md)
 - [함수형 프로그래밍이란?](./web-questions/functional-programming.md)
 
+### 중요도 미정 (velog 정리)
+
+- [SPA의 특징과, 이전에 사용하던 방식(MPA) 대비 장점은 무엇인가요?](./web-questions/spa-mpa.md)
+- [ESLint와 Prettier에 대해서 설명해주세요.](./web-questions/eslint-prettier.md)
+
 <br />
 <br />
 
@@ -160,6 +165,10 @@
 - [생성자 내의 메소드에 Arrow syntax를 사용하는 이점](./javascript-questions/34-constructor-function-in-arrow-function.md)
 - [while과 do-while 루프의 차이](./javascript/while-do-while.md)
 
+### 중요도 미정 (velog 정리)
+
+- [Promise.all에 대해서 간단히 설명해주세요.](./javascript-questions/51-promise-all.md)
+
 <br />
 <br />
 
@@ -216,6 +225,13 @@
 - [nextjs의 useTheme을 통해 다크모드를 구현하셨다고하는데, 어떤방식으로 구현하셨나요?](./react-questions/nextjs-useTheme.md)
 - [Nextjs의 동작방식에 대해 이해하고 있나요?](./nextjs-questions/how-nextjs-works.md) TODO
 
+### 중요도 미정 (velog 정리)
+
+- [React Query의 staleTime에 대해서 설명해주세요.](./react-questions/react-query-staletime.md)
+- [DOM 접근 외에 useRef는 어떤 용도로 사용하나요?](./react-questions/use-ref-without-dom.md)
+- [일반 함수 대신 커스텀 훅을 사용하는 이유는 무엇인가요?](./react-questions/custom-hook.md)
+- [React 대신 Next.js를 사용하는 이유는 무엇인가요?](./react-questions/why-nextjs.md)
+
 <br />
 <br />
 
@@ -249,6 +265,10 @@
 - [다국어 사이트를 설계하거나 개발할 때 주의해야 할 사항](/HTML-questions/3-multilingual-sites.md)
 - [이미지 태그에서 'srcset' 속성을 사용하는 이유와 속성의 내용을 평가하는 브라우저의 프로세스](/HTML-questions/10-srcset-attribute-in-an-image-tag.md)
 - [캔버스(canvas)와 SVG의 차이점](/HTML-questions/12-difference-between-canvas-and-svg.md)
+
+### 중요도 미정 (velog 정리)
+
+- [웹 접근성과 시맨틱 웹에 대해서 간단히 설명해주세요.](./HTML-questions/13-web-accessibility-semantic-web.md)
 
 <br />
 <br />
