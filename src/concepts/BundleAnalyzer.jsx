@@ -47,7 +47,7 @@ export default function BundleAnalyzer() {
             ['moment가 거대함 (locale 폴더가 꽉 참)', '모든 언어 파일이 같이 들어감', <>dayjs / date-fns로 교체, 또는 webpack <Code>IgnorePlugin</Code>으로 locale 제외</>],
             ['lodash가 통째로 있음', 'CommonJS라 트리 쉐이킹 안 됨', <><Code>lodash-es</Code> + 이름 import (<Link className="text-indigo-600 dark:text-indigo-400" to="/web/bundler-tarnspiler/deep/tree-shaking">Tree Shaking</Link>)</>],
             ['같은 라이브러리가 두 번 보임', '버전이 달라 중복 설치됨', <><Code>npm dedupe</Code>, 버전 맞추기, <Code>overrides</Code></>],
-            ['특정 페이지만 쓰는 라이브러리가 main에 있음', '정적 import로 첫 번들에 포함', <>동적 import로 분리 (<Link className="text-indigo-600 dark:text-indigo-400" to="/project/project-opti/deep/code-splitting">Code Splitting</Link>)</>],
+            ['특정 페이지만 쓰는 라이브러리가 main에 있음', '정적 import로 첫 번들에 포함', <>동적 import로 분리 (<Link className="text-indigo-600 dark:text-indigo-400" to="/web/project-opti/deep/code-splitting">Code Splitting</Link>)</>],
             ['아이콘 패키지 전체가 들어감', '배럴 파일에서 import', '아이콘별 경로 import, Next.js의 optimizePackageImports'],
           ]}
         />

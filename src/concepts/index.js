@@ -6,7 +6,7 @@ import { lazy } from 'react';
 const MEMO = { categoryId: 'react', slug: 'use-memo-use-callback' };
 const OPTIMIZATION = { categoryId: 'react', slug: 'in-react-optimization' };
 const BUNDLER = { categoryId: 'web', slug: 'bundler-tarnspiler' };
-const PROJECT_OPTI = { categoryId: 'project', slug: 'project-opti' };
+const PROJECT_OPTI = { categoryId: 'web', slug: 'project-opti' };
 const VERSIONS = { categoryId: 'react', slug: 'react-versions' };
 const q = (categoryId, slug) => ({ categoryId, slug });
 
@@ -125,7 +125,7 @@ export const deepDives = [
   },
   {
     slug: 'debounce-throttle',
-    parent: q('project', 'debounce'),
+    parent: q('javascript', 'debounce'),
     title: 'Debounce & Throttle',
     summary: '연속으로 일어나는 이벤트를 마지막 한 번(debounce) 또는 일정 간격(throttle)으로 줄인다',
     tags: ['debounce', 'throttle', '디바운스', '쓰로틀', '검색', '스크롤', '이벤트 최적화'],
@@ -167,7 +167,7 @@ export const deepDives = [
   },
   {
     slug: 'folder-structure',
-    parent: q('project', 'component'),
+    parent: q('react', 'component'),
     title: '폴더 구조 설계 (FSD · Atomic Design)',
     summary: '코드를 기능(feature) 단위로 나눌지, UI 크기 단위로 나눌지 정하고 의존 방향을 규칙으로 만든다',
     tags: ['FSD', 'Feature-Sliced Design', 'Atomic Design', '폴더 구조', '아키텍처', 'atoms', 'molecules', 'organisms'],
@@ -176,7 +176,7 @@ export const deepDives = [
   },
   {
     slug: 'monorepo',
-    parent: q('project', 'component'),
+    parent: q('react', 'component'),
     title: 'Monorepo (Turborepo · pnpm workspace)',
     summary: '여러 앱과 공유 패키지를 한 저장소에서 관리하고, 빌드는 바뀐 것만 캐시로 빠르게',
     tags: ['Monorepo', '모노레포', 'Turborepo', 'pnpm workspace', 'workspace', '패키지 공유', 'Nx'],
@@ -185,7 +185,7 @@ export const deepDives = [
   },
   {
     slug: 'domain-layer',
-    parent: q('project', 'component'),
+    parent: q('react', 'component'),
     title: 'Clean Architecture & 비즈니스 로직 분리 (DDD)',
     summary: '화면(UI)과 비즈니스 규칙과 API 통신을 층으로 나눠, 규칙을 UI 없이 테스트하고 재사용한다',
     tags: ['Clean Architecture', '클린 아키텍처', 'DDD', '도메인', 'Domain Layer', 'Service Layer', '비즈니스 로직', 'TypeScript Interface', '관심사 분리'],
@@ -194,7 +194,7 @@ export const deepDives = [
   },
   {
     slug: 'design-system',
-    parent: q('project', 'component'),
+    parent: q('react', 'component'),
     title: 'Design System & Storybook (Design Token)',
     summary: '디자인 결정을 토큰과 컴포넌트로 코드화하고, Storybook으로 문서화·공유한다',
     tags: ['Design System', '디자인 시스템', 'Storybook', 'Design Token', '디자인 토큰', 'UI Library', 'Component Library', 'Figma'],

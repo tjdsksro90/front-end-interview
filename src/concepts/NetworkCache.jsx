@@ -39,7 +39,7 @@ export default function NetworkCache() {
           items={[
             <>텍스트 파일(HTML, JS, CSS, JSON)을 gzip이나 <b>Brotli</b>(gzip보다 15~20% 더 작음)로 압축해서 보낸다. 보통 원본의 20~30% 크기.</>,
             <>브라우저가 <Code>Accept-Encoding: gzip, br</Code>로 지원 목록을 보내면, 서버가 <Code>Content-Encoding: br</Code>로 응답.</>,
-            <>이미지(JPEG, PNG, WebP)는 이미 압축된 포맷이라 gzip을 또 해도 거의 안 줄어든다 → 이미지는 포맷과 크기로 줄인다 (<Link className="text-indigo-600 dark:text-indigo-400" to="/project/project-opti/deep/nextjs-image">Next.js Image 심화</Link>: WebP, Lazy Loading).</>,
+            <>이미지(JPEG, PNG, WebP)는 이미 압축된 포맷이라 gzip을 또 해도 거의 안 줄어든다 → 이미지는 포맷과 크기로 줄인다 (<Link className="text-indigo-600 dark:text-indigo-400" to="/web/project-opti/deep/nextjs-image">Next.js Image 심화</Link>: WebP, Lazy Loading).</>,
           ]}
         />
 

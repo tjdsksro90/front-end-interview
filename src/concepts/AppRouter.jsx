@@ -42,7 +42,7 @@ export default function AppRouter() {
         <List
           items={[
             <><b>Layout Composition</b>: 루트 layout(html, 헤더) → (shop) layout(카테고리 사이드바) → page. 공통 UI를 중복 없이 쌓고, 이동 시 바뀌는 부분만 다시 그린다.</>,
-            <><b>Route-based Split</b>: 라우트(page)마다 JS 청크가 자동으로 나뉜다. 직접 lazy를 쓸 필요가 없다. (<Link className="text-indigo-600 dark:text-indigo-400" to="/project/project-opti/deep/code-splitting">Code Splitting 심화</Link>)</>,
+            <><b>Route-based Split</b>: 라우트(page)마다 JS 청크가 자동으로 나뉜다. 직접 lazy를 쓸 필요가 없다. (<Link className="text-indigo-600 dark:text-indigo-400" to="/web/project-opti/deep/code-splitting">Code Splitting 심화</Link>)</>,
             <><b>SSR/SSG Hybrid</b>: 페이지마다 <Code>revalidate</Code>, <Code>dynamic</Code> 설정이나 사용하는 함수(cookies() 등)에 따라 정적/동적이 따로 정해진다. (<Link className="text-indigo-600 dark:text-indigo-400" to="/web/spa/deep/rendering-strategy">SSR·SSG·ISR 심화</Link>)</>,
             <><b>서버 컴포넌트가 기본</b>: 파일 맨 위에 <Code>'use client'</Code>가 없으면 서버에서만 실행되고 JS가 브라우저로 안 간다. useState·onClick이 필요한 컴포넌트만 'use client'.</>,
           ]}

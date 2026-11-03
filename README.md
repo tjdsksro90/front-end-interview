@@ -21,7 +21,7 @@
 
 ## 카테고리
 
-**카테고리는 총 8개로 구성되었으며, 질문에 대한 답을 마크다운 문서로 작성합니다.**
+**카테고리는 총 7개로 구성되었으며, 질문에 대한 답을 마크다운 문서로 작성합니다.**
 
 [Computer Science 관련 예상 면접질문](#computer-science-관련-예상-면접질문)
 
@@ -34,8 +34,6 @@
 [HTML 관련 예상 면접질문](#html-관련-예상-면접질문)
 
 [CSS 관련 예상 면접질문](#css-관련-예상-면접질문)
-
-[프로젝트 관련 예상 면접질문](#프로젝트-관련-예상-면접질문)
 
 [이력서 기반 예상 면접질문](#이력서-기반-예상-면접질문)
 
@@ -90,6 +88,25 @@
 
 - [SPA의 특징과, 이전에 사용하던 방식(MPA) 대비 장점은 무엇인가요?](./web-questions/spa-mpa.md)
 - [ESLint와 Prettier에 대해서 설명해주세요.](./web-questions/eslint-prettier.md)
+
+### 프로젝트 경험 (라이브러리 · 기능)
+
+- [Google Analytics에 대해서 설명해주세요](./web-questions/google-analyics.md)
+- [Intersection Observer에 대해서 설명해주세요](./web-questions/intersection-observer.md)
+- [Firebase의 특징에 대해서 설명해주세요](./web-questions/fire-base.md)
+- [SEO 최적화는 어떤 방식으로 하셨었나요?](./web-questions/seo-opti.md)
+- [프로젝트 시 성능최적화를 하셨다고하는데 어떤 최적화들을 진행했었나요?](./web-questions/project-opti.md)
+- [소셜 미디어 공유 기능 구현은 어떤 방식으로 구현하셨나요?](./web-questions/social-media.md)
+
+### 배포 · AWS · CI/CD
+
+- [AWS EC2로 서버를 배포하셨는데 그 이유는 뭔가요?](./web-questions/ec2-server.md)
+- [AWS EC2 인스턴스에 대해서 설명해주세요](./web-questions/ec2.md)
+- [AWS에서 웹 빌드 파일을 배포하는 과정을 설명해주세요](./web-questions/aws-deploy.md)
+- [AWS S3 버킷에 대해서 설명해주세요](./web-questions/aws-s3-bucket.md)
+- [certbot은 어떤 역할을 하나요?](./web-questions/certbot.md)
+- [Github Actions의 파이프라인은 어떤식으로 구성하셨나요?](./web-questions/pipe-line.md)
+- [Github Actions와 AWS CodeDeploy를 어떤 식으로 조합하셨나요?](./web-questions/git-actions-in-codeDeploy.md)
 
 <br />
 <br />
@@ -169,6 +186,10 @@
 
 - [Promise.all에 대해서 간단히 설명해주세요.](./javascript-questions/51-promise-all.md)
 
+### 프로젝트 경험
+
+- [debounce에 대해서 설명해주세요](./javascript-questions/debounce.md)
+
 <br />
 <br />
 
@@ -231,6 +252,10 @@
 - [DOM 접근 외에 useRef는 어떤 용도로 사용하나요?](./react-questions/use-ref-without-dom.md)
 - [일반 함수 대신 커스텀 훅을 사용하는 이유는 무엇인가요?](./react-questions/custom-hook.md)
 - [React 대신 Next.js를 사용하는 이유는 무엇인가요?](./react-questions/why-nextjs.md)
+
+### 프로젝트 경험
+
+- [재사용 가능한 컴포넌트 구축을 위해 어떤 고민을 하셨나요?](./react-questions/component.md)
 
 <br />
 <br />
@@ -309,35 +334,9 @@
 - [다양한 클리어링 기법과 기법들의 적합도](/CSS-questions/6-clearing.md)
 - [스크린 외에 다른 @media 속성의 예시](/CSS-questions/10-media-property.md)
 
-<br />
-<br />
+### 프로젝트 경험
 
-## 프로젝트 관련 예상 면접질문
-
-### 프로젝트 시 사용한 라이브러리 관련 예상 질문
-
-- [Google Analytics에 대해서 설명해주세요](./project-questions/google-analyics.md)
-- [Intersection Observer에 대해서 설명해주세요](./project-questions/intersection-observer.md)
-- [Firebase의 특징에 대해서 설명해주세요](./project-questions/fire-base.md)
-
-### 프로젝트 시 적용한 기능 예상 질문
-
-- [프로젝트 시 반응형 레이아웃은 어떤 방식으로 구현하셨나요?](./project-questions/responsive-ui.md)
-- [SEO 최적화는 어떤 방식으로 하셨었나요?](./project-questions/seo-opti.md)
-- [프로젝트 시 성능최적화를 하셨다고하는데 어떤 최적화들을 진행했었나요?](./project-questions/project-opti.md)
-- [소셜 미디어 공유 기능 구현은 어떤 방식으로 구현하셨나요?](./project-questions/social-media.md)
-- [재사용 가능한 컴포넌트 구축을 위해 어떤 고민을 하셨나요?](./project-questions/component.md)
-- [debounce에 대해서 설명해주세요](./project-questions/debounce.md)
-
-### AWS 및 CI/CD 관련 예상 질문
-
-- [AWS EC2로 서버를 배포하셨는데 그 이유는 뭔가요?](./project-questions/ec2-server.md)
-- [AWS EC2 인스턴스에 대해서 설명해주세요](./project-questions/ec2.md)
-- [AWS에서 웹 빌드 파일을 배포하는 과정을 설명해주세요](./project-questions/aws-deploy.md)
-- [AWS S3 버킷에 대해서 설명해주세요](./project-questions/aws-s3-bucket.md)
-- [certbot은 어떤 역할을 하나요?](./project-questions/certbot.md)
-- [Github Actions의 파이프라인은 어떤식으로 구성하셨나요?](./project-questions/pipe-line.md)
-- [Github Actions와 AWS CodeDeploy를 어떤 식으로 조합하셨나요?](./project-questions/git-actions-in-codeDeploy.md)
+- [프로젝트 시 반응형 레이아웃은 어떤 방식으로 구현하셨나요?](./CSS-questions/responsive-ui.md)
 
 <br />
 <br />

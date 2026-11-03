@@ -5,7 +5,6 @@ export const categories = [
   { id: 'react', folder: 'react-questions', title: 'React', description: '컴포넌트, Hook, 렌더링과 최적화' },
   { id: 'html', folder: 'HTML-questions', title: 'HTML', description: '시맨틱 태그, 스토리지, 스크립트 로딩' },
   { id: 'css', folder: 'CSS-questions', title: 'CSS', description: '박스 모델, 선택자, 레이아웃' },
-  { id: 'project', folder: 'project-questions', title: '프로젝트', description: '프로젝트에서 쓴 기술과 경험' },
   { id: 'ai', folder: 'ai-questions', title: 'AI', description: 'AI Agent, 하네스, LangChain·LangGraph' },
 ];
 
