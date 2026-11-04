@@ -90,6 +90,7 @@
 
 - [SPA의 특징과, 이전에 사용하던 방식(MPA) 대비 장점은 무엇인가요?](./web-questions/spa-mpa.md)
 - [ESLint와 Prettier에 대해서 설명해주세요.](./web-questions/eslint-prettier.md)
+- [Swagger란 무엇이고, 프론트엔드에서는 어떻게 활용하나요?](./web-questions/swagger.md)
 
 ### 프로젝트 경험 (라이브러리 · 기능)
 

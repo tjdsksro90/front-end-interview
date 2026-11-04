@@ -330,6 +330,15 @@ export const deepDives = [
     Component: lazy(() => import('./ApiSchemaMock.jsx')),
   },
   {
+    slug: 'swagger-ui',
+    parent: q('web', 'swagger'),
+    title: 'Swagger UI 사용법 (Try it out · Authorize · Schemas)',
+    summary: 'OpenAPI 명세를 문서 화면으로 보고, 그 자리에서 요청을 보내보고, 같은 명세로 타입을 생성한다',
+    tags: ['Swagger', 'Swagger UI', 'OpenAPI', 'API 문서', 'Try it out', 'Authorize', 'Bearer', 'springdoc', '@nestjs/swagger', 'FastAPI', 'openapi-typescript', 'orval'],
+    light: true,
+    Component: lazy(() => import('./SwaggerUi.jsx')),
+  },
+  {
     slug: 'ai-agent',
     parent: q('ai', 'ai-agent'),
     title: 'AI Agent',
