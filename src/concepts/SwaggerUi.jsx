@@ -168,8 +168,149 @@ export default {
 // 사용: 엔드포인트마다 훅이 만들어진다
 const { data: user } = useGetUsersId(42);`}
         />
+
+        <H3>복붙 vs 코드 생성</H3>
+        <p>Swagger UI는 <b>확인</b>용이고, 코드와 <b>연결</b>하는 건 코드 생성 도구가 합니다.</p>
+        <Table
+          head={['', '복붙 (직접 작성)', '코드 생성']}
+          rows={[
+            ['방법', 'Swagger를 보고 URL·타입·함수를 손으로 작성', '명세 주소로 명령어 실행 → 타입·함수·훅 파일 생성'],
+            ['백엔드가 필드를 바꾸면', '화면이 깨질 때까지 모름', <>다시 생성하면 바뀐 곳이 <b>타입 에러</b>로 드러남</>],
+            ['실수', 'nullable, enum 값을 옮기다 빠뜨리기 쉬움', '명세 그대로 반영'],
+            ['도구', '-', <><b>openapi-typescript</b>(타입만), <b>orval</b>(타입 + React Query 훅 + MSW Mock), @hey-api/openapi-ts</>],
+          ]}
+        />
+
+        <H3>백엔드 개발 전: Mock 서버로 먼저 개발하기 (React Query 기준)</H3>
+        <p>명세만 있고 API가 아직 없을 때, <b>orval로 React Query 훅과 MSW Mock을 함께 생성</b>하면 나중에 컴포넌트 코드를 거의 바꾸지 않고 실제 서버로 넘어갈 수 있습니다. 아래 스위치로 요청이 어디서 응답받는지 비교해 보세요.</p>
+        <MockFlow />
+
+        <CodeBlock
+          title="1. 설치"
+          code={`
+npm i @tanstack/react-query axios
+npm i -D orval msw @faker-js/faker
+npx msw init public/ --save          # public/mockServiceWorker.js 생성`}
+        />
+        <CodeBlock
+          title="2. src/api/http.ts — 모든 요청이 지나가는 axios 인스턴스 (실서버 전환 때 여기만 신경 쓰면 된다)"
+          code={`
+const instance = axios.create({ baseURL: import.meta.env.VITE_API_URL });
+
+instance.interceptors.request.use((config) => {
+  const token = localStorage.getItem('accessToken');
+  if (token) config.headers.Authorization = \`Bearer \${token}\`;
+  return config;
+});
+
+export const http = <T>(config: AxiosRequestConfig): Promise<T> =>
+  instance(config).then((res) => res.data);`}
+        />
+        <CodeBlock
+          title="3. orval.config.ts → npx orval"
+          code={`
+export default {
+  shop: {
+    input: './openapi.yaml',               // 백엔드에게 받은 명세 (나중에 실서버 URL로)
+    output: {
+      target: 'src/api/generated.ts',
+      client: 'react-query',              // useQuery·useMutation 훅
+      mock: true,                         // MSW 핸들러 + faker 가짜 데이터 → generated.msw.ts
+      override: { mutator: { path: 'src/api/http.ts', name: 'http' } },
+    },
+  },
+};`}
+        />
+        <CodeBlock
+          title="4. 개발할 때만 MSW 켜기 — src/mocks/browser.ts, src/main.tsx, .env.development"
+          code={`
+// src/mocks/browser.ts
+import { setupWorker } from 'msw/browser';
+import { getShopAPIMock } from '../api/generated.msw';   // 이름은 명세 title에 따라 생성됨
+export const worker = setupWorker(...getShopAPIMock());
+
+// src/main.tsx
+async function enableMocking() {
+  if (import.meta.env.VITE_API_MOCKING !== 'true') return;
+  const { worker } = await import('./mocks/browser');    // 동적 import → 배포 번들에 안 들어감
+  return worker.start({ onUnhandledRequest: 'bypass' });
+}
+enableMocking().then(() => createRoot(root).render(<App />));
+
+# .env.development
+VITE_API_URL=https://dev-api.example.com    # 아직 없는 서버여도 된다 (MSW가 가로챔)
+VITE_API_MOCKING=true`}
+        />
+        <CodeBlock
+          title="5. 컴포넌트는 생성된 훅만 쓴다 — 이 코드는 실서버로 바뀌어도 그대로"
+          code={`
+const { data: user, isLoading } = useGetUsersId(id);     // GET /users/{id}
+const createOrder = usePostOrders();                      // POST /orders
+createOrder.mutate({ data: { productId: 3, quantity: 1 } });
+
+// 에러·빈 화면을 만들 땐 특정 API만 덮어쓰기
+worker.use(http.get('*/users/:id', () => HttpResponse.json({ code: 'USER_NOT_FOUND' }, { status: 404 })));`}
+        />
+
+        <H3>백엔드 개발이 끝나면 바꿀 것</H3>
+        <Table
+          head={['순서', '바꿀 것', '이유']}
+          rows={[
+            ['1', <><Code>VITE_API_MOCKING=false</Code></>, '지우지 말고 꺼두면 백엔드 장애 때 다시 켤 수 있다'],
+            ['2', <>orval <Code>input</Code>을 실서버 명세 URL로 → <Code>npx orval</Code></>, '처음 받은 명세와 달라진 부분이 타입 에러로 드러난다 → 그 부분만 수정'],
+            ['3', <><Code>VITE_API_URL</Code>, CORS 또는 Vite <Code>server.proxy</Code></>, 'Mock 때는 없던 CORS 에러가 실서버에서 처음 나온다'],
+            ['4', <><Code>http.ts</Code> 인터셉터의 토큰·401 처리</>, 'Mock은 인증을 검사하지 않았으니 실제 로그인 흐름을 확인'],
+            ['5', '실제 데이터로 화면 점검', 'null, 빈 배열, 긴 문자열, 페이지네이션, 에러 형식, 느린 응답(로딩)'],
+            ['6', 'MSW는 남겨두기', <>테스트(<Code>msw/node</Code>)와 에러 화면 개발에 계속 쓴다</>],
+          ]}
+        />
+        <Callout title="코드 없이 Mock 서버만 띄우려면: Prism">
+          <p><Code>npx @stoplight/prism-cli mock ./openapi.yaml</Code> → <Code>http://127.0.0.1:4010</Code>에서 명세의 예시 응답을 돌려줍니다. <Code>VITE_API_URL</Code>을 이 주소로 두고 개발하다가, 백엔드가 완성되면 주소만 바꾸면 됩니다. 설정은 더 간단하지만, 특정 API만 에러로 바꾸거나 테스트에 같이 쓰기는 MSW가 편합니다.</p>
+        </Callout>
       </Section>
     </>
+  );
+}
+
+/* ---------- Mock ↔ 실서버 요청 흐름 ---------- */
+
+function MockFlow() {
+  const [mock, setMock] = useState(true);
+  const node = (label, sub, tone) => (
+    <div className={`min-w-[120px] rounded-xl border-2 px-3 py-2 text-center ${tone}`}>
+      <div className="text-sm font-semibold">{label}</div>
+      <div className="font-mono text-[11px] text-zinc-400">{sub}</div>
+    </div>
+  );
+  const same = 'border-zinc-200 dark:border-zinc-700';
+  const on = 'border-amber-400 bg-amber-50 dark:bg-amber-500/10';
+  const off = 'border-dashed border-zinc-300 opacity-40 dark:border-zinc-700';
+  const arrow = <span className="text-zinc-400">→</span>;
+
+  return (
+    <div className="rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="flex flex-wrap gap-2">
+        <button className={mock ? ui.btnPrimary : ui.btn} onClick={() => setMock(true)}>백엔드 개발 전 (VITE_API_MOCKING=true)</button>
+        <button className={!mock ? ui.btnPrimary : ui.btn} onClick={() => setMock(false)}>백엔드 완성 후 (false)</button>
+      </div>
+      <div className="mt-5 flex min-w-[460px] flex-wrap items-center gap-2 overflow-x-auto">
+        {node('Profile', 'useGetUsersId(42)', same)}
+        {arrow}
+        {node('generated.ts', 'React Query 훅', same)}
+        {arrow}
+        {node('http.ts', 'axios + 토큰', same)}
+        {arrow}
+        <div className="flex flex-col gap-2">
+          {node('MSW 서비스 워커', '가짜 응답 (faker)', mock ? on : off)}
+          {node('실제 백엔드', 'VITE_API_URL', mock ? off : on)}
+        </div>
+      </div>
+      <p className="mt-3 text-sm text-zinc-500 dark:text-zinc-400">
+        {mock
+          ? '→ 요청은 실제로 보내지지만(Network 탭에 보임), 브라우저 안의 MSW 서비스 워커가 가로채서 명세 기반 가짜 응답을 돌려준다.'
+          : '→ MSW를 끄면 같은 요청이 그대로 실제 서버로 간다. 컴포넌트·훅·http.ts 코드는 바뀌지 않는다(회색 칸은 그대로).'}
+      </p>
+    </div>
   );
 }
 
