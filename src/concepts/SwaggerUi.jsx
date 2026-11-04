@@ -182,7 +182,10 @@ const { data: user } = useGetUsersId(42);`}
         />
 
         <H3>백엔드 개발 전: Mock 서버로 먼저 개발하기 (React Query 기준)</H3>
-        <p>명세만 있고 API가 아직 없을 때, <b>orval로 React Query 훅과 MSW Mock을 함께 생성</b>하면 나중에 컴포넌트 코드를 거의 바꾸지 않고 실제 서버로 넘어갈 수 있습니다. 아래 스위치로 요청이 어디서 응답받는지 비교해 보세요.</p>
+        <p>명세만 있고 API가 아직 없을 때, <b>orval로 React Query 훅과 MSW Mock을 함께 생성</b>하면 나중에 컴포넌트 코드를 거의 바꾸지 않고 실제 서버로 넘어갈 수 있습니다.</p>
+        <p className="font-semibold">전체 순서 — 단계를 누르면 할 일과 명령어가 나옵니다.</p>
+        <WorkflowGraph />
+        <p className="pt-2">아래 스위치로 Mock 단계와 실서버 단계에서 요청이 어디서 응답받는지 비교해 보세요.</p>
         <MockFlow />
 
         <CodeBlock
@@ -268,6 +271,89 @@ worker.use(http.get('*/users/:id', () => HttpResponse.json({ code: 'USER_NOT_FOU
           <p><Code>npx @stoplight/prism-cli mock ./openapi.yaml</Code> → <Code>http://127.0.0.1:4010</Code>에서 명세의 예시 응답을 돌려줍니다. <Code>VITE_API_URL</Code>을 이 주소로 두고 개발하다가, 백엔드가 완성되면 주소만 바꾸면 됩니다. 설정은 더 간단하지만, 특정 API만 에러로 바꾸거나 테스트에 같이 쓰기는 MSW가 편합니다.</p>
         </Callout>
       </Section>
+    </>
+  );
+}
+
+/* ---------- 전체 순서 그래프 ---------- */
+
+// lane: 누가 하는 일인지 / phase: Mock 단계(mock)·전환(switch)·이후(after)
+const FLOW = [
+  { id: 'spec', lane: 'back', phase: 'mock', title: 'Swagger 명세 작성·공유', detail: '백엔드가 API 설계를 명세(openapi.yaml 또는 /v3/api-docs)로 먼저 정리해서 공유한다. 이 명세가 프론트와 백엔드의 계약서.', cmd: 'openapi.yaml' },
+  { id: 'install', lane: 'front', phase: 'mock', title: '설치 + MSW 워커 파일', detail: 'orval, msw, faker를 설치하고 public/mockServiceWorker.js를 만든다.', cmd: 'npm i -D orval msw @faker-js/faker\nnpx msw init public/ --save' },
+  { id: 'http', lane: 'front', phase: 'mock', title: 'http.ts (axios 인스턴스)', detail: 'baseURL과 토큰 인터셉터를 한 곳에 둔다. orval이 만든 모든 함수가 이걸로 요청한다.', cmd: "axios.create({ baseURL: import.meta.env.VITE_API_URL })" },
+  { id: 'gen', lane: 'front', phase: 'mock', title: 'orval로 훅 + Mock 생성', detail: "client: 'react-query', mock: true로 생성하면 useGetUsersId 같은 훅과 MSW 핸들러가 같이 만들어진다.", cmd: 'npx orval' },
+  { id: 'msw', lane: 'front', phase: 'mock', title: 'MSW 켜고 화면 개발', detail: 'VITE_API_MOCKING=true로 개발. 컴포넌트는 생성된 훅만 쓴다. 에러·빈 화면은 worker.use()로 특정 API만 덮어써서 만든다.', cmd: 'VITE_API_MOCKING=true' },
+  { id: 'dev', lane: 'back', phase: 'mock', title: 'API 개발', detail: '프론트가 Mock으로 화면을 만드는 동안 백엔드는 실제 API를 만든다. 명세가 바뀌면 프론트에 알린다.', cmd: '' },
+  { id: 'deploy', lane: 'back', phase: 'switch', title: '개발 서버 배포', detail: '실제 API가 개발 서버에 올라간다. 이 서버의 /v3/api-docs가 최신 명세.', cmd: 'https://dev-api.example.com/v3/api-docs' },
+  { id: 'regen', lane: 'front', phase: 'switch', title: '실서버 명세로 다시 생성', detail: 'orval input을 실서버 명세 URL로 바꾸고 다시 생성. 처음 명세와 달라진 곳이 타입 에러로 드러나니 그 부분만 고친다.', cmd: "input: 'https://dev-api.example.com/v3/api-docs'\nnpx orval" },
+  { id: 'off', lane: 'front', phase: 'switch', title: 'Mock 끄고 실서버 연결', detail: 'VITE_API_MOCKING=false, VITE_API_URL을 실서버로. CORS 에러가 나면 백엔드 허용 또는 Vite proxy. 토큰·401 처리를 확인.', cmd: 'VITE_API_MOCKING=false\nVITE_API_URL=https://dev-api.example.com' },
+  { id: 'check', lane: 'front', phase: 'after', title: '실제 데이터로 점검', detail: 'Mock에서는 안 보이던 null, 빈 배열, 긴 문자열, 페이지네이션, 에러 형식, 느린 응답(로딩)을 확인한다.', cmd: '' },
+  { id: 'keep', lane: 'front', phase: 'after', title: 'MSW는 테스트에 계속', detail: 'msw/node의 setupServer로 테스트에서 같은 핸들러를 쓴다. 백엔드 장애 때는 다시 VITE_API_MOCKING=true.', cmd: "import { setupServer } from 'msw/node'" },
+];
+
+const PHASES = [
+  ['mock', '1. Mock으로 개발', 'border-amber-300 bg-amber-50/60 dark:border-amber-500/30 dark:bg-amber-500/5'],
+  ['switch', '2. 실서버로 전환', 'border-sky-300 bg-sky-50/60 dark:border-sky-500/30 dark:bg-sky-500/5'],
+  ['after', '3. 전환 후', 'border-emerald-300 bg-emerald-50/60 dark:border-emerald-500/30 dark:bg-emerald-500/5'],
+];
+
+function WorkflowGraph() {
+  const [sel, setSel] = useState('gen');
+  const step = FLOW.find((f) => f.id === sel);
+  const order = (f) => FLOW.filter((x) => x.lane === 'front').indexOf(f) + 1;
+
+  return (
+    <div className="rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="overflow-x-auto">
+        <div className="grid min-w-[680px] grid-cols-[72px_repeat(3,1fr)] gap-2">
+          <div />
+          {PHASES.map(([id, label, tone]) => (
+            <div key={id} className={`rounded-lg border px-3 py-1.5 text-center text-xs font-bold ${tone}`}>{label}</div>
+          ))}
+          {[['back', '백엔드'], ['front', '프론트']].map(([lane, label]) => (
+            <Lane key={lane} lane={lane} label={label} sel={sel} setSel={setSel} order={order} />
+          ))}
+        </div>
+      </div>
+      {step && (
+        <div key={step.id} className="mt-4 animate-flash rounded-xl bg-zinc-50 p-4 dark:bg-zinc-800/60">
+          <div className="text-sm font-bold">
+            {step.lane === 'front' ? `프론트 ${order(step)}단계 · ` : '백엔드 · '}{step.title}
+          </div>
+          <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">{step.detail}</p>
+          {step.cmd && <pre className="mt-2 overflow-x-auto rounded-lg bg-[#1e1f24] p-3 font-mono text-xs text-zinc-200">{step.cmd}</pre>}
+        </div>
+      )}
+      <p className="mt-3 text-xs text-zinc-400">프론트는 백엔드 API가 끝나길 기다리지 않고 1단계에서 화면을 먼저 만들고, 2단계에서 설정만 바꿔 실서버에 연결합니다.</p>
+    </div>
+  );
+}
+
+function Lane({ lane, label, sel, setSel, order }) {
+  return (
+    <>
+      <div className="flex items-center text-xs font-bold text-zinc-500 dark:text-zinc-400">{label}</div>
+      {PHASES.map(([phase]) => (
+        <div key={phase} className={`flex flex-col items-stretch gap-0.5 py-1 ${lane === 'front' ? 'border-t border-dashed border-zinc-200 pt-2 dark:border-zinc-800' : ''}`}>
+          {FLOW.filter((f) => f.lane === lane && f.phase === phase).map((f, i) => (
+            <span key={f.id} className="flex flex-col items-stretch">
+              {i > 0 && <span className="text-center text-xs leading-none text-zinc-300 dark:text-zinc-600">↓</span>}
+              <button
+                onClick={() => setSel(f.id)}
+                className={`rounded-lg border px-2.5 py-1.5 text-left text-xs leading-tight transition ${
+                  sel === f.id
+                    ? 'border-indigo-500 bg-indigo-50 font-bold text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-300'
+                    : 'border-zinc-200 hover:border-indigo-300 dark:border-zinc-700'
+                }`}
+              >
+                {lane === 'front' && <span className="mr-1 font-mono text-zinc-400">{order(f)}</span>}
+                {f.title}
+              </button>
+            </span>
+          ))}
+        </div>
+      ))}
     </>
   );
 }
