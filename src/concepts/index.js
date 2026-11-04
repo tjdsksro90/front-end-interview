@@ -339,6 +339,15 @@ export const deepDives = [
     Component: lazy(() => import('./SwaggerUi.jsx')),
   },
   {
+    slug: 'docker',
+    parent: q('web', 'docker'),
+    title: 'Docker (Dockerfile · 멀티 스테이지 · compose)',
+    summary: '프론트 빌드 결과를 Nginx 이미지로 만들고, 레이어 캐시·이미지 크기·환경 변수 시점을 직접 확인한다',
+    tags: ['Docker', '도커', 'Dockerfile', '컨테이너', '이미지', '멀티 스테이지', 'multi-stage', 'docker compose', 'Nginx', '레이어 캐시', 'standalone', 'GHCR'],
+    light: true,
+    Component: lazy(() => import('./DockerPage.jsx')),
+  },
+  {
     slug: 'ai-agent',
     parent: q('ai', 'ai-agent'),
     title: 'AI Agent',
