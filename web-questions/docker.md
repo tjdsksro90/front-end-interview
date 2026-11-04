@@ -90,3 +90,10 @@ server {
 - **로컬 개발 환경**: 백엔드 API·DB·Redis를 `docker compose`로 띄우고 프론트만 `npm run dev`로 개발한다.
 - **E2E 테스트**: Playwright 공식 이미지로 CI와 로컬의 브라우저 환경을 맞춘다.
 - 참고: Vercel·Netlify에 정적 사이트를 배포한다면 Docker가 필요 없다. 플랫폼이 빌드와 배포를 대신 해준다.
+
+### 관련 질문
+
+- [Nginx에 대해서 설명해주세요](./nginx.md)
+- [CI와 CD에 대해서 설명해주세요](./ci-cd.md)
+- [AWS에서 웹 빌드 파일을 배포하는 과정을 설명해주세요](./aws-deploy.md)
+- [Next.js 버전별 변경점 (standalone 빌드)](../react-questions/nextjs-versions.md)

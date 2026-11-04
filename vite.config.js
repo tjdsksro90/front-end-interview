@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
+import { extractTargets, resolveLink, linkKey } from './src/data/links.js';
 
 const ROOT = fileURLToPath(new URL('.', import.meta.url));
 const VIRTUAL_ID = 'virtual:questions';
@@ -32,17 +33,29 @@ function questionsIndex() {
             slug: file.replace(/\.md$/, ''),
             title: clean(q) || file.replace(/\.md$/, ''),
             summary: clean(a).slice(0, 120),
+            targets: extractTargets(lines.join('\n')),
           };
         })
     );
   };
+
+  // 본문의 링크([[docker]], [CORS](./cors.md))를 실제 질문으로 풀어서 links에 담는다 → 백링크 계산용
+  const withLinks = (entries) =>
+    entries.map(({ targets, ...e }) => {
+      const keys = targets
+        .map((t) => resolveLink(t, e.folder, entries))
+        .filter(Boolean)
+        .map(linkKey)
+        .filter((k) => k !== linkKey(e));
+      return { ...e, links: [...new Set(keys)] };
+    });
 
   return {
     name: 'questions-index',
     resolveId: (id) => (id === VIRTUAL_ID ? RESOLVED_ID : null),
     load(id) {
       if (id !== RESOLVED_ID) return null;
-      return `export default ${JSON.stringify(read())};`;
+      return `export default ${JSON.stringify(withLinks(read()))};`;
     },
     // md 파일을 추가·수정하면 목록도 새로고침
     configureServer(server) {

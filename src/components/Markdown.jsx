@@ -4,14 +4,18 @@ import remarkCjkFriendly from 'remark-cjk-friendly'; // **강조)**은 처럼 �
 import rehypeRaw from 'rehype-raw';
 import { Link } from 'react-router-dom';
 import { categoryByFolder } from '../data/categories.js';
+import { questions } from '../data/questions.js';
+import { resolveLink, wikiToMarkdown } from '../data/links.js';
 import { highlight } from './kit.jsx';
 
-// md 안의 상대 링크(./other.md, ../react-questions/x.md)를 사이트 경로로 바꾼다
+// md 안의 링크([[docker]], ./other.md, ../react-questions/x.md)를 사이트 경로로 바꾼다
+// 반환: 경로 문자열 / 'missing'(md 링크인데 대상 질문이 없음) / null(일반 링크)
 function toRoute(href, folder) {
-  const m = href.match(/^(?:\.\/)?(?:\.\.\/([\w-]+-questions)\/)?([^/]+)\.md(#.*)?$/);
-  if (!m) return null;
-  const category = categoryByFolder(m[1] ?? folder);
-  return category ? `/${category.id}/${m[2]}${m[3] ?? ''}` : null;
+  if (/^[a-z]+:/i.test(href) || !/\.md(#|$)/.test(href.split('?')[0])) return null; // 외부 주소는 그대로
+  const target = resolveLink(href, folder, questions);
+  if (!target) return 'missing';
+  const hash = href.includes('#') ? href.slice(href.indexOf('#')) : '';
+  return `/${categoryByFolder(target.folder).id}/${target.slug}${hash}`;
 }
 
 export default function Markdown({ source, folder }) {
@@ -23,6 +27,12 @@ export default function Markdown({ source, folder }) {
         components={{
           a({ href = '', children, node, ...props }) {
             const route = toRoute(href, folder);
+            if (route === 'missing')
+              return (
+                <span title="아직 없는 질문이에요" className="text-zinc-400 underline decoration-dashed underline-offset-4">
+                  {children}
+                </span>
+              );
             if (route) return <Link to={route}>{children}</Link>;
             const external = /^https?:/.test(href);
             return <a href={href} {...(external && { target: '_blank', rel: 'noopener noreferrer' })} {...props}>{children}</a>;
@@ -41,7 +51,7 @@ export default function Markdown({ source, folder }) {
           },
         }}
       >
-        {source}
+        {wikiToMarkdown(source)}
       </ReactMarkdown>
     </div>
   );

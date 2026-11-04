@@ -198,3 +198,8 @@ npx @stoplight/prism-cli mock ./openapi.yaml    # http://127.0.0.1:4010 에서 �
 
 - `VITE_API_URL=http://127.0.0.1:4010`으로 두고 개발하다가, 백엔드가 완성되면 이 주소만 실제 서버로 바꾼다.
 - 따로 실행하는 서버라 설정은 간단하지만, 특정 API만 에러로 바꾸거나 테스트에 같이 쓰기는 MSW가 더 편하다.
+
+### 관련 질문
+
+- [REST API란 무엇인가요?](./rest-api.md)
+- [CORS에 대해서 설명해주세요](./cors.md)

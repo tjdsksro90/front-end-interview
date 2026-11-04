@@ -25,6 +25,14 @@ export const questions = [...index, ...PENDING]
     };
   });
 
+// 질문 사이 연결: links = 이 답변이 언급한 질문, backlinks = 이 질문을 언급한 답변
+const byKey = new Map(questions.map((q) => [`${q.folder}/${q.slug}`, q]));
+for (const q of questions) {
+  q.links = (q.links ?? []).map((k) => byKey.get(k)).filter(Boolean);
+  q.backlinks = [];
+}
+for (const q of questions) for (const target of q.links) target.backlinks.push(q);
+
 export const questionsOf = (categoryId) => questions.filter((q) => q.categoryId === categoryId);
 export const findQuestion = (categoryId, slug) =>
   questions.find((q) => q.categoryId === categoryId && q.slug === slug);

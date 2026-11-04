@@ -64,6 +64,8 @@ export default function QuestionPage() {
         )}
       </div>
 
+      {(question.links.length > 0 || question.backlinks.length > 0) && <Connections question={question} />}
+
       <Pager categoryId={categoryId} prev={siblings[i - 1]} next={siblings[i + 1]} />
     </article>
   );
@@ -89,6 +91,44 @@ function DeepLinks({ question }) {
         ))}
       </div>
     </div>
+  );
+}
+
+// md 안의 링크로 이어진 질문들 (Obsidian의 링크·백링크와 같은 개념)
+function Connections({ question }) {
+  const groups = [
+    { title: '이 답변에서 언급한 질문', items: question.links },
+    { title: '이 질문을 언급한 답변', items: question.backlinks },
+  ].filter((g) => g.items.length > 0);
+
+  return (
+    <section className="mt-12 rounded-2xl border border-zinc-200 p-4 sm:p-5 dark:border-zinc-800">
+      <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-50">연결된 질문</h2>
+      <div className={`mt-3 grid gap-5 ${groups.length > 1 ? 'sm:grid-cols-2' : ''}`}>
+        {groups.map((g) => (
+          <div key={g.title}>
+            <p className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
+              {g.title} <span className="tabular-nums">{g.items.length}</span>
+            </p>
+            <ul className="mt-2 space-y-1">
+              {g.items.map((q) => (
+                <li key={`${q.categoryId}/${q.slug}`}>
+                  <Link
+                    to={`/${q.categoryId}/${q.slug}`}
+                    className="group flex items-baseline gap-2 rounded-lg px-2 py-1.5 text-sm transition hover:bg-zinc-100 dark:hover:bg-zinc-800/60"
+                  >
+                    <span className="flex-none rounded bg-zinc-100 px-1.5 py-0.5 text-[10px] font-semibold text-zinc-500 uppercase dark:bg-zinc-800 dark:text-zinc-400">
+                      {q.categoryId}
+                    </span>
+                    <span className="text-zinc-700 group-hover:text-indigo-600 dark:text-zinc-300 dark:group-hover:text-indigo-400">{q.title}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 
