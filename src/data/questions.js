@@ -20,7 +20,10 @@ export const questions = [...index, ...PENDING]
     return {
       ...q,
       categoryId,
-      deep: deepDives.filter((d) => d.parent.categoryId === categoryId && d.parent.slug === q.slug),
+      // also: 다른 질문에도 같은 심화를 보여줄 때 (예: :has()는 최신 CSS 질문과 선택자 비교 질문 둘 다)
+      deep: deepDives.filter((d) =>
+        [d.parent, ...(d.also ?? [])].some((p) => p.categoryId === categoryId && p.slug === q.slug)
+      ),
       load: contents[`/${q.folder}/${q.slug}.md`],
     };
   });

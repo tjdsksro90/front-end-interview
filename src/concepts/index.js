@@ -10,6 +10,7 @@ const PROJECT_OPTI = { categoryId: 'web', slug: 'project-opti' };
 const VERSIONS = { categoryId: 'react', slug: 'react-versions' };
 const MODERN_CSS = { categoryId: 'css', slug: '16-modern-css-core' };
 const MODERN_CSS_UI = { categoryId: 'css', slug: '17-modern-css-ui' };
+const SELECTORS = { categoryId: 'css', slug: '19-is-where-has-not' };
 const q = (categoryId, slug) => ({ categoryId, slug });
 
 export const deepDives = [
@@ -390,12 +391,37 @@ export const deepDives = [
     Component: lazy(() => import('./ContainerQueries.jsx')),
   },
   {
+    slug: 'is-selector',
+    parent: SELECTORS,
+    title: ':is() 선택자',
+    summary: '반복되는 선택자 조합을 한 줄로 묶는다 — 우선순위는 괄호 안 가장 높은 값',
+    tags: [':is()', 'is', ':matches', '선택자 묶기', 'forgiving selector', '관대한 선택자 목록', '우선순위', '명시도', 'specificity', 'CSS Nesting'],
+    Component: lazy(() => import('./IsSelector.jsx')),
+  },
+  {
+    slug: 'where-selector',
+    parent: SELECTORS,
+    title: ':where() 선택자',
+    summary: ':is()와 같은 요소를 고르지만 우선순위가 0 — 덮어쓰기 쉬운 리셋·기본 스타일',
+    tags: [':where()', 'where', '우선순위 0', '명시도', 'specificity', '리셋 CSS', '디자인 시스템', '@layer'],
+    Component: lazy(() => import('./WhereSelector.jsx')),
+  },
+  {
     slug: 'has-selector',
     parent: MODERN_CSS,
+    also: [SELECTORS],
     title: ':has() 선택자',
     summary: '자식의 상태(체크, 유효성, 존재 여부)에 따라 부모를 꾸미는 "부모 선택자"',
     tags: [':has()', 'has', '부모 선택자', 'parent selector', ':user-invalid', '선택자', 'CSS'],
     Component: lazy(() => import('./HasSelector.jsx')),
+  },
+  {
+    slug: 'not-selector',
+    parent: SELECTORS,
+    title: ':not() 선택자',
+    summary: '예외를 처음부터 빼고 적용한다 — 되돌리기 코드가 사라지지만 우선순위는 올라간다',
+    tags: [':not()', 'not', '부정 선택자', 'negation', ':last-child', ':disabled', '우선순위', '명시도', 'not-* variant'],
+    Component: lazy(() => import('./NotSelector.jsx')),
   },
   {
     slug: 'view-transitions',
