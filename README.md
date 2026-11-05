@@ -90,6 +90,7 @@
 
 - [SPA의 특징과, 이전에 사용하던 방식(MPA) 대비 장점은 무엇인가요?](./web-questions/spa-mpa.md)
 - [ESLint와 Prettier에 대해서 설명해주세요.](./web-questions/eslint-prettier.md)
+- [package.json의 dependencies와 devDependencies는 각각 어떤 패키지들이고, 왜 나뉘어 있을까요?](./web-questions/package-json-dependencies.md)
 - [Swagger란 무엇이고, 프론트엔드에서는 어떻게 활용하나요?](./web-questions/swagger.md)
 
 ### 프로젝트 경험 (라이브러리 · 기능)
@@ -332,6 +333,8 @@
 - [framer-motion에 대해서 설명해주세요](./react-questions/framer-motion.md)
 - [nextjs의 app-router에 대해서 설명해주세요](./react-questions/app-router.md)
 - [nextjs의 useTheme을 통해 다크모드를 구현하셨다고하는데, 어떤방식으로 구현하셨나요?](./react-questions/nextjs-useTheme.md)
+- [src/app/layout.tsx와 src/app/page.tsx는 각각 어떤 역할일까요?](./react-questions/nextjs-layout-page.md)
+- [next.config.ts의 cacheComponents, partialPrefetching, turbopack.rules는 각각 무슨 설정일까요?](./react-questions/nextjs-config.md)
 - [Nextjs의 동작방식에 대해 이해하고 있나요?](./nextjs-questions/how-nextjs-works.md) TODO
 - [styled-components와 Emotion은 무엇이 다른가요?](./react-questions/styled-components-vs-emotion.md)
 
