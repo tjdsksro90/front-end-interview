@@ -272,6 +272,15 @@ export const deepDives = [
     Component: lazy(() => import('./StylingTheme.jsx')),
   },
   {
+    slug: 'fumadocs',
+    parent: q('react', 'mdx-vs-fumadocs'),
+    title: 'Fumadocs (MDX 문서 사이트 프레임워크)',
+    summary: 'content/docs에 MDX만 넣으면 사이드바·목차·검색이 갖춰진 문서 사이트를 만든다 — mdx · core · ui 세 패키지',
+    tags: ['Fumadocs', 'MDX', '@mdx-js/react', 'fumadocs-mdx', 'fumadocs-core', 'fumadocs-ui', 'meta.json', '문서 사이트', 'docs', 'Nextra', 'Docusaurus'],
+    light: true,
+    Component: lazy(() => import('./FumadocsPage.jsx')),
+  },
+  {
     slug: 'emotion',
     parent: q('react', 'styled-components-vs-emotion'),
     title: 'Emotion (css prop · styled · 테마)',

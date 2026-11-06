@@ -337,6 +337,7 @@
 - [next.config.ts의 cacheComponents, partialPrefetching, turbopack.rules는 각각 무슨 설정일까요?](./react-questions/nextjs-config.md)
 - [Nextjs의 동작방식에 대해 이해하고 있나요?](./nextjs-questions/how-nextjs-works.md) TODO
 - [styled-components와 Emotion은 무엇이 다른가요?](./react-questions/styled-components-vs-emotion.md)
+- [@mdx-js/react(MDX)와 Fumadocs는 무엇이 다른가요?](./react-questions/mdx-vs-fumadocs.md)
 
 ### 중요도 미정 (velog 정리)
 
