@@ -359,7 +359,7 @@ export const deepDives = [
   },
   {
     slug: 'threejs',
-    parent: q('web', 'threejs'),
+    parent: q('javascript', 'threejs'),
     title: 'Three.js (Scene · Camera · Mesh · Light)',
     summary: '실제 three.js 장면으로 Scene Graph, 카메라 fov·near·far, 재질과 조명을 바꿔 보며 3D가 그려지는 원리를 확인한다',
     tags: ['Three.js', 'threejs', 'three', 'WebGL', 'WebGPU', '3D', 'Scene', 'Camera', 'Mesh', 'Geometry', 'Material', 'Light', 'OrbitControls', 'React Three Fiber', 'R3F', 'dispose'],

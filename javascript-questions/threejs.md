@@ -130,7 +130,7 @@ export default function App() {
 ### 관련 질문
 
 - [React에서의 성능최적화 방법은 어떤것들이 있을까요?](../react-questions/in-react-optimization.md)
-- [모듈 번들러와 트랜스파일러에 대해서 설명해주세요](./bundler-tarnspiler.md)
+- [모듈 번들러와 트랜스파일러에 대해서 설명해주세요](../web-questions/bundler-tarnspiler.md)
 
 ### 참고
 
