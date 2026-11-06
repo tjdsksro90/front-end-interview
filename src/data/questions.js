@@ -55,9 +55,6 @@ const LAUNCHED = Date.parse('2026-11-03T18:13:30+09:00');
 const DAY = 24 * 60 * 60 * 1000;
 export const isNew = (q, now = Date.now()) => time(q) > LAUNCHED && now - time(q) < NEW_DAYS * DAY;
 
-/** 최근에 등록된 질문 (새것부터) */
-export const recentQuestions = (count = 5) =>
-  questions.filter((q) => time(q) > LAUNCHED).sort((a, b) => time(b) - time(a)).slice(0, count);
 
 /** 정렬: 'old' = 등록순(기본, 새 질문이 아래), 'new' = 최신순 */
 export const sortQuestions = (list, order) => (order === 'new' ? [...list].sort((a, b) => time(b) - time(a)) : list);

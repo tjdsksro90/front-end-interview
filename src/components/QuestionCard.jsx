@@ -26,14 +26,6 @@ export function NewBadge() {
   );
 }
 
-// '2026-11-06T20:49:04+09:00' → '11월 6일' (올해가 아니면 연도도)
-export const formatAdded = (iso) => {
-  if (!iso) return '';
-  const d = new Date(iso);
-  const year = d.getFullYear() !== new Date().getFullYear() ? `${d.getFullYear()}년 ` : '';
-  return `${year}${d.getMonth() + 1}월 ${d.getDate()}일`;
-};
-
 const pathOf = (q) => `/${q.categoryId}/${q.slug}`;
 export const deepPathOf = (q, d) => `${pathOf(q)}/deep/${d.slug}`;
 
