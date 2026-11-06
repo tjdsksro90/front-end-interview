@@ -5,6 +5,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { extractTargets, resolveLink, linkKey } from './src/data/links.js';
+import { addedDates } from './scripts/added-dates.mjs';
 
 const ROOT = fileURLToPath(new URL('.', import.meta.url));
 const VIRTUAL_ID = 'virtual:questions';
@@ -50,12 +51,23 @@ function questionsIndex() {
       return { ...e, links: [...new Set(keys)] };
     });
 
+  // 등록일(added): src/data/added.json에 없으면 git 기록 → 그래도 없으면 지금 시각.
+  // 개발 서버에서는 새 md의 등록일을 added.json에 저장해서 커밋에 같이 들어가게 한다.
+  let isDev = false;
+  const withAdded = (entries) => {
+    const dates = addedDates(entries.map(linkKey), { write: isDev });
+    return entries.map((e) => ({ ...e, added: dates[linkKey(e)] }));
+  };
+
   return {
     name: 'questions-index',
+    configResolved(config) {
+      isDev = config.command === 'serve' && config.mode !== 'test';
+    },
     resolveId: (id) => (id === VIRTUAL_ID ? RESOLVED_ID : null),
     load(id) {
       if (id !== RESOLVED_ID) return null;
-      return `export default ${JSON.stringify(withLinks(read()))};`;
+      return `export default ${JSON.stringify(withAdded(withLinks(read())))};`;
     },
     // md 파일을 추가·수정하면 목록도 새로고침
     configureServer(server) {

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { isNew } from '../data/questions.js';
 
 export const cardClass =
   'rounded-2xl border border-zinc-200 bg-white p-5 transition hover:border-indigo-400 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900/60 dark:hover:border-indigo-400/60';
@@ -16,6 +17,22 @@ export function Tag({ children, strong }) {
     </span>
   );
 }
+
+export function NewBadge() {
+  return (
+    <span className="ml-2 inline-block rounded-md bg-rose-500 px-1.5 py-px align-middle text-[10px] leading-4 font-bold tracking-wide text-white dark:bg-rose-500/90">
+      NEW
+    </span>
+  );
+}
+
+// '2026-11-06T20:49:04+09:00' → '11월 6일' (올해가 아니면 연도도)
+export const formatAdded = (iso) => {
+  if (!iso) return '';
+  const d = new Date(iso);
+  const year = d.getFullYear() !== new Date().getFullYear() ? `${d.getFullYear()}년 ` : '';
+  return `${year}${d.getMonth() + 1}월 ${d.getDate()}일`;
+};
 
 const pathOf = (q) => `/${q.categoryId}/${q.slug}`;
 export const deepPathOf = (q, d) => `${pathOf(q)}/deep/${d.slug}`;
@@ -35,6 +52,7 @@ export default function QuestionCard({ question, index, showCategory }) {
           <Link to={pathOf(question)} className="font-semibold text-zinc-900 after:absolute after:inset-0 after:rounded-2xl dark:text-zinc-50">
             {question.title}
           </Link>
+          {isNew(question) && <NewBadge />}
           {question.summary && <p className="mt-1 line-clamp-2 text-sm text-zinc-500 dark:text-zinc-400">{question.summary}</p>}
           {(showCategory || question.deep.length > 0) && (
             <div className="relative z-10 mt-3 flex flex-wrap items-center gap-1.5">

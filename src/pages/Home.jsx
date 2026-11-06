@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { categories } from '../data/categories.js';
-import { questions, questionsOf, searchText } from '../data/questions.js';
+import { categories, findCategory } from '../data/categories.js';
+import { questions, questionsOf, searchText, recentQuestions, isNew, NEW_DAYS } from '../data/questions.js';
 import { matches } from '../data/search.js';
 import SearchInput, { useQueryParam } from '../components/SearchInput.jsx';
-import QuestionCard, { cardClass } from '../components/QuestionCard.jsx';
+import QuestionCard, { cardClass, NewBadge, formatAdded } from '../components/QuestionCard.jsx';
 
 export default function Home() {
   const [query, setQuery] = useQueryParam();
@@ -21,6 +21,8 @@ export default function Home() {
       </section>
 
       <SearchInput value={query} onChange={setQuery} placeholder="카테고리 또는 질문 검색 (예: 클로저, useMemo, 박스 모델)" />
+
+      {!query && <Recent />}
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
         {filteredCategories.map((c) => {
@@ -52,5 +54,36 @@ export default function Home() {
         </>
       )}
     </>
+  );
+}
+
+// 검색창 아래: 최근에 추가된 질문. 등록 후 NEW_DAYS일 동안은 NEW 라벨이 붙는다.
+function Recent() {
+  const list = recentQuestions(5);
+  if (!list.length) return null;
+  const newCount = questions.filter((q) => isNew(q)).length;
+  return (
+    <section className="mt-2 rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900/60">
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h2 className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">최근 추가된 질문</h2>
+        <p className="text-xs text-zinc-400">
+          {newCount > 0 ? `최근 ${NEW_DAYS}일 동안 ${newCount}개 추가` : `최근 ${NEW_DAYS}일 동안 추가된 질문이 없어요`}
+        </p>
+      </div>
+      <ul className="mt-2 divide-y divide-zinc-100 dark:divide-zinc-800">
+        {list.map((q) => (
+          <li key={`${q.categoryId}/${q.slug}`}>
+            <Link to={`/${q.categoryId}/${q.slug}`} className="group flex items-center gap-3 py-2 text-sm">
+              <span className="w-20 flex-none text-xs text-zinc-400 tabular-nums">{formatAdded(q.added)}</span>
+              <span className="min-w-0 flex-1 text-zinc-700 group-hover:text-indigo-600 dark:text-zinc-200 dark:group-hover:text-indigo-400">
+                {q.title}
+                {isNew(q) && <NewBadge />}
+              </span>
+              <span className="hidden flex-none text-xs text-zinc-400 sm:inline">{findCategory(q.categoryId)?.title}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }

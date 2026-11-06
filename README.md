@@ -92,6 +92,7 @@
 - [ESLint와 Prettier에 대해서 설명해주세요.](./web-questions/eslint-prettier.md)
 - [package.json의 dependencies와 devDependencies는 각각 어떤 패키지들이고, 왜 나뉘어 있을까요?](./web-questions/package-json-dependencies.md)
 - [Swagger란 무엇이고, 프론트엔드에서는 어떻게 활용하나요?](./web-questions/swagger.md)
+- [RSS란 무엇이고, 어떻게 동작하나요?](./web-questions/rss.md)
 
 ### 프로젝트 경험 (라이브러리 · 기능)
 

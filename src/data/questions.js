@@ -13,8 +13,13 @@ const PENDING = [
   { folder: 'ai-questions', slug: 'langchain-langgraph', title: 'LangChain과 LangGraph는 무엇이고 어떻게 다른가요?', summary: '' },
 ].filter((p) => !index.some((q) => q.folder === p.folder && q.slug === p.slug));
 
+// 정렬 기본값은 등록순: 먼저 등록한 질문이 위, 새로 추가한 질문이 맨 아래.
+// 같은 시각에 함께 등록한 파일끼리는 파일 이름 순서(번호)를 그대로 따른다 (sort는 안정 정렬).
+const time = (q) => (q.added ? Date.parse(q.added) : 0);
+
 export const questions = [...index, ...PENDING]
   .filter((q) => categoryByFolder(q.folder))
+  .sort((a, b) => time(a) - time(b))
   .map((q) => {
     const categoryId = categoryByFolder(q.folder).id;
     return {
@@ -43,3 +48,16 @@ export const findQuestion = (categoryId, slug) =>
 // 검색 대상: 질문 제목·요약 + 연결된 심화 페이지의 제목·태그
 export const searchText = (q) =>
   [q.title, q.summary, q.slug, ...q.deep.flatMap((d) => [d.title, ...d.tags])].join(' ');
+
+// NEW 표시: 등록 후 7일 동안. 사이트를 처음 열 때 한꺼번에 옮겨온 질문은 새 글이 아니므로 제외한다.
+export const NEW_DAYS = 7;
+const LAUNCHED = Date.parse('2026-11-03T18:13:30+09:00');
+const DAY = 24 * 60 * 60 * 1000;
+export const isNew = (q, now = Date.now()) => time(q) > LAUNCHED && now - time(q) < NEW_DAYS * DAY;
+
+/** 최근에 등록된 질문 (새것부터) */
+export const recentQuestions = (count = 5) =>
+  questions.filter((q) => time(q) > LAUNCHED).sort((a, b) => time(b) - time(a)).slice(0, count);
+
+/** 정렬: 'old' = 등록순(기본, 새 질문이 아래), 'new' = 최신순 */
+export const sortQuestions = (list, order) => (order === 'new' ? [...list].sort((a, b) => time(b) - time(a)) : list);

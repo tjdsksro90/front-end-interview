@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { findCategory } from '../data/categories.js';
-import { questionsOf, searchText } from '../data/questions.js';
+import { questionsOf, searchText, sortQuestions } from '../data/questions.js';
 import { matches } from '../data/search.js';
 import SearchInput, { useQueryParam } from '../components/SearchInput.jsx';
 import QuestionCard from '../components/QuestionCard.jsx';
@@ -12,13 +12,17 @@ export default function CategoryPage() {
   const { categoryId } = useParams();
   const [query, setQuery] = useQueryParam();
   const [deep, setDeep] = useQueryParam('deep');
+  const [sort, setSort] = useQueryParam('sort');
   const deepOnly = deep === '1';
   const category = findCategory(categoryId);
   if (!category) return <NotFound />;
 
   const all = questionsOf(categoryId);
   const hasDeep = all.some((q) => q.deep.length);
-  const filtered = all.filter((q) => matches(searchText(q), query) && (!deepOnly || q.deep.length));
+  const filtered = sortQuestions(
+    all.filter((q) => matches(searchText(q), query) && (!deepOnly || q.deep.length)),
+    sort
+  );
 
   return (
     <>
@@ -31,11 +35,23 @@ export default function CategoryPage() {
       <SearchInput value={query} onChange={setQuery} placeholder={`${category.title} 질문 검색`} />
       <div className="flex flex-wrap items-center justify-between gap-2">
         <p className="text-sm text-zinc-400">{filtered.length === all.length ? `전체 ${all.length}개` : `${filtered.length} / ${all.length}개`}</p>
-        <Toggle
-          checked={deepOnly}
-          onChange={(on) => setDeep(on ? '1' : '')}
-          label={<span className="text-sm text-violet-600 dark:text-violet-300">심화 있는 것만</span>}
-        />
+        <div className="flex flex-wrap items-center gap-3">
+          <Toggle
+            checked={deepOnly}
+            onChange={(on) => setDeep(on ? '1' : '')}
+            label={<span className="text-sm text-violet-600 dark:text-violet-300">심화 있는 것만</span>}
+          />
+          {/* 등록순(기본)은 URL에 남기지 않는다 */}
+          <select
+            aria-label="정렬"
+            value={sort === 'new' ? 'new' : 'old'}
+            onChange={(e) => setSort(e.target.value === 'new' ? 'new' : '')}
+            className="rounded-lg border border-zinc-200 bg-white px-2.5 py-1.5 text-sm text-zinc-700 focus:border-indigo-400 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200"
+          >
+            <option value="old">등록순</option>
+            <option value="new">최신 등록순</option>
+          </select>
+        </div>
       </div>
 
       <div className="mt-4 grid gap-3">
