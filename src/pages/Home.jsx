@@ -28,7 +28,7 @@ export default function Home() {
           const deepCount = list.reduce((n, q) => n + q.deep.length, 0);
           return (
             <Link key={c.id} to={`/${c.id}`} className={`${cardClass} block hover:-translate-y-0.5`}>
-              <h3 className="font-semibold text-zinc-900 dark:text-zinc-50">
+              <h3 className="flex items-center justify-between gap-2 font-semibold text-zinc-900 dark:text-zinc-50">
                 {c.title}
                 {/* 최근 7일 안에 새 질문이 추가된 카테고리 */}
                 {list.some((q) => isNew(q)) && <NewBadge />}
