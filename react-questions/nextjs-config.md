@@ -78,3 +78,9 @@ export default function Page() {
 - [Next.js는 버전별로 무엇이 바뀌었나요? (Pages Router → App Router)](./nextjs-versions.md)
 - [src/app/layout.tsx와 src/app/page.tsx는 각각 어떤 역할일까요?](./nextjs-layout-page.md)
 - [모듈 번들러와 트랜스파일러에 대해서 설명해주세요](../web-questions/bundler-tarnspiler.md)
+
+### 참고
+
+- [Next.js Docs — cacheComponents](https://nextjs.org/docs/app/api-reference/config/next-config-js/cacheComponents)
+- [Next.js Docs — partialPrefetching](https://nextjs.org/docs/app/api-reference/config/next-config-js/partialPrefetching)
+- [Next.js Docs — turbopack](https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack)

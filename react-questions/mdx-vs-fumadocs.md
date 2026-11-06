@@ -77,3 +77,13 @@ const components = { h1: (p) => <h1 className="text-3xl" {...p} />, a: MyLink };
 - [React 대신 Next.js를 사용하는 이유는 무엇인가요?](./why-nextjs.md)
 - [src/app/layout.tsx와 src/app/page.tsx는 각각 어떤 역할일까요?](./nextjs-layout-page.md)
 - [모듈 번들러와 트랜스파일러에 대해서 설명해주세요](../web-questions/bundler-tarnspiler.md)
+
+### 참고
+
+- [Fumadocs MDX — Next.js](https://www.fumadocs.dev/docs/mdx/next)
+- [Fumadocs Manual Installation (Next.js)](https://www.fumadocs.dev/docs/manual-installation/next)
+- [Fumadocs Page Conventions (meta.json)](https://www.fumadocs.dev/docs/page-conventions)
+- [Fumadocs Collections](https://www.fumadocs.dev/docs/mdx/collections)
+- [Fumadocs Markdown (코드 블록·Callout·Cards)](https://www.fumadocs.dev/docs/markdown)
+- [Fumadocs UI Components — Tabs](https://www.fumadocs.dev/docs/ui/components/tabs) · [Steps](https://www.fumadocs.dev/docs/ui/components/steps) · [Files](https://www.fumadocs.dev/docs/ui/components/files)
+- [Fumadocs 16.17 릴리스](https://www.fumadocs.dev/blog/v16-17)
