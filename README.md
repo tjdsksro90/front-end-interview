@@ -102,6 +102,9 @@
 - [SEO 최적화는 어떤 방식으로 하셨었나요?](./web-questions/seo-opti.md)
 - [프로젝트 시 성능최적화를 하셨다고하는데 어떤 최적화들을 진행했었나요?](./web-questions/project-opti.md)
 - [소셜 미디어 공유 기능 구현은 어떤 방식으로 구현하셨나요?](./web-questions/social-media.md)
+- [빠르게 검색 조건을 바꿨을 때 이전 응답이 덮어쓰면 어떻게 하나요?](./web-questions/search-race-condition.md)
+- [예약·결제 버튼을 두 번 누르면 어떻게 막나요?](./web-questions/double-submit.md)
+- [LCP, INP, CLS](./web-questions/lcp-inp-cls.md)
 
 ### 배포 · AWS · CI/CD
 
@@ -329,6 +332,7 @@
 
 - [React-Router에 대한 설명과 동작방식에 대해서 설명해주세요](./react-questions/react-router.md)
 - [Tanstack-Query란 무엇이며 이를 사용하는 이유는 무엇일까요?](./react-questions/tanstack-query.md)
+- [TanStack Query의 setQueryData와 invalidateQueries는 언제 사용하나요?](./react-questions/setquerydata-invalidatequeries.md)
 - [Recoil에 대해서 설명해주세요](./react-questions/recoil.md)
 - [Zustand에 대해서 설명해주세요](./react-questions/zustand.md)
 - [Zustand가 제공하는 미들웨어들은 뭐가 있을까요?](./react-questions/zustand-middle-ware.md)

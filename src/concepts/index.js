@@ -155,6 +155,7 @@ export const deepDives = [
   {
     slug: 'web-vitals',
     parent: q('web', 'browser-rendering'),
+    also: [q('web', 'lcp-inp-cls')],
     title: 'Web Vitals & 성능 측정 (Lighthouse · Performance API · Sentry)',
     summary: 'LCP·INP·CLS로 사용자 체감 성능을 숫자로 재고, 실제 사용자 환경에서 모니터링한다',
     tags: ['Web Vitals', 'Core Web Vitals', 'LCP', 'INP', 'FID', 'CLS', 'TTI', 'TTFB', 'Lighthouse', 'Performance API', 'PerformanceObserver', 'Sentry', '모니터링'],
