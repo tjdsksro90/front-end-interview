@@ -325,6 +325,7 @@
 - [리액트에서 JSX 를 사용시 장점](./react-questions/react-in-jsx.md)
 - [리액트에서는 가상 돔의 변경점을 어떻게 포착할까?](./react-questions/virtubal-dom-dipping.md)
 - [Context API 를 상태관리 라이브러리처럼 사용할 수 있을까?](./react-questions/context-api-in-statemanagement.md)
+- [Vue와 React와 Angular는 상태 변경·컴포넌트 구성 방식이 어떻게 다른가요?](./react-questions/vue-react-angular.md)
 
 <br />
 
