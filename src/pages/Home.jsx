@@ -1,6 +1,7 @@
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { categories } from '../data/categories.js';
-import { questions, questionsOf, searchText, isNew } from '../data/questions.js';
+import { questions, questionsOf, searchText, isNew, sortQuestions } from '../data/questions.js';
 import { matches } from '../data/search.js';
 import SearchInput, { useQueryParam } from '../components/SearchInput.jsx';
 import QuestionCard, { cardClass, NewBadge } from '../components/QuestionCard.jsx';
@@ -42,6 +43,8 @@ export default function Home() {
         })}
       </div>
 
+      {!query && <AllQuestions />}
+
       {query && (
         <>
           <h2 className="mt-10 mb-3 font-semibold text-zinc-900 dark:text-zinc-50">
@@ -59,3 +62,48 @@ export default function Home() {
   );
 }
 
+// 검색 전: 전체 질문을 최신 등록순으로 10개씩. 목록 끝이 화면에 들어오면 다음 10개를 붙인다.
+const PAGE = 10;
+const latest = sortQuestions(questions, 'new');
+
+function AllQuestions() {
+  const [count, setCount] = useState(PAGE);
+  const sentinel = useRef(null);
+  const hasMore = count < latest.length;
+
+  useEffect(() => {
+    const el = sentinel.current;
+    if (!el || !hasMore || typeof IntersectionObserver === 'undefined') return;
+    // 끝에 닿기 조금 전(400px)부터 미리 붙인다
+    const io = new IntersectionObserver(
+      ([entry]) => entry.isIntersecting && setCount((c) => Math.min(c + PAGE, latest.length)),
+      { rootMargin: '400px 0px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [hasMore, count]);
+
+  return (
+    <>
+      <h2 className="mt-10 mb-3 font-semibold text-zinc-900 dark:text-zinc-50">
+        전체 질문 <span className="text-zinc-400">{latest.length}</span>
+        <span className="ml-2 text-xs font-normal text-zinc-400">최신 등록순</span>
+      </h2>
+      <div className="grid gap-3">
+        {latest.slice(0, count).map((q) => <QuestionCard key={`${q.categoryId}/${q.slug}`} question={q} showCategory />)}
+      </div>
+      <div ref={sentinel} className="py-6 text-center">
+        {hasMore ? (
+          <button
+            className="rounded-lg border border-zinc-200 px-4 py-2 text-sm text-zinc-500 transition hover:border-indigo-400 hover:text-indigo-600 dark:border-zinc-700 dark:text-zinc-400"
+            onClick={() => setCount((c) => Math.min(c + PAGE, latest.length))}
+          >
+            더 보기 ({count} / {latest.length})
+          </button>
+        ) : (
+          <p className="text-sm text-zinc-400">모든 질문을 다 봤어요.</p>
+        )}
+      </div>
+    </>
+  );
+}
