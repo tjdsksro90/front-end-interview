@@ -80,7 +80,6 @@
   "javascript-questions/49-this": "2026-11-03T18:13:19+09:00",
   "javascript-questions/50-why-typescript": "2026-11-03T18:13:19+09:00",
   "javascript-questions/debounce": "2026-11-03T18:13:19+09:00",
-  "react-questions/app-router": "2026-11-03T18:13:19+09:00",
   "react-questions/class-component": "2026-11-03T18:13:19+09:00",
   "react-questions/component": "2026-11-03T18:13:19+09:00",
   "react-questions/context-api-in-statemanagement": "2026-11-03T18:13:19+09:00",
@@ -169,5 +168,6 @@
   "web-questions/package-json-dependencies": "2026-11-05T14:26:42+09:00",
   "react-questions/mdx-vs-fumadocs": "2026-11-06T20:49:04+09:00",
   "web-questions/rss": "2026-11-06T16:12:45.368Z",
-  "javascript-questions/threejs": "2026-11-06T16:39:21.790Z"
+  "javascript-questions/threejs": "2026-11-06T16:39:21.790Z",
+  "react-questions/pages-router-vs-app-router": "2026-11-08T05:08:22.177Z"
 }

@@ -333,7 +333,7 @@
 - [Zustand에 대해서 설명해주세요](./react-questions/zustand.md)
 - [Zustand가 제공하는 미들웨어들은 뭐가 있을까요?](./react-questions/zustand-middle-ware.md)
 - [framer-motion에 대해서 설명해주세요](./react-questions/framer-motion.md)
-- [nextjs의 app-router에 대해서 설명해주세요](./react-questions/app-router.md)
+- [Next.js의 App Router는 무엇이고, Pages Router와 어떻게 다른가요?](./react-questions/pages-router-vs-app-router.md)
 - [nextjs의 useTheme을 통해 다크모드를 구현하셨다고하는데, 어떤방식으로 구현하셨나요?](./react-questions/nextjs-useTheme.md)
 - [src/app/layout.tsx와 src/app/page.tsx는 각각 어떤 역할일까요?](./react-questions/nextjs-layout-page.md)
 - [next.config.ts의 cacheComponents, partialPrefetching, turbopack.rules는 각각 무슨 설정일까요?](./react-questions/nextjs-config.md)

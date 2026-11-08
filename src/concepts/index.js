@@ -222,7 +222,7 @@ export const deepDives = [
   },
   {
     slug: 'app-router',
-    parent: q('react', 'app-router'),
+    parent: q('react', 'pages-router-vs-app-router'),
     title: 'Next.js App Router (Layout · Dynamic Routing)',
     summary: '폴더 구조가 곧 URL이 되고, layout이 중첩되며, 페이지마다 SSR/SSG를 섞어 쓴다',
     tags: ['App Router', 'Next.js', 'Dynamic Routing', '동적 라우팅', 'layout', 'Layout Composition', 'route group', 'loading.tsx', 'error.tsx', 'Route-based Split', 'SSR/SSG Hybrid'],

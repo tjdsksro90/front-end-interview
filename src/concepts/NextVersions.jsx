@@ -77,7 +77,7 @@ export default function NextVersions() {
 
         <Callout type="tip" title="면접 포인트">
           <p>"Next.js 13에서 App Router가 도입되면서 기본 컴포넌트가 서버 컴포넌트가 됐고, 데이터 요청이 페이지 단위(getServerSideProps)에서 컴포넌트 단위(async 컴포넌트)로 바뀌었다. 그래서 클라이언트 JS가 줄고 스트리밍이 가능해졌지만, 서버/클라이언트 경계와 캐시 정책을 이해해야 한다는 비용이 생겼다."</p>
-          <p>App Router 자체의 폴더 규칙은 <Link className={linkCls} to="/react/app-router/deep/app-router">App Router 심화</Link>에 정리돼 있습니다.</p>
+          <p>App Router 자체의 폴더 규칙은 <Link className={linkCls} to="/react/pages-router-vs-app-router/deep/app-router">App Router 심화</Link>에 정리돼 있습니다.</p>
         </Callout>
       </Section>
 

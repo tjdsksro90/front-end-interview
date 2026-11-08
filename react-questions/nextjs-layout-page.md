@@ -83,6 +83,6 @@ export default function Home() {
 
 ### 관련 질문
 
-- [nextjs의 app-router에 대해서 설명해주세요](./app-router.md)
+- [Next.js의 App Router는 무엇이고, Pages Router와 어떻게 다른가요?](./pages-router-vs-app-router.md)
 - [Next.js는 버전별로 무엇이 바뀌었나요? (Pages Router → App Router)](./nextjs-versions.md)
 - [next.config.ts의 cacheComponents, partialPrefetching, turbopack.rules는 각각 무슨 설정일까요?](./nextjs-config.md)
