@@ -155,7 +155,7 @@ export const deepDives = [
   {
     slug: 'web-vitals',
     parent: q('web', 'browser-rendering'),
-    also: [q('web', 'lcp-inp-cls')],
+    also: [q('web', 'lcp-inp-cls'), q('web', 'performance-tools')],
     title: 'Web Vitals & 성능 측정 (Lighthouse · Performance API · Sentry)',
     summary: 'LCP·INP·CLS로 사용자 체감 성능을 숫자로 재고, 실제 사용자 환경에서 모니터링한다',
     tags: ['Web Vitals', 'Core Web Vitals', 'LCP', 'INP', 'FID', 'CLS', 'TTI', 'TTFB', 'Lighthouse', 'Performance API', 'PerformanceObserver', 'Sentry', '모니터링'],
@@ -164,6 +164,7 @@ export const deepDives = [
   {
     slug: 'react-profiler',
     parent: q('react', 'in-react-optimization'),
+    also: [q('web', 'performance-tools')],
     title: 'React Profiler',
     summary: '어떤 컴포넌트가 왜, 얼마나 오래 렌더됐는지 측정한다',
     tags: ['React Profiler', 'Profiler', 'React DevTools', '렌더 측정', 'flamegraph', 'onRender', '성능 측정'],

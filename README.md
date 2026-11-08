@@ -105,6 +105,7 @@
 - [빠르게 검색 조건을 바꿨을 때 이전 응답이 덮어쓰면 어떻게 하나요?](./web-questions/search-race-condition.md)
 - [예약·결제 버튼을 두 번 누르면 어떻게 막나요?](./web-questions/double-submit.md)
 - [LCP, INP, CLS](./web-questions/lcp-inp-cls.md)
+- [Lighthouse, Web Vitals, Performance Timing API, Sentry, React Profiler는 성능 최적화에서 각각 무엇을 확인할 때 보나요?](./web-questions/performance-tools.md)
 
 ### 배포 · AWS · CI/CD
 
