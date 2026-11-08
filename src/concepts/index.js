@@ -221,6 +221,14 @@ export const deepDives = [
     Component: lazy(() => import('./EventBusBroadcast.jsx')),
   },
   {
+    slug: 'hydration-mismatch',
+    parent: q('react', 'hyration'),
+    title: 'Hydration과 불일치가 발생하는 이유',
+    summary: '서버 HTML과 브라우저의 첫 렌더 결과가 다르면 React는 서버 HTML을 버리고 다시 그린다',
+    tags: ['Hydration', 'hydrateRoot', 'Hydration mismatch', '불일치', 'SSR', 'renderToString', 'suppressHydrationWarning', 'useId', 'useEffect', 'typeof window', 'onRecoverableError', 'ssr: false'],
+    Component: lazy(() => import('./HydrationMismatch.jsx')),
+  },
+  {
     slug: 'app-router',
     parent: q('react', 'pages-router-vs-app-router'),
     title: 'Next.js App Router (Layout · Dynamic Routing)',
