@@ -56,5 +56,5 @@ const DAY = 24 * 60 * 60 * 1000;
 export const isNew = (q, now = Date.now()) => time(q) > LAUNCHED && now - time(q) < NEW_DAYS * DAY;
 
 
-/** 정렬: 'old' = 등록순(기본, 새 질문이 아래), 'new' = 최신순 */
+/** 정렬: 'new' = 최신 등록순(화면 기본값, 새 질문이 위), 'old' = 등록순. 같은 시각에 등록한 질문끼리는 파일 순서를 유지한다 */
 export const sortQuestions = (list, order) => (order === 'new' ? [...list].sort((a, b) => time(b) - time(a)) : list);

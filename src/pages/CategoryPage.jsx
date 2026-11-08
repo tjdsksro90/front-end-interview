@@ -14,6 +14,7 @@ export default function CategoryPage() {
   const [deep, setDeep] = useQueryParam('deep');
   const [sort, setSort] = useQueryParam('sort');
   const deepOnly = deep === '1';
+  const order = sort === 'old' ? 'old' : 'new'; // 기본은 최신 등록순
   const category = findCategory(categoryId);
   if (!category) return <NotFound />;
 
@@ -21,7 +22,7 @@ export default function CategoryPage() {
   const hasDeep = all.some((q) => q.deep.length);
   const filtered = sortQuestions(
     all.filter((q) => matches(searchText(q), query) && (!deepOnly || q.deep.length)),
-    sort
+    order
   );
 
   return (
@@ -41,15 +42,15 @@ export default function CategoryPage() {
             onChange={(on) => setDeep(on ? '1' : '')}
             label={<span className="text-sm text-violet-600 dark:text-violet-300">심화 있는 것만</span>}
           />
-          {/* 등록순(기본)은 URL에 남기지 않는다 */}
+          {/* 최신 등록순(기본)은 URL에 남기지 않는다 */}
           <select
             aria-label="정렬"
-            value={sort === 'new' ? 'new' : 'old'}
-            onChange={(e) => setSort(e.target.value === 'new' ? 'new' : '')}
+            value={order}
+            onChange={(e) => setSort(e.target.value === 'old' ? 'old' : '')}
             className="rounded-lg border border-zinc-200 bg-white px-2.5 py-1.5 text-sm text-zinc-700 focus:border-indigo-400 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200"
           >
-            <option value="old">등록순</option>
             <option value="new">최신 등록순</option>
+            <option value="old">등록순</option>
           </select>
         </div>
       </div>
