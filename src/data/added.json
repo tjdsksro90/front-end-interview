@@ -176,5 +176,6 @@
   "web-questions/double-submit": "2026-11-08T06:08:06.795Z",
   "web-questions/lcp-inp-cls": "2026-11-08T06:08:06.795Z",
   "react-questions/vue-react-angular": "2026-11-08T06:47:19.214Z",
-  "web-questions/performance-tools": "2026-11-08T07:14:57.105Z"
+  "web-questions/performance-tools": "2026-11-08T07:14:57.105Z",
+  "web-questions/auth-token-xss-csrf": "2026-11-09T03:50:50.122Z"
 }
