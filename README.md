@@ -201,6 +201,7 @@
 - [:is(), :where(), :has(), :not()은 각각 무엇이고 어떻게 다른가요?](./CSS-questions/19-is-where-has-not.md)
 - [contrast-color()는 무엇이고, 색 대비(접근성)를 처리할 때 어떻게 쓰나요?](./CSS-questions/20-contrast-color.md)
 - [View Transition API에서 :active-view-transition과 전환 타입(types)은 어떻게 쓰나요?](./CSS-questions/21-view-transition-types.md)
+- [CSS shape() 함수는 무엇이고 path()·polygon()과 어떻게 다른가요?](./CSS-questions/22-css-shape.md)
 
 ### 프로젝트 경험
 

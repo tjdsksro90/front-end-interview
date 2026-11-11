@@ -460,6 +460,14 @@ export const deepDives = [
     Component: lazy(() => import('./ViewTransitions.jsx')),
   },
   {
+    slug: 'shape-function',
+    parent: q('css', '22-css-shape'),
+    title: 'shape() 함수',
+    summary: 'CSS 문법으로 직선·곡선·호를 이어 그린다 — %·calc()를 써서 요소 크기에 맞춰 늘어나는 clip-path',
+    tags: ['shape()', 'shape', 'clip-path', 'path()', 'polygon()', 'offset-path', 'basic-shape', '반응형 도형', '물결', '말풍선', 'curve', 'arc'],
+    Component: lazy(() => import('./ShapeFunction.jsx')),
+  },
+  {
     slug: 'scroll-driven-animations',
     parent: MODERN_CSS_UI,
     title: 'Scroll-driven Animations',
