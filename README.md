@@ -383,6 +383,7 @@
 - [MCP(Model Context Protocol)는 무엇이고 왜 필요한가요?](./ai-questions/mcp.md)
 - [프론트엔드에서 LLM 응답을 스트리밍으로 보여 주려면 어떻게 하나요?](./ai-questions/llm-streaming.md)
 - [AI 코딩 에이전트와 함께 일할 때 코드베이스는 어떻게 관리하나요?](./ai-questions/coding-agent-codebase.md)
+- [AI가 만든 코드와 LLM 기능의 보안 문제는 어떻게 막나요?](./ai-questions/ai-code-security.md)
 
 <br />
 <br />
