@@ -368,6 +368,7 @@
 
 - [React는 버전별로 무엇이 바뀌었나요? (16.8 · 17 · 18 · 19)](./react-questions/react-versions.md)
 - [Next.js는 버전별로 무엇이 바뀌었나요? (Pages Router → App Router)](./react-questions/nextjs-versions.md)
+- [Next.js의 LTS 정책은 어떻게 되고, 보안 패치는 어떻게 대응하나요?](./react-questions/nextjs-lts-security.md)
 
 <br />
 <br />
