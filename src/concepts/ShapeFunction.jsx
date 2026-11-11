@@ -367,12 +367,52 @@ function Playground() {
           </div>
         </div>
       </div>
-      {alt && isPreset && (
-        <p className="mt-2 break-all font-mono text-xs text-zinc-500">→ {PRESETS[preset].alt}</p>
-      )}
+      {alt && isPreset && <ChangedValues from={PRESETS[preset].css} to={PRESETS[preset].alt} />}
       <p className={`mt-2 text-xs ${ui.muted}`}>
         두 모양은 명령 구조가 같아서(값만 다름) 부드럽게 바뀝니다. 명령의 종류나 개수가 다르면 애니메이션 없이 한 번에 바뀝니다.
       </p>
     </Demo>
+  );
+}
+
+// 모양 바꾸기 전후 값을 공백 단위로 비교해, 바뀐 값(숫자+단위)에만 밑줄을 긋는다.
+// 프리셋 두 값은 명령 구조가 같으므로 같은 위치의 토큰끼리 비교하면 된다.
+// 'calc(50%'나 '14px),'처럼 괄호·쉼표가 붙은 토큰은 숫자 부분만 떼어 낸다.
+const splitValue = (t) => t.match(/^(.*?)(-?[\d.]+[a-z%]*)(.*)$/) ?? [t, '', t, ''];
+
+function ChangedValues({ from, to }) {
+  const a = from.split(/(\s+)/);
+  const b = to.split(/(\s+)/);
+  const diff = b.map((t, i) => t !== a[i]);
+  // 같은 변화(예: 14px → 24px가 여러 군데)는 한 번만 보여 준다
+  const pairs = [...new Map(
+    b.flatMap((t, i) => (diff[i] ? [[splitValue(a[i] ?? '')[2], splitValue(t)[2]]] : [])).map((p) => [p.join('→'), p])
+  ).values()];
+
+  return (
+    <div className="mt-2 space-y-1">
+      <p className="break-all font-mono text-xs text-zinc-500">
+        →{' '}
+        {b.map((t, i) => {
+          if (!diff[i]) return <span key={i}>{t}</span>;
+          const [, pre, value, post] = splitValue(t);
+          return (
+            <span key={i}>
+              {pre}
+              <u className="font-semibold text-indigo-600 decoration-2 underline-offset-4 dark:text-indigo-300">{value}</u>
+              {post}
+            </span>
+          );
+        })}
+      </p>
+      <p className="text-xs text-zinc-500">
+        바뀐 값:{' '}
+        {pairs.map(([x, y], i) => (
+          <span key={i} className="mr-3 font-mono">
+            {x} → <u className="font-semibold text-indigo-600 decoration-2 underline-offset-4 dark:text-indigo-300">{y}</u>
+          </span>
+        ))}
+      </p>
+    </div>
   );
 }
