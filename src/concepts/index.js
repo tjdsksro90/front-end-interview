@@ -460,6 +460,14 @@ export const deepDives = [
     Component: lazy(() => import('./ViewTransitions.jsx')),
   },
   {
+    slug: 'map-set',
+    parent: q('javascript', '53-map-set'),
+    title: 'Map과 Set 고르기',
+    summary: '"이 키의 값은?"이면 Map, "이 값 있나?"면 Set — Object·Array와 비교하며 상황별로 고르는 법',
+    tags: ['Map', 'Set', 'WeakMap', 'WeakSet', '자료구조', '중복 제거', 'has', 'includes', 'Object', 'Array', 'groupBy', 'JSON'],
+    Component: lazy(() => import('./MapSet.jsx')),
+  },
+  {
     slug: 'shape-function',
     parent: q('css', '22-css-shape'),
     title: 'shape() 함수',

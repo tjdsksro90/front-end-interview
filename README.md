@@ -285,6 +285,7 @@
 
 - [Promise.all에 대해서 간단히 설명해주세요.](./javascript-questions/51-promise-all.md)
 - [Array.fromAsync()는 무엇이고 Promise.all과 어떻게 다른가요?](./javascript-questions/52-array-fromasync.md)
+- [Map과 Set의 차이는 무엇이고, 각각 언제 사용하나요?](./javascript-questions/53-map-set.md)
 - [Three.js란 무엇이고, 어떻게 동작하나요?](./javascript-questions/threejs.md)
 
 ### 프로젝트 경험
