@@ -114,6 +114,7 @@ await fetch('/api/transfer', {
 - [쿠키, sessionStorage, localStorage의 차이점](../HTML-questions/06-difference-between-cookie-sessionstorage-localstorage.md)
 - [OAuth에 대해서 설명해주세요](./OAuth.md)
 - [CORS](./cors.md)
+- [Trusted Types는 무엇이고 XSS를 어떻게 막나요?](./trusted-types.md)
 
 ### 참고
 

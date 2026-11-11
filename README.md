@@ -77,6 +77,7 @@
 - [XSS(Cross-Site Scripting) 공격이란 무엇이며, 방어 방법은?](./web-questions/xss.md)
 - [CSRF(Cross-Site Request Forgery) 공격이란 무엇이며, 방어 방법은?](./web-questions/csrf.md)
 - [인증 토큰과 XSS·CSRF는 어떻게 다루나요?](./web-questions/auth-token-xss-csrf.md)
+- [Trusted Types는 무엇이고 XSS를 어떻게 막나요?](./web-questions/trusted-types.md)
 -
 
 <br />
