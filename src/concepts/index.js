@@ -453,6 +453,7 @@ export const deepDives = [
   {
     slug: 'view-transitions',
     parent: MODERN_CSS_UI,
+    also: [q('css', '21-view-transition-types')],
     title: 'View Transitions',
     summary: '화면이 바뀌기 전후를 캡처해 그 사이를 애니메이션으로 잇는다 — 목록 이동, 썸네일 → 상세 전환',
     tags: ['View Transitions', 'startViewTransition', 'view-transition-name', '화면 전환', '애니메이션', 'flushSync', 'ViewTransition', 'MPA'],
