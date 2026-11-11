@@ -379,6 +379,7 @@
 
 - [AI Agent란 무엇이고, 하네스(Harness)는 무엇인가요?](./ai-questions/ai-agent.md)
 - [LangChain과 LangGraph는 무엇이고 어떻게 다른가요?](./ai-questions/langchain-langgraph.md)
+- [브라우저 내장 AI(Prompt API)는 무엇이고, 서버의 LLM API와 언제 다르게 쓰나요?](./ai-questions/browser-built-in-ai.md)
 
 <br />
 <br />
