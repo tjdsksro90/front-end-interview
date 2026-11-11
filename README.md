@@ -283,6 +283,7 @@
 ### 중요도 미정 (velog 정리)
 
 - [Promise.all에 대해서 간단히 설명해주세요.](./javascript-questions/51-promise-all.md)
+- [Array.fromAsync()는 무엇이고 Promise.all과 어떻게 다른가요?](./javascript-questions/52-array-fromasync.md)
 - [Three.js란 무엇이고, 어떻게 동작하나요?](./javascript-questions/threejs.md)
 
 ### 프로젝트 경험
