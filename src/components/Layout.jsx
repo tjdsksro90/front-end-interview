@@ -1,14 +1,8 @@
-import { useEffect } from 'react';
-import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
+import { Link, NavLink, Outlet, ScrollRestoration } from 'react-router-dom';
 import { categories } from '../data/categories.js';
 import ThemeToggle from './ThemeToggle.jsx';
 
 export default function Layout() {
-  const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
   return (
     <div className="min-h-screen">
       <header className="sticky top-0 z-40 border-b border-zinc-200/70 bg-white/75 backdrop-blur-md dark:border-zinc-800/70 dark:bg-zinc-950/75">
@@ -46,6 +40,9 @@ export default function Layout() {
       <main className="mx-auto max-w-5xl px-4 pt-8 pb-24 md:px-8">
         <Outlet />
       </main>
+      {/* 새 페이지로 이동하면 맨 위, 뒤로/앞으로 가기면 그 기록에서 보던 위치로 되돌린다 (방문 기록별로 sessionStorage에 저장) */}
+      <ScrollRestoration />
     </div>
   );
 }
+

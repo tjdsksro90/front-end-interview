@@ -14,7 +14,8 @@ export function useQueryParam(name = 'q') {
         else p.delete(name);
         return p;
       },
-      { replace: true }
+      // 검색어·정렬만 바뀔 때는 ScrollRestoration이 맨 위로 올리지 않게 한다
+      { replace: true, preventScrollReset: true }
     );
   return [value, setValue];
 }

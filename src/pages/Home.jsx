@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { categories } from '../data/categories.js';
 import { questions, questionsOf, searchText, isNew, sortQuestions } from '../data/questions.js';
 import { matches } from '../data/search.js';
 import SearchInput, { useQueryParam } from '../components/SearchInput.jsx';
 import QuestionCard, { cardClass, NewBadge } from '../components/QuestionCard.jsx';
+import { recall, remember } from '../components/historyMemory.js';
 
 export default function Home() {
   const [query, setQuery] = useQueryParam();
@@ -63,11 +64,15 @@ export default function Home() {
 }
 
 // 검색 전: 전체 질문을 최신 등록순으로 10개씩. 목록 끝이 화면에 들어오면 다음 10개를 붙인다.
+// 몇 개까지 불러왔는지는 방문 기록(location.key)마다 기억한다. 질문을 보고 뒤로 가기로 돌아오면
+// 첫 렌더부터 그 개수만큼 그려서, Layout이 예전 스크롤 위치로 돌려놓을 수 있게 한다.
 const PAGE = 10;
 const latest = sortQuestions(questions, 'new');
 
 function AllQuestions() {
-  const [count, setCount] = useState(PAGE);
+  const { key } = useLocation();
+  const [count, setCount] = useState(() => recall(key, 'home-count') ?? PAGE);
+  useEffect(() => remember(key, 'home-count', count), [key, count]);
   const sentinel = useRef(null);
   const hasMore = count < latest.length;
 

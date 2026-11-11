@@ -18,7 +18,7 @@ const reachEnd = () => act(() => observers.forEach((o) => o.cb([{ isIntersecting
 const cards = () => document.querySelectorAll('.group.relative').length;
 
 describe('홈 전체 질문 무한 스크롤', () => {
-  beforeEach(() => { observers = []; globalThis.IntersectionObserver = FakeIO; });
+  beforeEach(() => { observers = []; globalThis.IntersectionObserver = FakeIO; sessionStorage.clear(); });
   afterEach(() => { cleanup(); delete globalThis.IntersectionObserver; });
 
   it('처음에는 10개만 보인다', () => {
@@ -50,5 +50,27 @@ describe('홈 전체 질문 무한 스크롤', () => {
     render(<MemoryRouter initialEntries={['/?q=hydration']}><Home /></MemoryRouter>);
     expect(screen.queryByText(/^전체 질문/)).toBeNull();
     expect(screen.getByText(/질문 검색 결과/)).toBeTruthy();
+  });
+
+  it('뒤로 가기로 같은 방문 기록에 돌아오면 불러왔던 개수를 그대로 다시 그린다', () => {
+    const entry = { pathname: '/', key: 'visit-1' };
+    const first = render(<MemoryRouter initialEntries={[entry]}><Home /></MemoryRouter>);
+    reachEnd();
+    reachEnd();
+    expect(cards()).toBe(30);
+    first.unmount(); // 질문 페이지로 이동
+
+    render(<MemoryRouter initialEntries={[entry]}><Home /></MemoryRouter>); // 같은 key로 복귀
+    expect(cards()).toBe(30);
+  });
+
+  it('링크로 새로 들어온 홈(새 방문 기록)은 10개부터 시작한다', () => {
+    const first = render(<MemoryRouter initialEntries={[{ pathname: '/', key: 'visit-1' }]}><Home /></MemoryRouter>);
+    reachEnd();
+    expect(cards()).toBe(20);
+    first.unmount();
+
+    render(<MemoryRouter initialEntries={[{ pathname: '/', key: 'visit-2' }]}><Home /></MemoryRouter>);
+    expect(cards()).toBe(10);
   });
 });
