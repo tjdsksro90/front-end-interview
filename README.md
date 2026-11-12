@@ -385,6 +385,7 @@
 - [AI 코딩 에이전트와 함께 일할 때 코드베이스는 어떻게 관리하나요?](./ai-questions/coding-agent-codebase.md)
 - [AI가 만든 코드와 LLM 기능의 보안 문제는 어떻게 막나요?](./ai-questions/ai-code-security.md)
 - [RAG(검색 증강 생성)는 무엇이고, 프론트엔드 개발자는 어디까지 알아야 하나요?](./ai-questions/rag.md)
+- [바이브 코딩(Vibe Coding)이란 무엇이고, 왜 지금 배워야 하나요?](./ai-questions/vibe-coding.md)
 
 <br />
 <br />
