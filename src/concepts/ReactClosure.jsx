@@ -13,7 +13,50 @@ export default function ReactClosure() {
           그래서 state는 "변하는 변수"가 아니라 <b>렌더마다 찍힌 스냅샷</b>처럼 동작하고, 오래된 렌더의 클로저가 살아 있으면 <b>오래된 값(stale closure)</b>을 보게 됩니다.
         </OneLiner>
 
-        <H3>JS 클로저와 React를 나란히 보면</H3>
+        <H3>JavaScript 클로저를 React로 바꾸면</H3>
+        <p>클로저 질문의 "함수가 끝나도 내부 변수를 기억하는" 카운터를 그대로 React로 옮겨 보면 구조가 같습니다.</p>
+        <CodeCompare
+          before={{
+            label: 'JavaScript 클로저',
+            code: `
+function createCounter() {
+  let count = 0;                 // 밖에서 직접 못 건드림 (은닉)
+  return {
+    increment: () => ++count,    // count를 기억하는 함수들
+    get: () => count,
+  };
+}
+
+const counter = createCounter();
+counter.increment();
+counter.get(); // 1`,
+            note: 'createCounter는 한 번 실행되고 끝나지만, 돌려준 함수들이 count를 계속 기억한다.',
+          }}
+          after={{
+            label: 'React 커스텀 Hook',
+            code: `
+function useCounter(initial = 0) {
+  const [count, setCount] = useState(initial); // 값은 React가 보관
+  const increment = () => setCount((c) => c + 1);
+  return { count, increment };
+}
+
+function Counter() {
+  const { count, increment } = useCounter();
+  return <button onClick={increment}>{count}</button>;
+}`,
+            note: 'createCounter → useCounter. 바깥에서는 increment로만 값을 바꿀 수 있어 은닉도 같다.',
+          }}
+        />
+        <List
+          items={[
+            <>차이는 <b>값을 어디에 보관하느냐</b>다. 컴포넌트 함수는 렌더할 때마다 다시 실행되므로 함수 안의 <Code>let count = 0</Code>은 매번 0으로 돌아간다. 그래서 값은 <Code>useState</Code>(React가 컴포넌트 밖에 보관)에 두고, 그 값을 다루는 함수를 클로저로 만든다.</>,
+            <>화면과 상관없어서 바뀌어도 다시 그릴 필요가 없는 값이라면 <Code>useRef</Code>가 JS 클로저의 <Code>let</Code>에 가장 가깝다.</>,
+            <>그리고 "렌더마다 다시 실행된다"는 점 때문에 JS에는 없던 문제, <b>오래된 클로저(stale closure)</b>가 생긴다. 아래에서 자세히 본다.</>,
+          ]}
+        />
+
+        <H3>표로 정리하면</H3>
         <Table
           head={['', 'JS 클로저 (createCounter)', 'React (useCounter)']}
           rows={[
