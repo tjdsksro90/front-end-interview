@@ -460,6 +460,15 @@ export const deepDives = [
     Component: lazy(() => import('./ViewTransitions.jsx')),
   },
   {
+    slug: 'react-closure',
+    parent: q('react', 'custom-hook'),
+    also: [q('javascript', '04-closure')],
+    title: 'React에서의 클로저',
+    summary: '렌더마다 새 클로저가 생겨 state는 스냅샷처럼 동작한다 — 커스텀 Hook의 은닉과 stale closure, 고치는 4가지 방법',
+    tags: ['클로저', 'closure', 'stale closure', '오래된 클로저', '스냅샷', 'useState', '함수형 업데이트', 'useRef', 'useEffectEvent', 'useCallback', '커스텀 훅', 'setInterval'],
+    Component: lazy(() => import('./ReactClosure.jsx')),
+  },
+  {
     slug: 'map-set',
     parent: q('javascript', '53-map-set'),
     title: 'Map과 Set 고르기',
