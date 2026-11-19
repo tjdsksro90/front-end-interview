@@ -63,7 +63,7 @@ export default function Home() {
   );
 }
 
-// 검색 전: 전체 질문을 최신 등록순으로 10개씩. 목록 끝이 화면에 들어오면 다음 10개를 붙인다.
+// 검색 전: 전체 질문을 최신순(새 심화가 붙은 질문 포함)으로 10개씩. 목록 끝이 화면에 들어오면 다음 10개를 붙인다.
 // 몇 개까지 불러왔는지는 방문 기록(location.key)마다 기억한다. 질문을 보고 뒤로 가기로 돌아오면
 // 첫 렌더부터 그 개수만큼 그려서, Layout이 예전 스크롤 위치로 돌려놓을 수 있게 한다.
 const PAGE = 10;
@@ -92,7 +92,7 @@ function AllQuestions() {
     <>
       <h2 className="mt-10 mb-3 font-semibold text-zinc-900 dark:text-zinc-50">
         전체 질문 <span className="text-zinc-400">{latest.length}</span>
-        <span className="ml-2 text-xs font-normal text-zinc-400">최신 등록순</span>
+        <span className="ml-2 text-xs font-normal text-zinc-400">최신순</span>
       </h2>
       <div className="grid gap-3">
         {latest.slice(0, count).map((q) => <QuestionCard key={`${q.categoryId}/${q.slug}`} question={q} showCategory />)}

@@ -2,7 +2,7 @@ import { act, cleanup, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import Home from '../Home.jsx';
-import { questions } from '../../data/questions.js';
+import { questions, updatedTime } from '../../data/questions.js';
 
 // 홈: 검색 전에는 전체 질문을 10개씩, 목록 끝이 보이면 10개씩 더. 검색하면 검색 결과만.
 
@@ -39,10 +39,9 @@ describe('홈 전체 질문 무한 스크롤', () => {
     expect(observers.length).toBe(0);
   });
 
-  it('최신 등록순이다', () => {
+  it('최신순이다 (질문 등록이나 심화 추가 중 더 최근 것 기준)', () => {
     render(<MemoryRouter><Home /></MemoryRouter>);
-    const time = (q) => (q.added ? Date.parse(q.added) : 0);
-    const newest = [...questions].sort((a, b) => time(b) - time(a))[0];
+    const newest = [...questions].sort((a, b) => updatedTime(b) - updatedTime(a))[0];
     expect(document.querySelector('.group.relative a').textContent).toBe(newest.title);
   });
 

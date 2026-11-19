@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { isNew } from '../data/questions.js';
+import { isNew, isNewDeep } from '../data/questions.js';
 
 export const cardClass =
   'rounded-2xl border border-zinc-200 bg-white p-5 transition hover:border-indigo-400 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900/60 dark:hover:border-indigo-400/60';
@@ -59,6 +59,7 @@ export default function QuestionCard({ question, index, showCategory }) {
                       className="rounded-full bg-violet-50 px-2.5 py-0.5 text-xs font-medium text-violet-700 ring-1 ring-violet-200 transition hover:bg-violet-100 dark:bg-violet-500/15 dark:text-violet-300 dark:ring-violet-500/30 dark:hover:bg-violet-500/25"
                     >
                       심화 · {d.title}
+                      {isNewDeep(d) && <span className="ml-1.5 rounded bg-rose-500 px-1 text-[9px] leading-3 font-bold text-white">NEW</span>}
                     </Link>
                   ))}
                 </>

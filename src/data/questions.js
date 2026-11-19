@@ -53,8 +53,23 @@ export const searchText = (q) =>
 export const NEW_DAYS = 7;
 const LAUNCHED = Date.parse('2026-11-03T18:13:30+09:00');
 const DAY = 24 * 60 * 60 * 1000;
-export const isNew = (q, now = Date.now()) => time(q) > LAUNCHED && now - time(q) < NEW_DAYS * DAY;
+const recent = (t, now) => t > LAUNCHED && now - t < NEW_DAYS * DAY;
+
+// 심화(deep)는 concepts/index.js의 added에 추가 시각을 적는다
+const deepTime = (d) => (d.added ? Date.parse(d.added) : 0);
+export const isNewDeep = (d, now = Date.now()) => recent(deepTime(d), now);
+
+// 질문의 마지막 업데이트 = 질문 등록 시각과 연결된 심화들의 추가 시각 중 가장 최근
+export const updatedTime = (q) => Math.max(time(q), ...(q.deep ?? []).map(deepTime));
+
+// 질문 자체가 새로 등록됐거나, 새 심화가 붙었으면 NEW
+export const isNew = (q, now = Date.now()) => recent(time(q), now) || (q.deep ?? []).some((d) => isNewDeep(d, now));
 
 
-/** 정렬: 'new' = 최신 등록순(화면 기본값, 새 질문이 위), 'old' = 등록순. 같은 시각에 등록한 질문끼리는 파일 순서를 유지한다 */
-export const sortQuestions = (list, order) => (order === 'new' ? [...list].sort((a, b) => time(b) - time(a)) : list);
+/**
+ * 정렬: 'new' = 최신순(화면 기본값), 'old' = 등록순.
+ * 최신순은 마지막 업데이트 기준이라, 예전 질문이라도 새 심화가 붙으면 위로 올라온다.
+ * 같은 시각끼리는 원래 순서를 유지한다 (sort는 안정 정렬).
+ */
+export const sortQuestions = (list, order) =>
+  order === 'new' ? [...list].sort((a, b) => updatedTime(b) - updatedTime(a)) : list;

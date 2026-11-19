@@ -2,6 +2,8 @@ import { lazy } from 'react';
 
 // 심화 페이지: 기본 답변(md)에 더해 시각화·코드 비교·직접 해보기가 필요한 개념만 따로 만든다.
 // parent에 연결할 md 질문을 지정하면 목록과 질문 페이지에 '심화' 선택지로 나타난다.
+// added: 심화를 추가한 시각. 새 심화를 만들 때 지금 시각을 적는다.
+//   7일 동안 NEW가 붙고, 최신순 목록에서 연결된 질문이 이 시각 기준으로 위로 올라온다.
 // 페이지는 React.lazy로 불러와서, 들어갈 때 해당 페이지 코드만 다운로드된다.
 const MEMO = { categoryId: 'react', slug: 'use-memo-use-callback' };
 const OPTIMIZATION = { categoryId: 'react', slug: 'in-react-optimization' };
@@ -16,6 +18,7 @@ const q = (categoryId, slug) => ({ categoryId, slug });
 export const deepDives = [
   {
     slug: 'memo-usememo',
+    added: '2026-11-03T18:13:40+09:00',
     parent: MEMO,
     title: 'React.memo & useMemo',
     summary: '같은 입력이면 이전 결과를 재사용한다 — 컴포넌트 단위(memo) vs 값 단위(useMemo)',
@@ -24,6 +27,7 @@ export const deepDives = [
   },
   {
     slug: 'usecallback',
+    added: '2026-11-03T18:13:40+09:00',
     parent: MEMO,
     title: 'useCallback',
     summary: '함수의 참조(주소)를 고정해서 memo된 자식의 불필요한 리렌더를 막는다',
@@ -32,6 +36,7 @@ export const deepDives = [
   },
   {
     slug: 'react-compiler',
+    added: '2026-11-04T00:12:17+09:00',
     parent: MEMO,
     title: 'React Compiler',
     summary: '빌드할 때 메모이제이션을 자동으로 넣어줘서 useMemo·useCallback·memo를 직접 쓸 일이 줄어든다',
@@ -40,6 +45,7 @@ export const deepDives = [
   },
   {
     slug: 'react-lazy',
+    added: '2026-11-03T18:13:40+09:00',
     parent: OPTIMIZATION,
     title: 'React.lazy',
     summary: '컴포넌트 코드를 별도 파일(청크)로 쪼개서 필요할 때 불러온다',
@@ -48,6 +54,7 @@ export const deepDives = [
   },
   {
     slug: 'suspense',
+    added: '2026-11-03T18:13:40+09:00',
     parent: OPTIMIZATION,
     title: 'Suspense',
     summary: '아직 준비 안 된 UI 대신 fallback을 보여주는 "로딩 경계"',
@@ -56,6 +63,7 @@ export const deepDives = [
   },
   {
     slug: 'virtualized-list',
+    added: '2026-11-03T18:13:40+09:00',
     parent: OPTIMIZATION,
     title: 'Virtualized List',
     summary: '긴 목록에서 화면에 보이는 행만 DOM으로 그린다',
@@ -64,6 +72,7 @@ export const deepDives = [
   },
   {
     slug: 'concurrent-mode',
+    added: '2026-11-03T18:13:40+09:00',
     parent: OPTIMIZATION,
     title: 'Concurrent Mode (동시성 렌더링)',
     summary: '렌더링을 중단·재개할 수 있게 해서 급한 업데이트(입력)를 먼저 처리한다',
@@ -72,6 +81,7 @@ export const deepDives = [
   },
   {
     slug: 'webpack',
+    added: '2026-11-03T19:10:57+09:00',
     parent: BUNDLER,
     title: 'Webpack',
     summary: '흩어진 모듈을 의존성 그래프로 엮어 브라우저용 번들로 만드는 번들러',
@@ -80,6 +90,7 @@ export const deepDives = [
   },
   {
     slug: 'tree-shaking',
+    added: '2026-11-03T19:10:57+09:00',
     parent: BUNDLER,
     title: 'Tree Shaking',
     summary: '실제로 import해서 쓰지 않는 코드를 번들에서 털어낸다',
@@ -88,6 +99,7 @@ export const deepDives = [
   },
   {
     slug: 'code-splitting',
+    added: '2026-11-03T19:10:57+09:00',
     parent: PROJECT_OPTI,
     title: 'Code Splitting',
     summary: '하나의 큰 번들을 여러 청크로 나눠 필요한 것만, 캐시는 오래 쓰게 한다',
@@ -96,6 +108,7 @@ export const deepDives = [
   },
   {
     slug: 'dynamic-import',
+    added: '2026-11-03T19:10:57+09:00',
     parent: PROJECT_OPTI,
     title: 'Dynamic Import',
     summary: 'import()로 모듈을 실행 중에 필요할 때 불러온다',
@@ -104,6 +117,7 @@ export const deepDives = [
   },
   {
     slug: 'bundle-analyzer',
+    added: '2026-11-03T19:10:57+09:00',
     parent: PROJECT_OPTI,
     title: 'Bundle Analyzer',
     summary: '번들 안에 무엇이 얼마나 들어있는지 트리맵으로 보고 줄일 곳을 찾는다',
@@ -112,6 +126,7 @@ export const deepDives = [
   },
   {
     slug: 'nextjs-image',
+    added: '2026-11-03T19:10:57+09:00',
     parent: PROJECT_OPTI,
     title: 'Next.js Image Optimization',
     summary: 'next/image로 크기 조절·포맷 변환·lazy loading·반응형 이미지·CLS 방지를 자동으로',
@@ -120,6 +135,7 @@ export const deepDives = [
   },
   {
     slug: 'react-query-swr',
+    added: '2026-11-03T19:36:01+09:00',
     parent: q('react', 'tanstack-query'),
     title: 'React Query & SWR (캐시와 Stale-While-Revalidate)',
     summary: '서버 데이터를 캐시하고, 오래된 값은 먼저 보여준 뒤 뒤에서 새로 받아온다',
@@ -128,6 +144,7 @@ export const deepDives = [
   },
   {
     slug: 'debounce-throttle',
+    added: '2026-11-03T19:36:01+09:00',
     parent: q('javascript', 'debounce'),
     title: 'Debounce & Throttle',
     summary: '연속으로 일어나는 이벤트를 마지막 한 번(debounce) 또는 일정 간격(throttle)으로 줄인다',
@@ -136,6 +153,7 @@ export const deepDives = [
   },
   {
     slug: 'rendering-strategy',
+    added: '2026-11-03T19:36:01+09:00',
     parent: q('web', 'spa'),
     title: 'SSR · SSG · ISR (Pre-rendering)',
     summary: 'HTML을 언제 만드느냐: 요청마다(SSR), 빌드 때(SSG), 빌드 후 주기적으로(ISR)',
@@ -145,6 +163,7 @@ export const deepDives = [
   },
   {
     slug: 'network-cache',
+    added: '2026-11-03T19:36:01+09:00',
     parent: q('web', 'google-search'),
     title: 'Cache-Control · CDN · 압축 · Preload',
     summary: '한 번 받은 파일은 재사용하고, 가까운 서버에서, 작게, 미리 받는다',
@@ -154,6 +173,7 @@ export const deepDives = [
   },
   {
     slug: 'web-vitals',
+    added: '2026-11-03T19:36:01+09:00',
     parent: q('web', 'browser-rendering'),
     also: [q('web', 'lcp-inp-cls'), q('web', 'performance-tools')],
     title: 'Web Vitals & 성능 측정 (Lighthouse · Performance API · Sentry)',
@@ -163,6 +183,7 @@ export const deepDives = [
   },
   {
     slug: 'react-profiler',
+    added: '2026-11-03T19:36:01+09:00',
     parent: q('react', 'in-react-optimization'),
     also: [q('web', 'performance-tools')],
     title: 'React Profiler',
@@ -172,6 +193,7 @@ export const deepDives = [
   },
   {
     slug: 'folder-structure',
+    added: '2026-11-03T19:36:01+09:00',
     parent: q('react', 'component'),
     title: '폴더 구조 설계 (FSD · Atomic Design)',
     summary: '코드를 기능(feature) 단위로 나눌지, UI 크기 단위로 나눌지 정하고 의존 방향을 규칙으로 만든다',
@@ -181,6 +203,7 @@ export const deepDives = [
   },
   {
     slug: 'monorepo',
+    added: '2026-11-03T19:36:01+09:00',
     parent: q('react', 'component'),
     title: 'Monorepo (Turborepo · pnpm workspace)',
     summary: '여러 앱과 공유 패키지를 한 저장소에서 관리하고, 빌드는 바뀐 것만 캐시로 빠르게',
@@ -190,6 +213,7 @@ export const deepDives = [
   },
   {
     slug: 'domain-layer',
+    added: '2026-11-03T19:36:01+09:00',
     parent: q('react', 'component'),
     title: 'Clean Architecture & 비즈니스 로직 분리 (DDD)',
     summary: '화면(UI)과 비즈니스 규칙과 API 통신을 층으로 나눠, 규칙을 UI 없이 테스트하고 재사용한다',
@@ -199,6 +223,7 @@ export const deepDives = [
   },
   {
     slug: 'design-system',
+    added: '2026-11-03T19:36:01+09:00',
     parent: q('react', 'component'),
     title: 'Design System & Storybook (Design Token)',
     summary: '디자인 결정을 토큰과 컴포넌트로 코드화하고, Storybook으로 문서화·공유한다',
@@ -208,6 +233,7 @@ export const deepDives = [
   },
   {
     slug: 'state-libraries',
+    added: '2026-11-03T19:36:01+09:00',
     parent: q('react', 'state-management'),
     title: '상태관리 라이브러리 비교 (Context · Redux Toolkit · Zustand · Recoil)',
     summary: '전역 상태를 어디에 두고, 바뀌었을 때 누가 다시 렌더되느냐의 차이',
@@ -216,6 +242,7 @@ export const deepDives = [
   },
   {
     slug: 'event-bus-broadcast',
+    added: '2026-11-03T19:36:01+09:00',
     parent: q('react', 'state-management'),
     title: 'Event Bus & BroadcastChannel',
     summary: '컴포넌트끼리, 그리고 브라우저 탭끼리 직접 연결 없이 메시지를 주고받는다',
@@ -224,6 +251,7 @@ export const deepDives = [
   },
   {
     slug: 'hydration-mismatch',
+    added: '2026-11-08T14:18:22+09:00',
     parent: q('react', 'hyration'),
     title: 'Hydration과 불일치가 발생하는 이유',
     summary: '서버 HTML과 브라우저의 첫 렌더 결과가 다르면 React는 서버 HTML을 버리고 다시 그린다',
@@ -232,6 +260,7 @@ export const deepDives = [
   },
   {
     slug: 'app-router',
+    added: '2026-11-03T19:36:01+09:00',
     parent: q('react', 'pages-router-vs-app-router'),
     title: 'Next.js App Router (Layout · Dynamic Routing)',
     summary: '폴더 구조가 곧 URL이 되고, layout이 중첩되며, 페이지마다 SSR/SSG를 섞어 쓴다',
@@ -241,6 +270,7 @@ export const deepDives = [
   },
   {
     slug: 'react-versions',
+    added: '2026-11-04T00:12:17+09:00',
     parent: VERSIONS,
     title: 'React 버전별 변경점 한눈에 보기',
     summary: '16.8 Hooks, 17 디딤돌, 18 동시성 렌더링, 19 Actions와 Server Components',
@@ -250,6 +280,7 @@ export const deepDives = [
   },
   {
     slug: 'react-18',
+    added: '2026-11-04T00:12:17+09:00',
     parent: VERSIONS,
     title: 'React 18 (동시성 렌더링 · 자동 배칭)',
     summary: 'createRoot로 동시성 렌더링이 켜지고, 어디서든 setState를 묶는 자동 배칭과 useId 등이 생겼다',
@@ -258,6 +289,7 @@ export const deepDives = [
   },
   {
     slug: 'react-19',
+    added: '2026-11-04T00:12:17+09:00',
     parent: VERSIONS,
     title: 'React 19 (Actions · useOptimistic · use)',
     summary: '폼 제출의 대기·에러·낙관적 업데이트를 React가 관리하고, ref를 prop으로 받는 등 문법이 정리됐다',
@@ -266,6 +298,7 @@ export const deepDives = [
   },
   {
     slug: 'nextjs-versions',
+    added: '2026-11-04T00:12:17+09:00',
     parent: q('react', 'nextjs-versions'),
     title: 'Next.js 버전별 변경점 (Pages Router → App Router)',
     summary: '13에서 app 디렉터리와 서버 컴포넌트가 들어왔고, 15·16은 캐시 기본값과 Turbopack을 정리했다',
@@ -275,6 +308,7 @@ export const deepDives = [
   },
   {
     slug: 'styling-theme',
+    added: '2026-11-03T19:36:01+09:00',
     parent: q('react', 'nextjs-useTheme'),
     title: 'Theme Provider & 스타일링 방식 (CSS-in-JS · Tailwind)',
     summary: '테마 값을 Context로 내려주고, 스타일을 JS 안에서 쓸지(Emotion) 클래스로 쓸지(Tailwind) 고른다',
@@ -283,6 +317,7 @@ export const deepDives = [
   },
   {
     slug: 'fumadocs',
+    added: '2026-11-06T20:49:04+09:00',
     parent: q('react', 'mdx-vs-fumadocs'),
     title: 'Fumadocs (MDX 문서 사이트 프레임워크)',
     summary: 'content/docs에 MDX만 넣으면 사이드바·목차·검색이 갖춰진 문서 사이트를 만든다 — mdx · core · ui 세 패키지',
@@ -292,6 +327,7 @@ export const deepDives = [
   },
   {
     slug: 'emotion',
+    added: '2026-11-04T02:40:46+09:00',
     parent: q('react', 'styled-components-vs-emotion'),
     title: 'Emotion (css prop · styled · 테마)',
     summary: 'CSS 문자열을 해시해 클래스를 만들고 style 태그에 넣는 원리, css prop과 styled, 동적 값은 CSS 변수로',
@@ -300,6 +336,7 @@ export const deepDives = [
   },
   {
     slug: 'accessibility',
+    added: '2026-11-03T19:36:01+09:00',
     parent: q('html', '13-web-accessibility-semantic-web'),
     title: 'Accessibility (웹 접근성)',
     summary: '키보드·스크린리더로도 쓸 수 있게: 시맨틱 태그, 포커스, ARIA',
@@ -308,6 +345,7 @@ export const deepDives = [
   },
   {
     slug: 'api-layer',
+    added: '2026-11-03T19:36:01+09:00',
     parent: q('web', 'api'),
     title: 'API 레이어 설계 (Axios Wrapper · Retry · Custom Hook)',
     summary: 'API 호출을 한곳에 모아 인증·에러·재시도 정책을 공통으로 처리하고, 컴포넌트는 Hook만 쓴다',
@@ -316,6 +354,7 @@ export const deepDives = [
   },
   {
     slug: 'error-boundary',
+    added: '2026-11-03T19:36:01+09:00',
     parent: q('react', 'life-cycle'),
     title: 'Error Boundary',
     summary: '렌더링 중 에러가 나도 앱 전체가 하얗게 죽지 않고, 그 영역만 대체 UI로 바꾼다',
@@ -324,6 +363,7 @@ export const deepDives = [
   },
   {
     slug: 'ci-husky-actions',
+    added: '2026-11-03T19:36:01+09:00',
     parent: q('web', 'ci-cd'),
     title: 'CI 자동화 (Husky · lint-staged · GitHub Actions)',
     summary: '커밋 전엔 로컬에서, PR에선 서버에서 린트·테스트·빌드를 자동으로 검사한다',
@@ -333,6 +373,7 @@ export const deepDives = [
   },
   {
     slug: 'e2e-test',
+    added: '2026-11-03T19:36:01+09:00',
     parent: q('web', 'ci-cd'),
     title: 'E2E 테스트 (Playwright · Cypress)',
     summary: '실제 브라우저를 띄워 사용자처럼 클릭·입력하며 전체 흐름을 검사한다',
@@ -342,6 +383,7 @@ export const deepDives = [
   },
   {
     slug: 'api-schema-mock',
+    added: '2026-11-03T19:36:01+09:00',
     parent: q('web', 'rest-api'),
     title: 'API 스키마 & Mock 서버 (OpenAPI · Swagger · MSW)',
     summary: 'API 명세에서 TypeScript 타입을 자동으로 만들고, 백엔드가 없어도 Mock 서버로 개발한다',
@@ -351,6 +393,7 @@ export const deepDives = [
   },
   {
     slug: 'swagger-ui',
+    added: '2026-11-04T16:17:51+09:00',
     parent: q('web', 'swagger'),
     title: 'Swagger UI 사용법 (Try it out · Authorize · Schemas)',
     summary: 'OpenAPI 명세를 문서 화면으로 보고, 그 자리에서 요청을 보내보고, 같은 명세로 타입을 생성한다',
@@ -360,6 +403,7 @@ export const deepDives = [
   },
   {
     slug: 'docker',
+    added: '2026-11-04T21:21:09+09:00',
     parent: q('web', 'docker'),
     title: 'Docker (Dockerfile · 멀티 스테이지 · compose)',
     summary: '프론트 빌드 결과를 Nginx 이미지로 만들고, 레이어 캐시·이미지 크기·환경 변수 시점을 직접 확인한다',
@@ -369,6 +413,7 @@ export const deepDives = [
   },
   {
     slug: 'threejs',
+    added: '2026-11-07T01:43:17+09:00',
     parent: q('javascript', 'threejs'),
     title: 'Three.js (Scene · Camera · Mesh · Light)',
     summary: '실제 three.js 장면으로 Scene Graph, 카메라 fov·near·far, 재질과 조명을 바꿔 보며 3D가 그려지는 원리를 확인한다',
@@ -377,6 +422,7 @@ export const deepDives = [
   },
   {
     slug: 'ai-agent',
+    added: '2026-11-03T20:14:59+09:00',
     parent: q('ai', 'ai-agent'),
     title: 'AI Agent',
     summary: 'LLM이 도구를 골라 쓰고 결과를 보며, 목표를 이룰 때까지 스스로 반복하는 시스템',
@@ -385,6 +431,7 @@ export const deepDives = [
   },
   {
     slug: 'harness-engineering',
+    added: '2026-11-03T20:14:59+09:00',
     parent: q('ai', 'ai-agent'),
     title: 'Harness Engineering',
     summary: '모델을 둘러싼 도구·컨텍스트·검증·권한·피드백 루프를 설계해 에이전트를 믿을 만하게 만든다',
@@ -394,6 +441,7 @@ export const deepDives = [
   },
   {
     slug: 'langchain',
+    added: '2026-11-03T20:14:59+09:00',
     parent: q('ai', 'langchain-langgraph'),
     title: 'LangChain',
     summary: '여러 LLM 제공자를 같은 인터페이스로 쓰고, createAgent로 에이전트 하네스를 빠르게 만든다',
@@ -403,6 +451,7 @@ export const deepDives = [
   },
   {
     slug: 'langgraph',
+    added: '2026-11-03T20:14:59+09:00',
     parent: q('ai', 'langchain-langgraph'),
     title: 'LangGraph',
     summary: '에이전트의 흐름을 상태(State)·노드·엣지로 된 그래프로 짜고, 중단·재개·사람 승인을 지원한다',
@@ -411,6 +460,7 @@ export const deepDives = [
   },
   {
     slug: 'container-queries',
+    added: '2026-11-04T00:56:53+09:00',
     parent: MODERN_CSS,
     title: 'Container Queries',
     summary: '화면이 아니라 부모(컨테이너) 크기에 따라 스타일을 바꿔, 컴포넌트가 놓인 자리에 맞춰 스스로 바뀐다',
@@ -419,6 +469,7 @@ export const deepDives = [
   },
   {
     slug: 'is-selector',
+    added: '2026-11-05T14:03:14+09:00',
     parent: SELECTORS,
     title: ':is() 선택자',
     summary: '반복되는 선택자 조합을 한 줄로 묶는다 — 우선순위는 괄호 안 가장 높은 값',
@@ -427,6 +478,7 @@ export const deepDives = [
   },
   {
     slug: 'where-selector',
+    added: '2026-11-05T14:03:14+09:00',
     parent: SELECTORS,
     title: ':where() 선택자',
     summary: ':is()와 같은 요소를 고르지만 우선순위가 0 — 덮어쓰기 쉬운 리셋·기본 스타일',
@@ -435,6 +487,7 @@ export const deepDives = [
   },
   {
     slug: 'has-selector',
+    added: '2026-11-04T00:56:53+09:00',
     parent: MODERN_CSS,
     also: [SELECTORS],
     title: ':has() 선택자',
@@ -444,6 +497,7 @@ export const deepDives = [
   },
   {
     slug: 'not-selector',
+    added: '2026-11-05T14:03:14+09:00',
     parent: SELECTORS,
     title: ':not() 선택자',
     summary: '예외를 처음부터 빼고 적용한다 — 되돌리기 코드가 사라지지만 우선순위는 올라간다',
@@ -452,6 +506,7 @@ export const deepDives = [
   },
   {
     slug: 'view-transitions',
+    added: '2026-11-04T00:56:53+09:00',
     parent: MODERN_CSS_UI,
     also: [q('css', '21-view-transition-types')],
     title: 'View Transitions',
@@ -461,6 +516,7 @@ export const deepDives = [
   },
   {
     slug: 'react-closure',
+    added: '2026-11-19T15:04:37+09:00',
     parent: q('react', 'custom-hook'),
     also: [q('javascript', '04-closure')],
     title: 'React에서의 클로저',
@@ -470,6 +526,7 @@ export const deepDives = [
   },
   {
     slug: 'map-set',
+    added: '2026-11-12T02:42:52+09:00',
     parent: q('javascript', '53-map-set'),
     title: 'Map과 Set 고르기',
     summary: '"이 키의 값은?"이면 Map, "이 값 있나?"면 Set — Object·Array와 비교하며 상황별로 고르는 법',
@@ -478,6 +535,7 @@ export const deepDives = [
   },
   {
     slug: 'shape-function',
+    added: '2026-11-12T02:11:10+09:00',
     parent: q('css', '22-css-shape'),
     title: 'shape() 함수',
     summary: 'CSS 문법으로 직선·곡선·호를 이어 그린다 — %·calc()를 써서 요소 크기에 맞춰 늘어나는 clip-path',
@@ -486,6 +544,7 @@ export const deepDives = [
   },
   {
     slug: 'scroll-driven-animations',
+    added: '2026-11-04T00:56:53+09:00',
     parent: MODERN_CSS_UI,
     title: 'Scroll-driven Animations',
     summary: '애니메이션 진행을 시간 대신 스크롤 위치에 연결해, scroll 이벤트 없이 진행률 바·등장 효과를 만든다',
@@ -494,6 +553,7 @@ export const deepDives = [
   },
   {
     slug: 'anchor-popover',
+    added: '2026-11-04T00:56:53+09:00',
     parent: MODERN_CSS_UI,
     title: 'Anchor Positioning & Popover',
     summary: 'HTML popover로 열기·닫기를, CSS anchor로 위치·뒤집기를 처리해 드롭다운·툴팁을 라이브러리 없이 만든다',
