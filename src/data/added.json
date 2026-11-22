@@ -194,5 +194,6 @@
   "ai-questions/vibe-coding": "2026-11-12T07:58:32.083Z",
   "react-questions/electron-intro": "2026-11-22T13:24:56.182Z",
   "react-questions/electron-process-model": "2026-11-22T13:26:11.490Z",
-  "react-questions/electron-ipc": "2026-11-22T13:27:40.978Z"
+  "react-questions/electron-ipc": "2026-11-22T13:27:40.978Z",
+  "react-questions/electron-preload-contextbridge": "2026-11-22T13:28:25.434Z"
 }
