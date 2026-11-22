@@ -379,6 +379,7 @@
 - [Electron에서 메인과 렌더러 프로세스는 어떻게 통신하나요? (IPC)](./react-questions/electron-ipc.md)
 - [Electron의 preload 스크립트와 contextBridge는 왜 필요한가요?](./react-questions/electron-preload-contextbridge.md)
 - [Electron의 contextIsolation, nodeIntegration, sandbox 설정은 무엇이고 왜 중요한가요?](./react-questions/electron-security-settings.md)
+- [React(Vite) 프로젝트에 Electron을 붙이려면 어떻게 구성하나요?](./react-questions/electron-react-setup.md)
 
 <br />
 <br />

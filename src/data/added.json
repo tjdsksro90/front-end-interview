@@ -196,5 +196,6 @@
   "react-questions/electron-process-model": "2026-11-22T13:26:11.490Z",
   "react-questions/electron-ipc": "2026-11-22T13:27:40.978Z",
   "react-questions/electron-preload-contextbridge": "2026-11-22T13:28:25.434Z",
-  "react-questions/electron-security-settings": "2026-11-22T13:29:06.008Z"
+  "react-questions/electron-security-settings": "2026-11-22T13:29:06.008Z",
+  "react-questions/electron-react-setup": "2026-11-22T13:29:49.295Z"
 }
