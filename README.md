@@ -380,6 +380,7 @@
 - [Electron의 preload 스크립트와 contextBridge는 왜 필요한가요?](./react-questions/electron-preload-contextbridge.md)
 - [Electron의 contextIsolation, nodeIntegration, sandbox 설정은 무엇이고 왜 중요한가요?](./react-questions/electron-security-settings.md)
 - [React(Vite) 프로젝트에 Electron을 붙이려면 어떻게 구성하나요?](./react-questions/electron-react-setup.md)
+- [Electron 앱에서 React 라우팅은 어떻게 하나요? (BrowserRouter vs HashRouter)](./react-questions/electron-routing.md)
 
 <br />
 <br />
