@@ -381,6 +381,7 @@
 - [Electron의 contextIsolation, nodeIntegration, sandbox 설정은 무엇이고 왜 중요한가요?](./react-questions/electron-security-settings.md)
 - [React(Vite) 프로젝트에 Electron을 붙이려면 어떻게 구성하나요?](./react-questions/electron-react-setup.md)
 - [Electron 앱에서 React 라우팅은 어떻게 하나요? (BrowserRouter vs HashRouter)](./react-questions/electron-routing.md)
+- [Electron 앱은 어떻게 빌드·배포하고 자동 업데이트하나요?](./react-questions/electron-build-update.md)
 
 <br />
 <br />
