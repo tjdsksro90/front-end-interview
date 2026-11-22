@@ -376,6 +376,7 @@
 
 - [Electron이란 무엇이고, 웹 앱과 무엇이 다른가요?](./react-questions/electron-intro.md)
 - [Electron의 메인 프로세스와 렌더러 프로세스는 각각 무슨 역할인가요?](./react-questions/electron-process-model.md)
+- [Electron에서 메인과 렌더러 프로세스는 어떻게 통신하나요? (IPC)](./react-questions/electron-ipc.md)
 
 <br />
 <br />
