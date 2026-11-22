@@ -383,6 +383,7 @@
 - [Electron 앱에서 React 라우팅은 어떻게 하나요? (BrowserRouter vs HashRouter)](./react-questions/electron-routing.md)
 - [Electron 앱은 어떻게 빌드·배포하고 자동 업데이트하나요?](./react-questions/electron-build-update.md)
 - [Electron의 단점은 무엇이고, Tauri와는 어떻게 다른가요?](./react-questions/electron-vs-tauri.md)
+- [Electron 앱의 성능은 어떻게 최적화하나요?](./react-questions/electron-performance.md)
 
 <br />
 <br />

@@ -60,6 +60,7 @@ Electron 앱                         Tauri 앱
 ### 관련 질문
 
 - [Electron이란 무엇이고, 웹 앱과 무엇이 다른가요?](./electron-intro.md)
+- [Electron 앱의 성능은 어떻게 최적화하나요?](./electron-performance.md)
 
 ### 참고
 
