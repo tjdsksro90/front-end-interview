@@ -102,6 +102,7 @@ const { data, errors } = await res.json(); // 일부 필드만 실패해도 data
 ### 관련 질문
 
 - [REST API란 무엇인가요?](./rest-api.md)
+- [WebSocket이란 무엇이고, HTTP와 어떻게 다른가요?](./websocket.md)
 
 ### 참고
 
