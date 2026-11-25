@@ -394,6 +394,7 @@
 - [검색창처럼 요청이 연달아 나갈 때 응답 순서가 뒤바뀌는 문제(race condition)는 어떻게 막나요?](./react-questions/request-race-condition.md)
 - [버튼을 연타해서 같은 저장 요청이 두 번 나가는 문제(중복 제출)는 어떻게 막나요?](./react-questions/duplicate-submit.md)
 - [props나 state로 계산할 수 있는 값을 state로 따로 두면 왜 문제가 되나요?](./react-questions/derived-state.md)
+- [합계·할인 같은 금액 계산 로직은 어디에 두고, 무엇을 조심해야 하나요?](./react-questions/calculation-logic.md)
 
 <br />
 <br />
