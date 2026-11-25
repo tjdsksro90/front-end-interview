@@ -278,8 +278,37 @@ function QueryPlayground() {
           </div>
         </div>
       </div>
+      <div className="mt-5">
+        <CodeBlock
+          code={queryCode(staleTime, userId, twice)}
+          diffFrom={queryCode(0, 1, false)}
+          title="지금 실행 중인 코드 · 초록 줄 = 기본값(staleTime 0, ['user', 1], 컴포넌트 1개) 대비 달라진 부분"
+        />
+      </div>
     </Demo>
   );
+}
+
+function queryCode(staleTime, userId, twice) {
+  const stale = staleTime === Infinity ? 'Infinity' : staleTime;
+  return `
+function UserCard({ userId }) {
+  const { data, isFetching, isStale } = useQuery({
+    queryKey: ['user', userId],
+    queryFn: () => fetchUser(userId),
+    staleTime: ${stale},${staleTime === 0 ? ' // 받자마자 stale → 마운트·포커스 때마다 다시 요청' : staleTime === Infinity ? ' // 직접 invalidate하기 전까지 다시 요청 안 함' : ' // 10초 동안은 fresh → 캐시만 사용'}
+  });
+  ...
+}
+
+// 좋아요: 서버를 바꾼 뒤 이 키의 캐시를 stale로 표시 → 다시 요청
+const like = useMutation({
+  mutationFn: () => api.like(${userId}),
+  onSuccess: () => queryClient.invalidateQueries({ queryKey: ['user', ${userId}] }),
+});
+
+<UserCard userId={${userId}} />${twice ? `
+<UserCard userId={${userId}} /> {/* 같은 키 → 요청은 1번, 캐시를 함께 쓴다 */}` : ''}`;
 }
 
 function UserCard({ userId, staleTime, label }) {
