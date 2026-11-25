@@ -1,7 +1,7 @@
 import { Suspense, use, useEffect, useState } from 'react';
 import {
   Section, H3, List, Code, OneLiner, WhenToUse, Callout, CodeCompare, Table, CodeBlock,
-  Demo, Viz, Segmented, ui,
+  Demo, DemoCode, Viz, Segmented, ui,
 } from '../components/kit.jsx';
 
 export default function SuspensePage() {
@@ -273,9 +273,69 @@ function SuspenseDemo() {
           </>
         )}
       </div>
+      <DemoCode mode={mode} codes={SUSPENSE_CODES} base="single" labels={{ single: 'Suspense 하나로 감싸기', separate: '영역별 Suspense', effect: 'Suspense 없이 (useEffect)' }} />
     </Demo>
   );
 }
+
+const SUSPENSE_CODES = {
+  single: `
+function Page() {
+  return (
+    // 둘 다 준비될 때까지 fallback 하나만 보인다 (2.5초)
+    <Suspense fallback={<PageSkeleton />}>
+      <Profile />   {/* use(userPromise): 1초 */}
+      <Posts />     {/* use(postsPromise): 2.5초 */}
+    </Suspense>
+  );
+}
+
+function Profile() {
+  const user = use(userPromise); // 준비 안 됐으면 가장 가까운 Suspense로 일시 중단
+  return <ProfileBody user={user} />;
+}`,
+  separate: `
+function Page() {
+  return (
+    // 영역마다 준비되는 대로 따로 나타난다 (1초, 2.5초)
+    <>
+      <Suspense fallback={<ProfileSkeleton />}>
+        <Profile />   {/* use(userPromise): 1초 */}
+      </Suspense>
+      <Suspense fallback={<PostsSkeleton />}>
+        <Posts />     {/* use(postsPromise): 2.5초 */}
+      </Suspense>
+    </>
+  );
+}
+
+function Profile() {
+  const user = use(userPromise); // 준비 안 됐으면 가장 가까운 Suspense로 일시 중단
+  return <ProfileBody user={user} />;
+}`,
+  effect: `
+function Page() {
+  return (
+    <>
+      <Profile />
+      <Posts />
+    </>
+  );
+}
+
+// 컴포넌트마다 로딩·에러 state를 직접 관리
+function Profile() {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    let ignore = false;
+    fetchUser().then((u) => { if (!ignore) setUser(u); });
+    return () => { ignore = true; };
+  }, []);
+
+  if (!user) return <ProfileSkeleton />;
+  return <ProfileBody user={user} />;
+}`,
+};
 
 function Shown({ startedAt }) {
   const [ms] = useState(() => Math.round(performance.now() - startedAt));
