@@ -204,5 +204,6 @@
   "react-questions/electron-performance": "2026-11-22T13:33:06.510Z",
   "web-questions/graphql": "2026-11-22T13:34:19.464Z",
   "web-questions/websocket": "2026-11-22T13:35:16.960Z",
-  "react-questions/effect-async-cleanup": "2026-11-25T15:29:23.482Z"
+  "react-questions/effect-async-cleanup": "2026-11-25T15:29:23.482Z",
+  "react-questions/strict-mode-effect-twice": "2026-11-25T15:29:32.043Z"
 }
