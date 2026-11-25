@@ -387,6 +387,10 @@
 - [Electron의 단점은 무엇이고, Tauri와는 어떻게 다른가요?](./react-questions/electron-vs-tauri.md)
 - [Electron 앱의 성능은 어떻게 최적화하나요?](./react-questions/electron-performance.md)
 
+### 비동기 · 경쟁 상태 · 캐시 정합성
+
+- [useEffect 안의 비동기 요청이 언마운트된 뒤나 값이 바뀐 뒤에 끝나면 어떤 문제가 생기고, 어떻게 막나요?](./react-questions/effect-async-cleanup.md)
+
 <br />
 <br />
 
