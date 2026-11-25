@@ -3,7 +3,7 @@ import { List } from 'react-window';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import {
   Section, H3, List as Bullets, Code, OneLiner, WhenToUse, Callout, CodeBlock, CodeCompare,
-  Demo, Viz, Legend, Segmented, Stat, Table, ui,
+  Demo, DemoCode, Viz, Legend, Segmented, Stat, Table, ui,
 } from '../components/kit.jsx';
 
 export default function VirtualizedList() {
@@ -313,9 +313,84 @@ function VirtualDemo() {
         {mode === 'lib' && <WindowList key={`lib${count}`} logs={logs} onMounted={onMounted} />}
         {mode === 'tanstack' && <TanstackList key={`tanstack${count}`} logs={logs} onMounted={onMounted} />}
       </div>
+      <DemoCode mode={mode} codes={LIST_CODES} base="off" labels={{ off: '전부 렌더', on: '가상화 (직접 구현)', lib: 'react-window', tanstack: '@tanstack/react-virtual' }} />
     </Demo>
   );
 }
+
+const LIST_CODES = {
+  off: `
+function LogList({ logs }) {
+  return (
+    <div style={{ height: 400, overflow: 'auto' }}>
+      {logs.map((log) => <LogRow key={log.id} log={log} />)} {/* 전부 DOM으로 */}
+    </div>
+  );
+}`,
+  on: `
+const ROW = 40, HEIGHT = 400, OVERSCAN = 5;
+
+function LogList({ logs }) {
+  const [scrollTop, setScrollTop] = useState(0);
+  const start = Math.max(0, Math.floor(scrollTop / ROW) - OVERSCAN);
+  const end = Math.min(logs.length, Math.ceil((scrollTop + HEIGHT) / ROW) + OVERSCAN);
+
+  return (
+    <div style={{ height: 400, overflow: 'auto' }} onScroll={(e) => setScrollTop(e.currentTarget.scrollTop)}>
+      <div style={{ height: logs.length * ROW, position: 'relative' }}>
+        {logs.slice(start, end).map((log, i) => (
+          <div key={log.id} style={{ position: 'absolute', top: (start + i) * ROW, left: 0, right: 0 }}>
+            <LogRow log={log} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}`,
+  lib: `
+import { List } from 'react-window';
+
+function Row({ index, style, logs }) {
+  return <div style={style}><LogRow log={logs[index]} /></div>; // style은 꼭 적용
+}
+
+function LogList({ logs }) {
+  return (
+    <List
+      rowComponent={Row}
+      rowCount={logs.length}
+      rowHeight={40}
+      rowProps={{ logs }}
+      overscanCount={5}
+      style={{ height: 400 }}
+    />
+  );
+}`,
+  tanstack: `
+import { useVirtualizer } from '@tanstack/react-virtual';
+
+function LogList({ logs }) {
+  const parentRef = useRef(null);
+  const virtualizer = useVirtualizer({
+    count: logs.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 40,
+    overscan: 5,
+  });
+
+  return (
+    <div ref={parentRef} style={{ height: 400, overflow: 'auto' }}>
+      <div style={{ height: virtualizer.getTotalSize(), position: 'relative' }}>
+        {virtualizer.getVirtualItems().map((v) => (
+          <div key={v.key} style={{ position: 'absolute', top: 0, left: 0, right: 0, height: v.size, transform: \`translateY(\${v.start}px)\` }}>
+            <LogRow log={logs[v.index]} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}`,
+};
 
 function useOnMount(cb) {
   // 커밋 직후(그리기 직전) 한 번 호출 → 렌더 + DOM 생성 시간 측정
