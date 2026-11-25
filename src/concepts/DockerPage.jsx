@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Section, H3, List, Code, OneLiner, WhenToUse, Callout, Table, CodeBlock, Demo, Segmented, Legend, ui } from '../components/kit.jsx';
+import { Section, H3, List, Code, OneLiner, WhenToUse, Callout, Table, CodeBlock, Demo, DemoCode, Segmented, Legend, ui } from '../components/kit.jsx';
 import { WhereToCheck, Screen } from '../components/screens.jsx';
 
 export default function DockerPage() {
@@ -514,6 +514,7 @@ function EnvTimingDemo() {
           </p>
         </div>
       </div>
+      <DemoCode mode={mode} codes={ENV_CODES} base="build" labels={{ build: 'docker run -e', arg: '--build-arg', runtime: 'config.js 주입' }} />
       <List
         items={[
           <>Vite의 <Code>import.meta.env.VITE_*</Code>, Next.js의 <Code>NEXT_PUBLIC_*</Code> 모두 빌드 시점에 치환된다.</>,
@@ -523,3 +524,38 @@ function EnvTimingDemo() {
     </Demo>
   );
 }
+
+const ENV_CODES = {
+  build: `
+// src/api.js
+fetch(\`\${import.meta.env.VITE_API_URL}/users\`); // 빌드할 때 글자로 바뀐다
+
+# Dockerfile
+RUN npm run build          # 이 시점의 VITE_API_URL(.env 값)이 JS에 박힌다
+
+# 실행: 이미 빌드된 JS라서 브라우저 코드에는 전달되지 않는다
+docker run -e VITE_API_URL=https://api.example.com my-app`,
+  arg: `
+// src/api.js
+fetch(\`\${import.meta.env.VITE_API_URL}/users\`); // 빌드할 때 글자로 바뀐다
+
+# Dockerfile
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+RUN npm run build          # 빌드 인자로 받은 값이 JS에 박힌다
+
+# 빌드: 환경마다 이미지를 따로 만든다
+docker build --build-arg VITE_API_URL=https://api.example.com -t my-app:prod .`,
+  runtime: `
+// src/api.js
+fetch(\`\${window.__ENV__.API_URL}/users\`); // 브라우저가 실행할 때 읽는다
+
+<!-- index.html: 앱 번들보다 먼저 불러온다 -->
+<script src="/config.js"></script>
+
+# 컨테이너 시작 스크립트: 환경 변수로 config.js를 만든다
+echo "window.__ENV__ = { API_URL: '$API_URL' };" > /usr/share/nginx/html/config.js
+
+# 실행: 이미지 하나를 모든 환경에 쓴다
+docker run -e API_URL=https://api.example.com my-app`,
+};
