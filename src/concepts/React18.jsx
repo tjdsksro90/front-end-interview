@@ -3,7 +3,7 @@ import { flushSync } from 'react-dom';
 import { Link } from 'react-router-dom';
 import {
   Section, H3, List, Code, OneLiner, WhenToUse, Callout, Table, CodeBlock, CodeCompare,
-  Demo, Viz, Legend, Segmented, Stat, ui,
+  Demo, DemoCode, Viz, Legend, Segmented, Stat, ui,
 } from '../components/kit.jsx';
 
 const linkCls = 'text-indigo-600 dark:text-indigo-400';
@@ -213,7 +213,10 @@ function BatchDemo() {
   renders.current += 1;
   const [log, setLog] = useState([]);
 
+  const [shown, setShown] = useState('17');
+
   const run = (mode) => {
+    setShown(mode);
     const before = renders.current;
     setTimeout(() => {
       if (mode === '17') {
@@ -253,9 +256,35 @@ function BatchDemo() {
           </li>
         ))}
       </ul>
+      <DemoCode mode={shown} codes={BATCH_CODES} base="17" labels={{ '17': 'React 17 방식', '18': 'React 18 방식' }} />
     </Demo>
   );
 }
+
+const BATCH_CODES = {
+  '17': `
+// React 17: ReactDOM.render로 만든 앱
+ReactDOM.render(<App />, root);
+
+// setTimeout·Promise·네이티브 이벤트 안에서는 배칭이 안 된다
+setTimeout(() => {
+  setCount((c) => c + 1); // 렌더 1
+  setFlag((f) => !f);     // 렌더 2
+}, 0);
+
+// (데모에서는 React 18 안에서 flushSync로 이 동작을 흉내 낸다)
+// flushSync(() => setCount((c) => c + 1));
+// flushSync(() => setFlag((f) => !f));`,
+  '18': `
+// React 18: createRoot로 만든 앱
+createRoot(root).render(<App />);
+
+// 어디서 호출하든 자동으로 묶어서 한 번만 렌더 (Automatic Batching)
+setTimeout(() => {
+  setCount((c) => c + 1);
+  setFlag((f) => !f);     // 렌더 1번
+}, 0);`,
+};
 
 function subscribeOnline(callback) {
   window.addEventListener('online', callback);
