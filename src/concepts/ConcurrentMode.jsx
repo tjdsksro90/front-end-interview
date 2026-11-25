@@ -1,7 +1,7 @@
 import { memo, useDeferredValue, useEffect, useRef, useState, useTransition } from 'react';
 import {
   Section, H3, List, Code, OneLiner, WhenToUse, Callout, CodeBlock, CodeCompare, Table,
-  Demo, Viz, Legend, Segmented, ui,
+  Demo, DemoCode, Viz, Legend, Segmented, ui,
 } from '../components/kit.jsx';
 
 export default function ConcurrentMode() {
@@ -281,9 +281,70 @@ function ConcurrentDemo() {
         {mode === 'deferred' && <DeferredSearch />}
         {mode === 'transition' && <TransitionSearch />}
       </div>
+      <DemoCode mode={mode} codes={DEMO_CODES} base="sync" labels={MODE_LABELS} />
     </Demo>
   );
 }
+
+const MODE_LABELS = { sync: '일반 (동기)', deferred: 'useDeferredValue', transition: 'useTransition' };
+
+// 위 데모 컴포넌트에서 화면 꾸밈(클래스 등)만 덜어 낸 코드
+const DEMO_CODES = {
+  sync: `
+function Search() {
+  const [query, setQuery] = useState('');
+
+  return (
+    <>
+      <input value={query} onChange={(e) => setQuery(e.target.value)} />
+      <SlowList query={query} />
+    </>
+  );
+}
+
+// 아이템 250개 × 1ms — 무거운 목록
+const SlowList = memo(function SlowList({ query }) { ... });`,
+  deferred: `
+function Search() {
+  const [query, setQuery] = useState('');
+  const deferredQuery = useDeferredValue(query);
+  const isStale = query !== deferredQuery;
+
+  return (
+    <>
+      <input value={query} onChange={(e) => setQuery(e.target.value)} />
+      <div style={{ opacity: isStale ? 0.5 : 1 }}>
+        <SlowList query={deferredQuery} />
+      </div>
+    </>
+  );
+}
+
+// 아이템 250개 × 1ms — 무거운 목록
+const SlowList = memo(function SlowList({ query }) { ... });`,
+  transition: `
+function Search() {
+  const [text, setText] = useState('');
+  const [query, setQuery] = useState('');
+  const [isPending, startTransition] = useTransition();
+  const onChange = (e) => {
+    setText(e.target.value);
+    startTransition(() => setQuery(e.target.value));
+  };
+
+  return (
+    <>
+      <input value={text} onChange={onChange} />
+      <div style={{ opacity: isPending ? 0.5 : 1 }}>
+        <SlowList query={query} />
+      </div>
+    </>
+  );
+}
+
+// 아이템 250개 × 1ms — 무거운 목록
+const SlowList = memo(function SlowList({ query }) { ... });`,
+};
 
 // requestAnimationFrame으로 움직이는 공. 메인 스레드가 막히면 같이 멈춘다.
 function Heartbeat() {

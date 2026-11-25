@@ -127,13 +127,48 @@ export function highlight(code) {
   return out;
 }
 
-export function CodeBlock({ code, title }) {
+// diffFrom을 주면 그 코드에 없는 줄(새로 생기거나 바뀐 줄)을 초록색으로 강조한다
+export function CodeBlock({ code, title, diffFrom }) {
+  const base = diffFrom && new Set(diffFrom.trim().split('\n').map((l) => l.trim()));
   return (
     <div className="overflow-hidden rounded-xl bg-[#1e1f24] ring-1 ring-zinc-900/10 dark:bg-zinc-900 dark:ring-white/10">
       {title && <div className="border-b border-white/10 px-4 py-2 text-xs text-zinc-400">{title}</div>}
       <pre className="overflow-x-auto p-4 text-[13px] leading-relaxed text-zinc-200">
-        <code className="font-mono">{highlight(code.trim())}</code>
+        {base ? (
+          <code className="block min-w-max font-mono">
+            {code.trim().split('\n').map((line, i) => {
+              const changed = line.trim() !== '' && !base.has(line.trim());
+              return (
+                <span
+                  key={i}
+                  data-changed={changed || undefined}
+                  className={`-mx-4 block border-l-2 px-4 ${changed ? 'border-emerald-400 bg-emerald-500/15' : 'border-transparent'}`}
+                >
+                  {line ? highlight(line) : '​'}
+                </span>
+              );
+            })}
+          </code>
+        ) : (
+          <code className="font-mono">{highlight(code.trim())}</code>
+        )}
       </pre>
+    </div>
+  );
+}
+
+// 직접 해보기에서 지금 고른 방식의 실제 코드를 보여준다.
+// codes: { 모드값: 코드 }, base: 비교 기준이 되는 모드값 (그 모드와 달라진 줄을 강조)
+export function DemoCode({ mode, codes, base, labels = {} }) {
+  const code = codes[mode];
+  if (!code) return null;
+  const compare = base && mode !== base ? codes[base] : undefined;
+  const title = compare
+    ? `지금 실행 중인 코드: ${labels[mode] ?? mode} · 초록 줄 = '${labels[base] ?? base}' 대비 달라진 부분`
+    : `지금 실행 중인 코드: ${labels[mode] ?? mode}`;
+  return (
+    <div className="mt-5">
+      <CodeBlock code={code} title={title} diffFrom={compare} />
     </div>
   );
 }
