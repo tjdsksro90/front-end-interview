@@ -1,7 +1,7 @@
 import { memo, useCallback, useRef, useState } from 'react';
 import {
   Section, H3, List, Code, OneLiner, WhenToUse, Callout, CodeBlock, CodeCompare,
-  Demo, Viz, Toggle, Segmented, RenderBadge, useRenderCount, ui,
+  Demo, DemoCode, Viz, Toggle, Segmented, RenderBadge, useRenderCount, ui,
 } from '../components/kit.jsx';
 
 export default function UseCallback() {
@@ -197,9 +197,49 @@ function CallbackDemo() {
         options={[{ value: 'plain', label: 'useCallback 없음' }, { value: 'cb', label: 'useCallback 사용' }]}
       />
       <div className="mt-4">{mode === 'plain' ? <TodoPlain /> : <TodoWithCallback />}</div>
+      <DemoCode mode={mode} codes={TODO_CODES} base="plain" labels={{ plain: 'useCallback 없음', cb: 'useCallback 사용' }} />
     </Demo>
   );
 }
+
+const TODO_CODES = {
+  plain: `
+function TodoList() {
+  const [todos, setTodos] = useState(INITIAL);
+  const [text, setText] = useState('');
+  // 렌더링마다 새 함수 → memo(TodoItem)가 props가 바뀌었다고 보고 다시 렌더
+  const handleToggle = (id) =>
+    setTodos((prev) => prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
+
+  return (
+    <>
+      <input value={text} onChange={(e) => setText(e.target.value)} />
+      {todos.map((t) => <TodoItem key={t.id} todo={t} onToggle={handleToggle} />)}
+    </>
+  );
+}
+
+const TodoItem = memo(function TodoItem({ todo, onToggle }) { ... });`,
+  cb: `
+function TodoList() {
+  const [todos, setTodos] = useState(INITIAL);
+  const [text, setText] = useState('');
+  // 같은 함수를 계속 재사용 → text만 바뀌면 TodoItem은 렌더를 건너뜀
+  const handleToggle = useCallback(
+    (id) => setTodos((prev) => prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t))),
+    [] // 함수형 업데이트라 todos를 의존성에 넣지 않아도 된다
+  );
+
+  return (
+    <>
+      <input value={text} onChange={(e) => setText(e.target.value)} />
+      {todos.map((t) => <TodoItem key={t.id} todo={t} onToggle={handleToggle} />)}
+    </>
+  );
+}
+
+const TodoItem = memo(function TodoItem({ todo, onToggle }) { ... });`,
+};
 
 function TodoPlain() {
   const [todos, setTodos] = useState(INITIAL);
