@@ -392,6 +392,7 @@
 - [useEffect 안의 비동기 요청이 언마운트된 뒤나 값이 바뀐 뒤에 끝나면 어떤 문제가 생기고, 어떻게 막나요?](./react-questions/effect-async-cleanup.md)
 - [개발 모드에서 useEffect가 두 번 실행되는 이유는 무엇이고, 어떻게 대응해야 하나요?](./react-questions/strict-mode-effect-twice.md)
 - [검색창처럼 요청이 연달아 나갈 때 응답 순서가 뒤바뀌는 문제(race condition)는 어떻게 막나요?](./react-questions/request-race-condition.md)
+- [버튼을 연타해서 같은 저장 요청이 두 번 나가는 문제(중복 제출)는 어떻게 막나요?](./react-questions/duplicate-submit.md)
 
 <br />
 <br />
