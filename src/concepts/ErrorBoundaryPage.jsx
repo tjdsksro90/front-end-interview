@@ -1,7 +1,7 @@
 import { Component, useState } from 'react';
 import {
   Section, H3, List, Code, OneLiner, WhenToUse, Callout, Table, CodeBlock, CodeCompare,
-  Demo, Viz, Segmented, ui,
+  Demo, DemoCode, Viz, Segmented, ui,
 } from '../components/kit.jsx';
 
 export default function ErrorBoundaryPage() {
@@ -176,9 +176,45 @@ function PlacementViz() {
       <p className={`mt-3 text-sm ${ui.muted}`}>
         → {placement === 'none' ? '경계가 없으면 에러 하나로 앱 전체가 사라집니다.' : placement === 'root' ? '최상단 경계만 있으면 하얀 화면은 막지만, 결제 버튼까지 함께 사라집니다.' : '위젯마다 경계가 있으면 에러 난 영역만 바뀌고 나머지는 계속 쓸 수 있습니다.'}
       </p>
+      <DemoCode mode={placement} codes={PLACEMENT_CODES} base="none" labels={{ none: '경계 없음', root: '앱 최상단에 하나', widget: '위젯마다' }} />
     </Viz>
   );
 }
+
+const PLACEMENT_CODES = {
+  none: `
+function App() {
+  return (
+    <>
+      <Header />
+      <Recommendations /> {/* 여기서 에러 → 앱 전체가 언마운트 */}
+      <CheckoutButton />
+    </>
+  );
+}`,
+  root: `
+function App() {
+  return (
+    <ErrorBoundary fallback={<p>문제가 발생했어요. 새로고침 해주세요.</p>}>
+      <Header />
+      <Recommendations /> {/* 여기서 에러 → 경계 안 전체가 fallback */}
+      <CheckoutButton />
+    </ErrorBoundary>
+  );
+}`,
+  widget: `
+function App() {
+  return (
+    <ErrorBoundary fallback={<p>문제가 발생했어요. 새로고침 해주세요.</p>}>
+      <Header />
+      <ErrorBoundary fallback={<RetryBox />}>
+        <Recommendations /> {/* 여기서 에러 → 이 영역만 fallback */}
+      </ErrorBoundary>
+      <CheckoutButton />
+    </ErrorBoundary>
+  );
+}`,
+};
 
 /* ---------- 데모 ---------- */
 
