@@ -209,5 +209,6 @@
   "react-questions/request-race-condition": "2026-11-25T15:29:38.940Z",
   "react-questions/duplicate-submit": "2026-11-25T15:29:45.853Z",
   "react-questions/derived-state": "2026-11-25T15:29:52.514Z",
-  "react-questions/calculation-logic": "2026-11-25T15:29:58.952Z"
+  "react-questions/calculation-logic": "2026-11-25T15:29:58.952Z",
+  "react-questions/optimistic-update": "2026-11-25T15:30:06.305Z"
 }
