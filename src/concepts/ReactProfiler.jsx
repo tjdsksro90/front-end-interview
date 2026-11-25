@@ -1,7 +1,7 @@
 import { memo, Profiler, useRef, useState } from 'react';
 import {
   Section, H3, List, Code, OneLiner, WhenToUse, Callout, Table, CodeBlock, CodeCompare,
-  Demo, Viz, Legend, Toggle, Stat, ui,
+  Demo, DemoCode, Viz, Legend, Toggle, Stat, ui,
 } from '../components/kit.jsx';
 import { WhereToCheck } from '../components/screens.jsx';
 
@@ -201,6 +201,7 @@ function ProfilerDemo() {
           <Products />
         </Profiler>
       </Profiler>
+      <DemoCode mode={memoOn ? 'on' : 'off'} codes={PROFILER_CODES} base="off" labels={{ off: 'memo 없음', on: 'ProductList에 memo' }} />
       <div className="mt-3 overflow-x-auto rounded-lg ring-1 ring-zinc-200 dark:ring-zinc-700">
         <table className="w-full text-left font-mono text-xs">
           <thead className="bg-zinc-50 dark:bg-zinc-800"><tr><th className="px-3 py-1.5">id</th><th className="px-3 py-1.5">phase</th><th className="px-3 py-1.5">actualDuration</th><th className="px-3 py-1.5">baseDuration</th></tr></thead>
@@ -218,6 +219,45 @@ function ProfilerDemo() {
     </Demo>
   );
 }
+
+const PROFILER_CODES = {
+  off: `
+function onRender(id, phase, actualDuration, baseDuration) {
+  console.log(id, phase, actualDuration, baseDuration);
+}
+
+function App() {
+  const [text, setText] = useState('');
+  return (
+    <Profiler id="App" onRender={onRender}>
+      <input value={text} onChange={(e) => setText(e.target.value)} />
+      <Profiler id="ProductList" onRender={onRender}>
+        <ProductList /> {/* 입력할 때마다 같이 렌더 → actualDuration이 큼 */}
+      </Profiler>
+    </Profiler>
+  );
+}
+
+function ProductList() { ... }`,
+  on: `
+function onRender(id, phase, actualDuration, baseDuration) {
+  console.log(id, phase, actualDuration, baseDuration);
+}
+
+function App() {
+  const [text, setText] = useState('');
+  return (
+    <Profiler id="App" onRender={onRender}>
+      <input value={text} onChange={(e) => setText(e.target.value)} />
+      <Profiler id="ProductList" onRender={onRender}>
+        <ProductList /> {/* props가 같으면 렌더를 건너뜀 → actualDuration이 0 근처 */}
+      </Profiler>
+    </Profiler>
+  );
+}
+
+const ProductList = memo(function ProductList() { ... });`,
+};
 
 function ProductList() {
   return (
