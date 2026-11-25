@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   Section, H3, List, Code, OneLiner, WhenToUse, Callout, Table, CodeBlock, CodeCompare,
-  Demo, Viz, Segmented, ui,
+  Demo, DemoCode, Viz, Segmented, ui,
 } from '../components/kit.jsx';
 import { WhereToCheck } from '../components/screens.jsx';
 
@@ -178,9 +178,76 @@ function KeyboardDemo() {
         <button className={ui.btn}>다음 요소</button>
       </div>
       <p className="mt-4 rounded-lg bg-zinc-100 px-3 py-2 font-mono text-xs dark:bg-zinc-800">현재 포커스: {focused}</p>
+      <DemoCode mode={mode} codes={SELECT_CODES} base="bad" labels={{ bad: '나쁜 예 (div)', good: '좋은 예 (button + ARIA + 키보드)' }} />
     </Demo>
   );
 }
+
+const SELECT_CODES = {
+  bad: `
+function Select() {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('지역 선택');
+
+  return (
+    <div>
+      {/* div는 Tab으로 갈 수 없고, Enter로 열리지 않는다 */}
+      <div onClick={() => setOpen((o) => !o)}>{value} ▾</div>
+      {open && (
+        <div>
+          {OPTIONS.map((o) => (
+            <div key={o} onClick={() => { setValue(o); setOpen(false); }}>{o}</div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}`,
+  good: `
+function Select() {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [active, setActive] = useState(0);
+  const buttonRef = useRef(null);
+  const listRef = useRef(null);
+
+  useEffect(() => { if (open) listRef.current?.focus(); }, [open]); // 열리면 목록으로 포커스
+
+  const choose = (i) => {
+    setValue(OPTIONS[i]);
+    setOpen(false);
+    buttonRef.current.focus(); // 닫으면 원래 버튼으로 포커스 복귀
+  };
+  const onKeyDown = (e) => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); setActive((a) => (a + 1) % OPTIONS.length); }
+    if (e.key === 'ArrowUp') { e.preventDefault(); setActive((a) => (a - 1 + OPTIONS.length) % OPTIONS.length); }
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(active); }
+    if (e.key === 'Escape') { setOpen(false); buttonRef.current.focus(); }
+  };
+
+  return (
+    <div>
+      <button
+        ref={buttonRef}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        onClick={() => setOpen((o) => !o)}
+      >
+        {value ?? '지역 선택'} ▾
+      </button>
+      {open && (
+        <ul ref={listRef} role="listbox" tabIndex={-1} aria-activedescendant={\`opt-\${active}\`} onKeyDown={onKeyDown}>
+          {OPTIONS.map((o, i) => (
+            <li key={o} id={\`opt-\${i}\`} role="option" aria-selected={i === active} onClick={() => choose(i)}>
+              {o}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}`,
+};
 
 function BadSelect() {
   const [open, setOpen] = useState(false);
