@@ -3,7 +3,7 @@ import { create } from 'zustand';
 import { Link } from 'react-router-dom';
 import {
   Section, H3, List, Code, OneLiner, WhenToUse, Callout, Table, CodeBlock, CodeCompare,
-  Demo, Viz, Legend, Segmented, RenderBadge, useRenderCount, ui,
+  Demo, DemoCode, Viz, Legend, Segmented, RenderBadge, useRenderCount, ui,
 } from '../components/kit.jsx';
 
 export default function StateLibraries() {
@@ -189,9 +189,66 @@ function StoreDemo() {
     <Demo hint="같은 화면을 Context와 Zustand로 각각 만들었습니다. '장바구니 담기'를 눌러 각 컴포넌트의 렌더 횟수를 비교하세요. (자식들은 모두 memo로 감싸서 부모 때문에 렌더되는 경우는 뺐습니다)">
       <Segmented value={lib} onChange={setLib} options={[{ value: 'context', label: 'Context API' }, { value: 'zustand', label: 'Zustand' }]} />
       <div className="mt-4">{lib === 'context' ? <ContextApp /> : <ZustandApp />}</div>
+      <DemoCode mode={lib} codes={STORE_CODES} base="context" labels={{ context: 'Context API', zustand: 'Zustand' }} />
     </Demo>
   );
 }
+
+const STORE_CODES = {
+  context: `
+const StoreContext = createContext(null);
+
+function App() {
+  const [state, setState] = useState({ user: '김리액트', cart: [], theme: 'light' });
+  const value = useMemo(() => ({
+    state,
+    addToCart: () => setState((s) => ({ ...s, cart: [...s.cart, '상품'] })),
+    toggleTheme: () => setState((s) => ({ ...s, theme: s.theme === 'light' ? 'dark' : 'light' })),
+  }), [state]); // state 일부만 바뀌어도 value 객체 전체가 새로 만들어진다
+
+  return (
+    <StoreContext.Provider value={value}>
+      <Header /> <CartBadge /> <ThemeButton /> <AddButton />
+    </StoreContext.Provider>
+  );
+}
+
+// value가 바뀌면 useContext를 쓰는 컴포넌트는 "전부" 다시 렌더
+const Header = memo(function Header() {
+  const { state } = useContext(StoreContext);
+  return <p>user: {state.user}</p>;
+});
+const AddButton = memo(function AddButton() {
+  const { addToCart } = useContext(StoreContext); // 함수만 쓰는데도 렌더된다
+  return <button onClick={addToCart}>장바구니 담기</button>;
+});`,
+  zustand: `
+const useStore = create((set) => ({
+  user: '김리액트',
+  cart: [],
+  theme: 'light',
+  addToCart: () => set((s) => ({ cart: [...s.cart, '상품'] })),
+  toggleTheme: () => set((s) => ({ theme: s.theme === 'light' ? 'dark' : 'light' })),
+}));
+
+function App() {
+  return (
+    <>
+      <Header /> <CartBadge /> <ThemeButton /> <AddButton />
+    </>
+  );
+}
+
+// selector가 고른 값이 바뀔 때만 다시 렌더
+const Header = memo(function Header() {
+  const user = useStore((s) => s.user);
+  return <p>user: {user}</p>;
+});
+const AddButton = memo(function AddButton() {
+  const addToCart = useStore((s) => s.addToCart); // 함수는 그대로라 렌더 안 됨
+  return <button onClick={addToCart}>장바구니 담기</button>;
+});`,
+};
 
 function Panel({ name, value, children }) {
   const renders = useRenderCount();
