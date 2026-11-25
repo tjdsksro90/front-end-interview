@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import {
   Section, H3, List, Code, OneLiner, WhenToUse, Callout, Table, CodeBlock, CodeCompare,
-  Demo, Viz, Legend, Segmented, Stat, ui,
+  Demo, DemoCode, Viz, Legend, Segmented, Stat, ui,
 } from '../components/kit.jsx';
 
 export default function DynamicImport() {
@@ -259,6 +259,42 @@ function ImportDemo() {
           {log.map((l, i) => <div key={i}>{l}</div>)}
         </div>
       )}
+      <DemoCode mode={prefetch} codes={IMPORT_CODES} base="off" labels={{ off: '클릭할 때 받기', on: '마우스 올리면 미리 받기' }} />
     </Demo>
   );
 }
+
+const IMPORT_CODES = {
+  off: `
+let loading = null; // 같은 import()를 두 번 요청하지 않도록 Promise를 저장
+const loadCsv = () => (loading ??= import('./csvExport.js'));
+
+function ExportButton({ rows }) {
+  const exportCSV = async () => {
+    const { toCSV } = await loadCsv(); // 클릭한 순간부터 다운로드 시작
+    download(toCSV(rows));
+  };
+
+  return <button onClick={exportCSV}>CSV로 내보내기</button>;
+}`,
+  on: `
+let loading = null; // 같은 import()를 두 번 요청하지 않도록 Promise를 저장
+const loadCsv = () => (loading ??= import('./csvExport.js'));
+
+function ExportButton({ rows }) {
+  const exportCSV = async () => {
+    const { toCSV } = await loadCsv(); // 이미 받는 중이면 남은 시간만 기다린다
+    download(toCSV(rows));
+  };
+
+  return (
+    <button
+      onMouseEnter={loadCsv} // 마우스를 올리면 미리 받기 시작
+      onFocus={loadCsv}      // 키보드 사용자도
+      onClick={exportCSV}
+    >
+      CSV로 내보내기
+    </button>
+  );
+}`,
+};
