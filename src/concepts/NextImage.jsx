@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import {
   Section, H3, List, Code, OneLiner, WhenToUse, Callout, Table, CodeBlock, CodeCompare,
-  Demo, Viz, Segmented, Stat, ui,
+  Demo, DemoCode, Viz, Segmented, Stat, ui,
 } from '../components/kit.jsx';
 
 export default function NextImage() {
@@ -244,9 +244,30 @@ function LazyDemo() {
           ))}
         </div>
       </div>
+      <DemoCode mode={mode} codes={LAZY_CODES} base="eager" labels={{ eager: 'loading="eager"', lazy: 'loading="lazy"' }} />
     </Demo>
   );
 }
+
+const LAZY_CODES = {
+  eager: `
+// 일반 <img>의 기본값: 페이지를 열자마자 모든 이미지를 요청
+function Gallery({ photos }) {
+  return photos.map((p) => (
+    <img key={p.id} src={p.src} alt={p.alt} width={640} height={360} />
+  ));
+}`,
+  lazy: `
+import Image from 'next/image';
+
+// next/image의 기본값: 화면 근처에 올 때만 요청 (loading="lazy")
+// 첫 화면의 큰 이미지(LCP)는 lazy를 쓰지 않고 priority로 바로 받는다
+function Gallery({ photos }) {
+  return photos.map((p) => (
+    <Image key={p.id} src={p.src} alt={p.alt} width={640} height={360} />
+  ));
+}`,
+};
 
 /* ---------- 데모 B: CLS ---------- */
 
