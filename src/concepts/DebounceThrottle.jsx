@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Section, H3, List, Code, OneLiner, WhenToUse, Callout, Table, CodeBlock, CodeCompare,
-  Demo, Viz, Legend, Segmented, Stat, ui,
+  Demo, DemoCode, Viz, Legend, Segmented, Stat, ui,
 } from '../components/kit.jsx';
 
 export default function DebounceThrottle() {
@@ -232,9 +232,62 @@ function SearchDemo() {
     <Demo hint="검색창에 '리액트 쿼리'처럼 빠르게 입력해 보세요. 모드에 따라 API 호출 횟수와 마지막으로 검색된 키워드가 달라집니다.">
       <Segmented value={mode} onChange={setMode} options={[{ value: 'none', label: '그대로' }, { value: 'debounce', label: 'debounce 300ms' }, { value: 'throttle', label: 'throttle 300ms' }]} />
       <SearchBox key={mode} mode={mode} />
+      <DemoCode mode={mode} codes={SEARCH_CODES} base="none" labels={{ none: '그대로', debounce: 'debounce 300ms', throttle: 'throttle 300ms' }} />
     </Demo>
   );
 }
+
+const SEARCH_CODES = {
+  none: `
+function SearchBox() {
+  const [keyword, setKeyword] = useState('');
+  const search = (q) => fetch(\`/search?q=\${q}\`);
+
+  return (
+    <input
+      value={keyword}
+      onChange={(e) => {
+        setKeyword(e.target.value);   // 입력창은 매번 바로 바뀐다
+        search(e.target.value);       // 글자마다 API 호출
+      }}
+    />
+  );
+}`,
+  debounce: `
+function SearchBox() {
+  const [keyword, setKeyword] = useState('');
+  // 입력이 300ms 멈춘 뒤 마지막 값으로 한 번만 호출
+  const search = useMemo(() => debounce((q) => fetch(\`/search?q=\${q}\`), 300), []);
+  useEffect(() => () => search.cancel(), [search]); // 언마운트 때 대기 중인 호출 취소
+
+  return (
+    <input
+      value={keyword}
+      onChange={(e) => {
+        setKeyword(e.target.value);   // 입력창은 매번 바로 바뀐다
+        search(e.target.value);
+      }}
+    />
+  );
+}`,
+  throttle: `
+function SearchBox() {
+  const [keyword, setKeyword] = useState('');
+  // 300ms에 최대 한 번만 호출 (입력하는 동안에도 주기적으로)
+  const search = useMemo(() => throttle((q) => fetch(\`/search?q=\${q}\`), 300), []);
+  useEffect(() => () => search.cancel(), [search]);
+
+  return (
+    <input
+      value={keyword}
+      onChange={(e) => {
+        setKeyword(e.target.value);   // 입력창은 매번 바로 바뀐다
+        search(e.target.value);
+      }}
+    />
+  );
+}`,
+};
 
 function SearchBox({ mode }) {
   const [keyword, setKeyword] = useState('');
