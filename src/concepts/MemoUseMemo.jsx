@@ -1,7 +1,7 @@
 import { memo, useMemo, useRef, useState } from 'react';
 import {
   Section, H3, List, Code, OneLiner, WhenToUse, Callout, Table, CodeBlock, CodeCompare,
-  Demo, Viz, Legend, Toggle, RenderBadge, useRenderCount, Stat, ui,
+  Demo, DemoCode, Viz, Legend, Toggle, RenderBadge, useRenderCount, Stat, ui,
 } from '../components/kit.jsx';
 
 export default function MemoUseMemo() {
@@ -311,9 +311,46 @@ function MemoDemo() {
       <div className="mt-4">
         <Card name={name} />
       </div>
+      <DemoCode mode={memoOn ? 'on' : 'off'} codes={MEMO_CODES} base="off" labels={{ off: 'memo 끔', on: 'React.memo 적용' }} />
     </Demo>
   );
 }
+
+const MEMO_CODES = {
+  off: `
+function Parent() {
+  const [count, setCount] = useState(0);
+  const [name, setName] = useState('홍길동');
+
+  return (
+    <>
+      <button onClick={() => setCount((c) => c + 1)}>count +1</button>
+      <ProfileCard name={name} /> {/* count만 바뀌어도 부모와 함께 다시 렌더 */}
+    </>
+  );
+}
+
+function ProfileCard({ name }) {
+  return <p>{name}</p>;
+}`,
+  on: `
+function Parent() {
+  const [count, setCount] = useState(0);
+  const [name, setName] = useState('홍길동');
+
+  return (
+    <>
+      <button onClick={() => setCount((c) => c + 1)}>count +1</button>
+      <ProfileCard name={name} /> {/* name이 그대로면 렌더를 건너뜀 */}
+    </>
+  );
+}
+
+// props를 얕게 비교해서 같으면 이전 렌더 결과를 재사용
+const ProfileCard = memo(function ProfileCard({ name }) {
+  return <p>{name}</p>;
+});`,
+};
 
 function ProfileCard({ name }) {
   const renders = useRenderCount();
