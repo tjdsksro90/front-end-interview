@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { flushSync } from 'react-dom';
 import {
   Section, H3, List, Code, OneLiner, WhenToUse, Callout, Table, CodeBlock, CodeCompare,
-  Demo, Viz, Toggle, ui,
+  Demo, DemoCode, Viz, Toggle, ui,
 } from '../components/kit.jsx';
 
 const DEMO_CSS = `
@@ -218,9 +218,46 @@ function ListDemo() {
           </div>
         ))}
       </div>
+      <DemoCode mode={on ? 'on' : 'off'} codes={LIST_VT_CODES} base="off" labels={{ off: 'View Transition 끔', on: 'View Transition 켬' }} />
     </Demo>
   );
 }
+
+const LIST_VT_CODES = {
+  off: `
+function List() {
+  const [items, setItems] = useState(INITIAL);
+  const shuffle = () => setItems((xs) => [...xs].sort(() => Math.random() - 0.5));
+
+  return (
+    <>
+      <button onClick={shuffle}>섞기</button>
+      {items.map((it) => (
+        <div key={it.id}>{it.id}</div> // 새 위치로 순간이동
+      ))}
+    </>
+  );
+}`,
+  on: `
+function List() {
+  const [items, setItems] = useState(INITIAL);
+  const shuffle = () =>
+    document.startViewTransition(() => {
+      // 콜백이 끝날 때 DOM이 바뀌어 있어야 해서 flushSync로 즉시 반영
+      flushSync(() => setItems((xs) => [...xs].sort(() => Math.random() - 0.5)));
+    });
+
+  return (
+    <>
+      <button onClick={shuffle}>섞기</button>
+      {items.map((it) => (
+        // 이름이 같은 요소끼리 이전 위치 → 새 위치로 애니메이션
+        <div key={it.id} style={{ viewTransitionName: \`item-\${it.id}\` }}>{it.id}</div>
+      ))}
+    </>
+  );
+}`,
+};
 
 const PHOTOS = [
   { id: 1, title: '바다', g: 'from-sky-400 to-indigo-500' },
@@ -258,6 +295,32 @@ function GalleryDemo() {
           </div>
         )}
       </div>
+      <DemoCode mode={on ? 'on' : 'off'} codes={GALLERY_CODES} base="off" labels={{ off: 'View Transition 끔', on: 'View Transition 켬' }} />
     </Demo>
   );
 }
+
+const GALLERY_CODES = {
+  off: `
+function Gallery() {
+  const [open, setOpen] = useState(null);
+  const select = (p) => setOpen(p);
+
+  if (open) return <img src={open.src} onClick={() => select(null)} />;
+  return PHOTOS.map((p) => (
+    <img key={p.id} src={p.src} onClick={() => select(p)} />
+  ));
+}`,
+  on: `
+function Gallery() {
+  const [open, setOpen] = useState(null);
+  const select = (p) => document.startViewTransition(() => flushSync(() => setOpen(p)));
+  // 썸네일과 큰 이미지에 같은 이름 → 썸네일이 그대로 커지는 것처럼 보인다
+  const name = (id) => ({ viewTransitionName: \`photo-\${id}\` });
+
+  if (open) return <img src={open.src} style={name(open.id)} onClick={() => select(null)} />;
+  return PHOTOS.map((p) => (
+    <img key={p.id} src={p.src} style={name(p.id)} onClick={() => select(p)} />
+  ));
+}`,
+};
